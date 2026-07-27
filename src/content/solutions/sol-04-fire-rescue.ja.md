@@ -1,7 +1,7 @@
 ---
 locale: "ja"
 itemSlug: "fire-rescue"
-order: 4
+order: 3
 code: "SOL-04 // FIRE & RESCUE"
 title: "消防・救助訓練"
 excerpt: "[翻訳準備中]"

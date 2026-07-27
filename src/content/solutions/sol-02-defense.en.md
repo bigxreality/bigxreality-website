@@ -1,7 +1,7 @@
 ---
 locale: "en"
 itemSlug: "defense"
-order: 2
+order: 1
 code: "SOL-02 // DEFENSE"
 title: "Military Training Simulation"
 excerpt: "[Translation pending]"

@@ -1,7 +1,7 @@
 ---
 locale: "ja"
 itemSlug: "smart-city"
-order: 3
+order: 4
 code: "SOL-03 // SMART CITY"
 title: "スマートシティ活用"
 excerpt: "[翻訳準備中]"

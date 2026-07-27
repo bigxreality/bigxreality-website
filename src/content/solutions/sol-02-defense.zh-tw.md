@@ -1,7 +1,7 @@
 ---
 locale: "zh-tw"
 itemSlug: "defense"
-order: 2
+order: 1
 code: "SOL-02 // DEFENSE"
 title: "軍事模擬訓練"
 excerpt: "複雜戰術情境與多兵種協同兵推，將實戰演訓風險降到最低。"

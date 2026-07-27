@@ -1,7 +1,7 @@
 ---
 locale: "en"
 itemSlug: "law-enforcement"
-order: 1
+order: 2
 code: "SOL-01 // LAW ENFORCEMENT"
 title: "Law Enforcement Training Simulation"
 excerpt: "[Translation pending]"
