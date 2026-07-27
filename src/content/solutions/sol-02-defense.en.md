@@ -1,6 +1,6 @@
 ---
 locale: "en"
-itemSlug: "defense"
+itemSlug: "military"
 order: 1
 code: "SOL-02 // DEFENSE"
 title: "Military Training Simulation"

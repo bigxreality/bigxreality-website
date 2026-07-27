@@ -1,0 +1,33 @@
+---
+import { solutionOrder, solutions, type SolutionSlug } from "@/data/solutions";
+import { withBase } from "@/i18n/utils";
+
+interface Props {
+  current: SolutionSlug;
+}
+
+const { current } = Astro.props;
+const others = solutionOrder.filter((slug) => slug !== current).map((slug) => solutions[slug]);
+---
+
+<div>
+  <p class="text-label font-bold uppercase tracking-[0.1em] text-text-muted mb-4">其他解決方案</p>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {
+      others.map((item) => (
+        <a
+          href={withBase(`/zh-tw/solutions/${item.slug}/`)}
+          class="group bg-bg-soft border border-border hover:border-brand rounded p-5 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand"
+        >
+          <span class="text-[11px] uppercase tracking-[0.06em] text-brand">
+            {item.code} // {item.englishLabel}
+          </span>
+          <h3 class="mt-2 text-h3 font-semibold text-white group-hover:text-brand transition-colors">
+            {item.navTitle}
+          </h3>
+          <p class="mt-2 text-body-sm text-text-muted">{item.overviewExcerpt}</p>
+        </a>
+      ))
+    }
+  </div>
+</div>

@@ -1,6 +1,6 @@
 ---
 locale: "ja"
-itemSlug: "defense"
+itemSlug: "military"
 order: 1
 code: "SOL-02 // DEFENSE"
 title: "軍事訓練シミュレーション"

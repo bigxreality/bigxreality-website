@@ -1,6 +1,6 @@
 ---
 import LanguageSwitcher from "@/components/LanguageSwitcher.astro";
-import { withBase, type Locale } from "@/i18n/utils";
+import { locales, withBase, type Locale } from "@/i18n/utils";
 
 interface NavItem {
   label: string;
@@ -12,9 +12,10 @@ interface Props {
   currentPath: string;
   nav: NavItem[];
   cta: NavItem;
+  availableLocales?: readonly Locale[];
 }
 
-const { locale, currentPath, nav, cta } = Astro.props;
+const { locale, currentPath, nav, cta, availableLocales = locales } = Astro.props;
 ---
 
 <header
@@ -44,7 +45,7 @@ const { locale, currentPath, nav, cta } = Astro.props;
     </nav>
 
     <div class="hidden lg:flex items-center gap-4">
-      <LanguageSwitcher locale={locale} currentPath={currentPath} />
+      <LanguageSwitcher locale={locale} currentPath={currentPath} availableLocales={availableLocales} />
       <a
         href={withBase(cta.href)}
         class="bg-brand hover:bg-brand-hover text-white rounded px-5 py-2.5 text-[15px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -85,7 +86,7 @@ const { locale, currentPath, nav, cta } = Astro.props;
       }
     </nav>
     <div class="px-5 pb-6 flex flex-col gap-4">
-      <LanguageSwitcher locale={locale} currentPath={currentPath} />
+      <LanguageSwitcher locale={locale} currentPath={currentPath} availableLocales={availableLocales} />
       <a
         href={withBase(cta.href)}
         class="bg-brand hover:bg-brand-hover text-white rounded px-5 py-3 text-[15px] font-semibold text-center transition-colors"

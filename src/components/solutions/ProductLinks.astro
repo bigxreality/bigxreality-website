@@ -1,0 +1,42 @@
+---
+import { withBase } from "@/i18n/utils";
+
+interface Product {
+  name: string;
+  href: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  products: Product[];
+  emptyNote?: string;
+}
+
+const { eyebrow, title, products, emptyNote } = Astro.props;
+---
+
+<div>
+  <p class="text-label font-bold uppercase tracking-[0.1em] text-text-muted mb-2">{eyebrow}</p>
+  <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white">{title}</h2>
+
+  {
+    products.length > 0 ? (
+      <ul class="mt-8 flex flex-wrap gap-3">
+        {products.map((product) => (
+          <li>
+            <a
+              href={withBase(product.href)}
+              class="inline-flex items-center gap-2 bg-bg-soft border border-border hover:border-brand rounded px-4 py-2.5 text-body-sm text-text-body2 hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand"
+            >
+              {product.name}
+              <span class="text-brand">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="mt-6 text-body-sm text-text-faint italic">{emptyNote}</p>
+    )
+  }
+</div>

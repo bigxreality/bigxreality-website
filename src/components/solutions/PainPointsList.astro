@@ -1,0 +1,26 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  points: string[];
+  class?: string;
+}
+
+const { eyebrow, title, points, class: className = "" } = Astro.props;
+---
+
+<div class={className}>
+  <p class="text-label font-bold uppercase tracking-[0.1em] text-text-muted mb-2">{eyebrow}</p>
+  <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white">{title}</h2>
+
+  <ul class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+    {
+      points.map((point, i) => (
+        <li class="border-t md:border-t-0 md:border-l border-border pt-4 md:pt-0 md:pl-6 flex gap-3">
+          <span class="text-brand font-extrabold shrink-0">{String(i + 1).padStart(2, "0")}</span>
+          <span class="text-body-sm leading-[1.6] text-text-muted">{point}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>

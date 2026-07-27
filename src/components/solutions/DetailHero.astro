@@ -1,0 +1,41 @@
+---
+import { withBase } from "@/i18n/utils";
+import type { MediaEntry } from "@/data/homepage-media";
+
+interface Props {
+  englishLabel: string;
+  title: string;
+  subtitle: string;
+  heroDesktop: MediaEntry;
+  heroMobile: MediaEntry;
+}
+
+const { englishLabel, title, subtitle, heroDesktop, heroMobile } = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden bg-navy-800 pt-16 md:pt-20">
+  <div class="absolute inset-0 -z-10">
+    <picture>
+      <source media="(max-width: 767px)" srcset={withBase(heroMobile.src)} />
+      <img
+        src={withBase(heroDesktop.src)}
+        alt={heroDesktop.alt}
+        width={1920}
+        height={1080}
+        loading="eager"
+        decoding="sync"
+        fetchpriority="high"
+        class="w-full h-full object-cover opacity-70"
+      />
+    </picture>
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-navy-800/60 to-navy-800/20"></div>
+  </div>
+
+  <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20 pt-14 pb-20 md:pt-20 md:pb-24 xl:pt-24 xl:pb-28">
+    <p class="text-label font-bold uppercase tracking-[0.1em] text-brand mb-4">{englishLabel}</p>
+    <h1 class="text-h1-page-sm md:text-h1-page-md xl:text-h1-page font-extrabold leading-[1.15] text-white max-w-3xl">
+      {title}
+    </h1>
+    <p class="mt-6 text-base md:text-lg leading-[1.75] text-text-body max-w-2xl">{subtitle}</p>
+  </div>
+</section>

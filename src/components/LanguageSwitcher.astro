@@ -1,12 +1,20 @@
 ---
-import { locales, localeLabels, localizedPath, type Locale } from "@/i18n/utils";
+import { locales, localeLabels, localizedPath, withBase, type Locale } from "@/i18n/utils";
 
 interface Props {
   locale: Locale;
   currentPath: string;
+  /** Locales that actually have a page at currentPath. Locales not in this
+   * list fall back to that locale's homepage instead of a dead link.
+   * Defaults to all three. */
+  availableLocales?: readonly Locale[];
 }
 
-const { locale, currentPath } = Astro.props;
+const { locale, currentPath, availableLocales = locales } = Astro.props;
+
+function targetHref(l: Locale) {
+  return availableLocales.includes(l) ? localizedPath(l, currentPath) : withBase(`/${l}/`);
+}
 ---
 
 <div
@@ -16,7 +24,7 @@ const { locale, currentPath } = Astro.props;
   {
     locales.map((l, i) => (
       <a
-        href={localizedPath(l, currentPath)}
+        href={targetHref(l)}
         data-locale={l}
         aria-current={l === locale ? "true" : undefined}
         class={`px-3 py-1.5 transition-colors ${

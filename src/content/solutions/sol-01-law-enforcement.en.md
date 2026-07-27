@@ -1,6 +1,6 @@
 ---
 locale: "en"
-itemSlug: "law-enforcement"
+itemSlug: "police"
 order: 2
 code: "SOL-01 // LAW ENFORCEMENT"
 title: "Law Enforcement Training Simulation"

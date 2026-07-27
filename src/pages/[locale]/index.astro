@@ -45,10 +45,11 @@ const dateFormatter = new Intl.DateTimeFormat(
   { year: "numeric", month: "2-digit", day: "2-digit" }
 );
 
-// Solution slug -> centralized media key (see src/data/homepage-media.ts)
+// Solution slug (matches /zh-tw/solutions/<slug>/) -> centralized media key
+// (see src/data/homepage-media.ts)
 const solutionMediaKey: Record<string, keyof typeof homepageMedia.solutions> = {
-  "law-enforcement": "police",
-  defense: "military",
+  police: "police",
+  military: "military",
   "smart-city": "smartCity",
   "fire-rescue": "fire",
 };
@@ -126,10 +127,12 @@ const seoDescriptionByLocale: Record<Locale, string> = {
     <SolutionsSection
       title={settings.sectionLabels.solutions}
       allLinkLabel={settings.sectionLabels.solutionsAllLink}
-      allLinkHref={`/${locale}/solutions/`}
+      allLinkHref={locale === "zh-tw" ? "/zh-tw/solutions/" : `/${locale}/`}
       learnMoreLabel={settings.sectionLabels.learnMore}
       items={solutionEntries.map((e) => ({
-        href: `/${locale}/solutions/${e.data.itemSlug}/`,
+        // Solutions detail pages only exist for zh-tw so far; en/ja fall
+        // back to their own homepage rather than linking to a 404.
+        href: locale === "zh-tw" ? `/zh-tw/solutions/${e.data.itemSlug}/` : `/${locale}/`,
         code: e.data.code,
         title: e.data.title,
         excerpt: e.data.excerpt,
