@@ -1,38 +1,96 @@
-# Big x Reality — 官網
+# Big x Reality — 官網 2.0
 
-Next.js (App Router) + TypeScript + Tailwind CSS v4。
+Astro + TypeScript + Tailwind CSS，靜態輸出。目前為開發階段，透過 GitHub Pages 部署預覽；
+完成階段將改接 Netlify 做正式部署（含 Decap CMS）。詳見 `Big x Reality Website 2.0 — Claude
+Code 執行規格書`。
+
+## 目前線上預覽
+
+推送到 `main` 或本開發分支後，GitHub Actions 會自動 build 並部署到 GitHub Pages：
+
+- **繁中（預設）**: `https://bigxreality.github.io/bigxreality-website/zh-tw/`
+- **英文**: `https://bigxreality.github.io/bigxreality-website/en/`
+- **日文**: `https://bigxreality.github.io/bigxreality-website/jp/`
+
+> 需要 repo 的 **Settings → Pages → Build and deployment → Source** 設定為
+> **GitHub Actions**（僅需設定一次）。若尚未設定，Actions 執行會顯示對應錯誤訊息。
 
 ## 本階段範圍
 
-僅完成繁中首頁 `/tw/home`。其他頁面、路由與 CMS 架構尚未建置，導覽與頁尾中的其他連結
-（`/tw/solutions`、`/tw/products` 等）目前為佔位路徑，尚未有對應頁面。
+依規格書第十四節，本次一次執行第 2–6 階段：專案基礎建置、全站共用元件、三語系路由架構、
+首頁（AIDA 結構）。**規格書明列首頁不應出現**：FAQ 區塊、核心產品卡片區、全部產品列表 ——
+因此「套裝方案／產品」區塊尚未加入首頁。Decap CMS `/admin` 依規格書第一節在 GitHub Pages
+開發階段暫不串接，僅先規劃好 Content Collections 資料夾結構（見下方）。
 
 ## 開發
 
 ```bash
 npm install
-npm run dev
-```
-
-啟動後開啟 <http://localhost:3000/tw/home>（根路徑 `/` 會自動導向此頁）。
-
-```bash
-npm run build   # 正式建置
-npm run lint    # ESLint
+npm run dev       # http://localhost:4321/bigxreality-website/zh-tw/
+npm run build     # 正式建置到 dist/
+npm run preview   # 預覽 build 後的靜態檔案
+npm run check     # astro check（型別檢查）
 ```
 
 ## 專案結構
 
-- `app/tw/home/page.tsx` — 首頁路由，含 metadata／SEO 設定
-- `components/home/` — 首頁各區塊元件（Header、Hero、About、WhyXr、Solutions、Packages、CaseStudies、News、TrustedBy、ContactCta、Footer）
-- `components/ui/` — 共用元件（Button、Tag、Card、PlaceholderImage、Reveal）
-- `lib/data/homepage-content.ts` — 首頁文案資料（來源與修改紀錄見 `docs/homepage-copy-changes.md`）
-- `lib/data/homepage-media.ts` — 首頁圖片資料表（資料驅動，desktop/mobile 分離，見 `docs/homepage-image-requirements.md`）
-- `docs/homepage-copy-changes.md` — 文案沿用／修改紀錄
-- `docs/homepage-image-requirements.md` — 圖片需求清單與後製規格
+```
+astro.config.mjs        # site/base（GitHub Pages 專案頁路徑）、output: "static"
+tailwind.config.cjs      # 設計系統 tokens（色彩／字級／間距／斷點，規格書第十節，直接採用）
+src/
+  content.config.ts      # Content Collections schema
+  content/
+    solutions/           # 4 大解決方案（zh-tw 完整，en/jp 導覽用詞已翻譯，內文標記待翻譯）
+    caseStudies/          # 精選案例
+    news/                 # 最新消息（首頁僅顯示標題/日期/分類）
+    products/             # 已建 schema，尚無內容條目（規格書第八階段）
+    insights/ faq/         # 已建 schema，尚無內容條目
+    siteSettings/          # 每語系一份：導覽、Hero、About、WhyXR、最終CTA、Footer 等文案
+  components/            # Header / Footer / LanguageSwitcher / Breadcrumb / CTASection /
+                          # HeroSlider / SolutionCard / CaseCard / NewsCard / SEOHead /
+                          # HomeImage / LegacyRedirect 等
+  data/homepage-media.ts # 首頁圖片集中資料檔（唯一圖片路徑來源，元件不寫死路徑）
+  i18n/utils.ts           # locales、語系網址工具
+  pages/
+    index.astro           # 根路徑：固定導向 /zh-tw/（除非語言切換器留下記錄），不依瀏覽器語言
+    [locale]/index.astro  # 首頁（zh-tw / en / jp 共用同一份模板）
+    sitemap.xml.ts         # 動態產生 sitemap（僅列 3 個語系首頁）
+    {tw,zh-tw,en,jp,ja}/   # 舊網址靜態轉址頁（見下方「舊網址轉址」；ja 為舊網址代號，轉址到 jp）
+public/
+  images/home/            # 首頁圖片實檔，依區塊分資料夾，各資料夾內附 README 說明比例/命名規則
+  robots.txt
+  _redirects              # Netlify 用（GitHub Pages 階段無作用）
+scripts/generate-placeholders.py # 產生佔位圖的一次性腳本（非 build 流程）
+.github/workflows/deploy-pages.yml
+docs/homepage-copy-changes.md       # 文案沿用／修改紀錄
+docs/homepage-image-requirements.md # 首頁圖片需求清單（檔名／區塊／比例／狀態對照表）
+docs/homepage-image-status.md       # 每張圖片目前狀態（missing/temporary/approved/replace-later）
+```
+
+## 多語系
+
+- 網址結構：`/zh-tw/`、`/en/`、`/jp/`，語系根路徑本身即首頁（不使用 `/zh-tw/home`）
+- 網址代號 `jp` 僅為日文語系的 URL 路徑代號（一般使用者會輸入 `jp`，不會輸入 `ja`）；
+  實際的語言／地區代碼（`<html lang>`、hreflang）仍正確使用 BCP-47 的 `ja`／`ja-JP`，
+  兩者刻意分開管理，見 `src/i18n/utils.ts` 的 `locales`（URL 代號）與
+  `localeHtmlLang`／`localeIntlTag`（語言代碼）
+- 語言代碼：繁中 `zh-tw`（`<html lang="zh-TW">`）、英文 `en`、日文（`<html lang="ja">`，URL 用 `jp`）
+- 根路徑 `/` 固定導向 `/zh-tw/`（除非使用者透過語言切換器留下 `localStorage` 記錄），不依瀏覽器語言強制跳轉
+- 語言切換器記住選擇（`localStorage`）
+- en / jp 的導覽選單與按鈕已翻譯；尚無官方翻譯的內文一律標記 `[Translation pending]` /
+  `[翻訳準備中]`，未自行編造行銷文案
+
+### 舊網址轉址
+
+`/tw/home`、`/tw`、`/zh-tw/home`、`/en/home`、`/jp/home`、`/ja`、`/ja/home` 皆保留為靜態轉址頁
+（`src/pages/{tw,zh-tw,en,jp,ja}/*.astro`，共用 `src/components/LegacyRedirect.astro`）：
+`<meta http-equiv="refresh">` + 絕對網址 `canonical`。`/ja/*`（含 `/ja/solutions/*`）整組轉址到
+對應的 `/jp/*`，因為日文網址代號曾短暫使用過 `ja`，後改為 `jp`（沒有人會輸入 `ja`）。
+GitHub Pages 無法設定伺服器端 301，之後切換 Netlify 時可改用 `public/_redirects`（已經寫好
+對應規則，目前對 GitHub Pages 無作用）做真正的 301。
 
 ## 設計系統
 
-色彩、字級、間距與 RWD 斷點對應 `Design_system_decisions_finalized.pdf`，實作於 `app/globals.css`
-的 Tailwind v4 `@theme`。中文/內文字體為 Noto Sans TC，品牌與系統標籤（英文品牌字、eyebrow、型號、
-數字、tracking label）使用 PT Mono，皆透過 `next/font/google` 自我託管。
+色彩、字級、間距、RWD 斷點（`sm=390 / md=768 / lg=1024 / xl=1440`）依規格書第十節直接採用，
+寫在 `tailwind.config.cjs`。字體為 Inter（英文/數字）+ Noto Sans TC（中文），透過
+`@fontsource/*` 自我託管，不使用襯線或裝飾字體。

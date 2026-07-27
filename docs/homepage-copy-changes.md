@@ -1,4 +1,32 @@
-# 首頁文案處理紀錄 — /tw/home
+# 首頁文案處理紀錄 — /tw/home（舊版路由，內容沿用至 /zh-tw/）
+
+> **更新說明（Astro 改版後）**：路由已由 `/tw/home` 改為 `/zh-tw/`（見更新後規格書第三節），
+> 技術棧由 Next.js 改為 Astro，但下表記錄的 zh-tw 文案來源與沿用/修改情形仍然有效，
+> 目前資料已搬到 `src/content/siteSettings/zh-tw.json`、`src/content/solutions/*.zh-tw.md`、
+> `src/content/caseStudies/*.zh-tw.md`。
+>
+> **套裝方案（Packages）區塊已從首頁移除** —— 新版規格書第九節明確規定首頁採 AIDA 九段結構，
+> 且明列首頁「不要」出現核心產品卡片區／全部產品列表，因此下表中「套裝方案」相關列僅為歷史紀錄，
+> 不代表目前首頁有此區塊。「Trusted By 合作單位」同理：資料仍保留在
+> `siteSettings.trustedBy`，但新版首頁結構未列出此區塊，故目前未渲染。
+>
+> **英文／日文版**：本次新增三語系路由，但 en/jp 尚無官方翻譯文案來源，因此除導覽選單與按鈕
+> （屬通用 UI 用詞，直接翻譯不涉及行銷宣稱）外，其餘內文一律標記 `[Translation pending]` /
+> `[翻訳準備中]`，未自行編造翻譯。
+
+## 本輪更新（首頁圖片架構）
+
+本輪任務要求以「目前正式官網繁中首頁文字」為主要來源並盡量沿用；實際執行時再次嘗試存取
+`https://www.bigxreality.com/tw/home`（含根網域 `https://www.bigxreality.com/`），無論是
+sandbox 直接連線或透過 WebFetch 工具，皆回傳連線層級的拒絕或該網站自身防護機制的 403，
+**無法取得官網當前的即時文字內容**。因此本輪文案沿用先前已建立、來源可追溯的
+`src/content/siteSettings/zh-tw.json`、`src/content/solutions/*.zh-tw.md`、
+`src/content/caseStudies/*.zh-tw.md` 內容（原始來源見上表），**未做任何文字改寫**，
+只新增了 Why XR 區塊的三張比對圖片（真實訓練／XR 虛擬訓練／訓練數據），圖片標籤文字
+（「真實訓練」「XR 虛擬訓練」「訓練數據」）為新增的圖片說明標籤，不影響原有段落文字。
+
+若之後你能提供官網目前的實際文字（例如直接貼上頁面內容、或提供可存取的匯出檔），
+我可以在下一輪依此逐字核對並更新差異，而不是重新用網路擷取。
 
 來源：`Design_system_decisions_finalizedhome.pdf`（BXR-2.0 首頁定案設計稿內容抽取）。
 本次任務未能存取正式官網 `https://www.bigxreality.com/tw/home`（WebFetch 回傳 403，環境網路政策阻擋），

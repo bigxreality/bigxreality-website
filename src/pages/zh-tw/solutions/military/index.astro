@@ -1,0 +1,114 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import SEOHead from "@/components/SEOHead.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import DetailHero from "@/components/solutions/DetailHero.astro";
+import PainPointsList from "@/components/solutions/PainPointsList.astro";
+import CapabilityGrid from "@/components/solutions/CapabilityGrid.astro";
+import CapabilityLadder from "@/components/solutions/CapabilityLadder.astro";
+import ProductLinks from "@/components/solutions/ProductLinks.astro";
+import OtherSolutionsNav from "@/components/solutions/OtherSolutionsNav.astro";
+import CTASection from "@/components/CTASection.astro";
+import { withBase } from "@/i18n/utils";
+import { homepageMedia } from "@/data/homepage-media";
+import { solutions } from "@/data/solutions";
+import { solutionsMedia } from "@/data/solutions-media";
+
+const settingsEntries = await getCollection("siteSettings");
+const settings = settingsEntries.find((e) => e.data.locale === "zh-tw")!.data;
+const data = solutions.military;
+const media = solutionsMedia.military;
+---
+
+<Layout locale="zh-tw">
+  <Fragment slot="head">
+    <SEOHead
+      locale="zh-tw"
+      path="/solutions/military/"
+      title={data.seoTitle}
+      description={data.seoDescription}
+    />
+  </Fragment>
+
+  <Header
+    locale="zh-tw"
+    currentPath="/zh-tw/solutions/military/"
+    nav={settings.nav.primary}
+    cta={settings.nav.cta}
+  />
+
+  <main class="flex-1">
+    <DetailHero
+      englishLabel={data.englishLabel}
+      title={data.title}
+      subtitle={data.heroSubtitle}
+      heroDesktop={media.heroDesktop}
+      heroMobile={media.heroMobile}
+    />
+
+    <div class="bg-navy-800">
+      <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20 py-4">
+        <Breadcrumb
+          items={[
+            { label: "首頁", href: withBase("/zh-tw/") },
+            { label: "解決方案", href: withBase("/zh-tw/solutions/") },
+            { label: data.navTitle },
+          ]}
+        />
+      </div>
+    </div>
+
+    <section class="bg-navy-800 py-12 md:py-16">
+      <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+        <PainPointsList eyebrow="TRAINING CHALLENGES" title="現況訓練需求" points={data.painPoints} />
+      </div>
+    </section>
+
+    <section class="bg-bg py-12 md:py-16">
+      <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+        <CapabilityGrid eyebrow="CAPABILITIES" title="解決方案能力" items={data.capabilities} />
+      </div>
+    </section>
+
+    <section class="bg-navy-800 py-12 md:py-16">
+      <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+        <CapabilityLadder eyebrow="TRAINING LADDER" title="訓練層級" steps={data.ladder ?? []} />
+      </div>
+    </section>
+
+    <section class="bg-bg py-12 md:py-16">
+      <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+        <ProductLinks eyebrow="SYSTEMS" title="對應系統" products={data.products} />
+      </div>
+    </section>
+
+    <section class="bg-navy-800 py-12 md:py-16">
+      <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+        <OtherSolutionsNav current="military" />
+      </div>
+    </section>
+
+    <CTASection
+      eyebrow={settings.missionCta.eyebrow}
+      title={settings.missionCta.title}
+      ctaPrimary={settings.missionCta.ctaPrimary}
+      ctaSecondary={settings.missionCta.ctaSecondary}
+      media={homepageMedia.cta.contact}
+    />
+  </main>
+
+  <Footer
+    companyName={settings.footer.companyName}
+    address={settings.footer.address}
+    email={settings.footer.email}
+    menu={settings.footer.menu}
+    about={settings.footer.about}
+    newsletterLabel={settings.footer.newsletterLabel}
+    newsletterPlaceholder={settings.footer.newsletterPlaceholder}
+    subscribeLabel={settings.footer.subscribeLabel}
+    copyright={settings.footer.copyright}
+  />
+</Layout>

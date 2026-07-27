@@ -1,0 +1,86 @@
+---
+import { withBase } from "@/i18n/utils";
+import type { MediaEntry } from "@/data/homepage-media";
+
+interface Slide {
+  desktop: MediaEntry;
+  mobile: MediaEntry;
+}
+
+interface Props {
+  slides: Slide[];
+}
+
+const { slides } = Astro.props;
+---
+
+<div class="absolute inset-0 -z-10" data-hero-slider>
+  {
+    slides.map((slide, i) => (
+      <div
+        class="hero-slide absolute inset-0 transition-opacity duration-1000"
+        style={`opacity: ${i === 0 ? 1 : 0}`}
+        data-slide-index={i}
+      >
+        <picture>
+          <source media="(max-width: 767px)" srcset={withBase(slide.mobile.src)} />
+          <img
+            src={withBase(slide.desktop.src)}
+            alt={slide.desktop.alt}
+            width={1920}
+            height={1080}
+            loading="eager"
+            decoding="sync"
+            fetchpriority={i === 0 ? "high" : "auto"}
+            class="w-full h-full object-cover opacity-70"
+          />
+        </picture>
+      </div>
+    ))
+  }
+  <div class="absolute inset-0 bg-gradient-to-t from-bg via-navy-800/60 to-navy-800/20"></div>
+  <div
+    class="absolute inset-0 opacity-[0.15]"
+    style="background-image: linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 48px 48px;"
+    aria-hidden="true"
+  >
+  </div>
+
+  {
+    slides.length > 1 && (
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {slides.map((_, i) => (
+          <button
+            type="button"
+            class="slide-dot w-2 h-2 rounded-full bg-white/40 data-[active=true]:bg-brand transition-colors"
+            data-slide-dot={i}
+            aria-label={`第 ${i + 1} 張`}
+          />
+        ))}
+      </div>
+    )
+  }
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-hero-slider]");
+  if (root) {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>(".hero-slide"));
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-slide-dot]"));
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let active = 0;
+    function show(index: number) {
+      active = index;
+      slides.forEach((s, i) => {
+        s.style.opacity = i === index ? "1" : "0";
+      });
+      dots.forEach((d, i) => (d.dataset.active = String(i === index)));
+    }
+    dots.forEach((dot, i) => dot.addEventListener("click", () => show(i)));
+
+    if (slides.length > 1 && !prefersReducedMotion) {
+      setInterval(() => show((active + 1) % slides.length), 6000);
+    }
+  }
+</script>

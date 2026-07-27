@@ -1,0 +1,37 @@
+---
+import CaseCard from "@/components/CaseCard.astro";
+import type { MediaEntry } from "@/data/homepage-media";
+
+interface CaseItem {
+  code: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  media: MediaEntry;
+}
+
+interface Props {
+  title: string;
+  items: CaseItem[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<section class="bg-bg py-15 md:py-[80px] xl:py-30">
+  <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+    <h2 class="reveal text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white">
+      {title}
+    </h2>
+
+    <div class="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+      {
+        items.map((item) => (
+          <div class="reveal">
+            <CaseCard {...item} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,202 @@
+{
+  "locale": "en",
+  "nav": {
+    "primary": [
+      {
+        "label": "Home",
+        "href": "/en/"
+      },
+      {
+        "label": "Solutions",
+        "href": "/en/solutions/"
+      },
+      {
+        "label": "Products",
+        "href": "/en/products/"
+      },
+      {
+        "label": "Cases",
+        "href": "/en/cases/"
+      },
+      {
+        "label": "News",
+        "href": "/en/news/"
+      },
+      {
+        "label": "Insights",
+        "href": "/en/insights/"
+      },
+      {
+        "label": "FAQ",
+        "href": "/en/faq/"
+      },
+      {
+        "label": "About",
+        "href": "/en/about/"
+      },
+      {
+        "label": "Contact",
+        "href": "/en/contact/"
+      }
+    ],
+    "cta": {
+      "label": "Book a Demo",
+      "href": "/en/contact/"
+    }
+  },
+  "hero": {
+    "eyebrow": "XR TRAINING · SYSTEM READY",
+    "title": "[Translation pending]",
+    "subtitle": "[Translation pending]",
+    "ctaPrimary": {
+      "label": "Book a Demo",
+      "href": "/en/contact/"
+    },
+    "ctaSecondary": {
+      "label": "Explore Solutions",
+      "href": "/en/solutions/"
+    },
+    "slides": [
+      {
+        "src": "/images/home/hero-main.webp",
+        "alt": "Big x Reality XR training simulation"
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "ABOUT // EST. 2003",
+    "title": "[Translation pending]",
+    "body": "[Translation pending]",
+    "stats": [
+      {
+        "value": "20+",
+        "label": "[Translation pending]"
+      },
+      {
+        "value": "10+",
+        "label": "[Translation pending]"
+      },
+      {
+        "value": "50+",
+        "label": "[Translation pending]"
+      }
+    ],
+    "image": {
+      "src": "/images/home/about-main.webp",
+      "alt": "Global Power Technology systems integration capability"
+    }
+  },
+  "whyXr": {
+    "eyebrow": "PROBLEM ANALYSIS",
+    "title": "[Translation pending]",
+    "subtitle": "[Translation pending]",
+    "points": [
+      {
+        "index": "01",
+        "title": "[Translation pending]",
+        "body": "[Translation pending]"
+      },
+      {
+        "index": "02",
+        "title": "[Translation pending]",
+        "body": "[Translation pending]"
+      },
+      {
+        "index": "03",
+        "title": "[Translation pending]",
+        "body": "[Translation pending]"
+      },
+      {
+        "index": "04",
+        "title": "[Translation pending]",
+        "body": "[Translation pending]"
+      },
+      {
+        "index": "05",
+        "title": "[Translation pending]",
+        "body": "[Translation pending]"
+      }
+    ]
+  },
+  "missionCta": {
+    "eyebrow": "MISSION READY",
+    "title": "[Translation pending]",
+    "ctaPrimary": {
+      "label": "Book a Demo",
+      "href": "/en/contact/"
+    },
+    "ctaSecondary": {
+      "label": "Talk to Sales",
+      "href": "/en/contact/"
+    }
+  },
+  "sectionLabels": {
+    "solutions": "Solutions",
+    "solutionsAllLink": "All Solutions",
+    "caseStudies": "Featured Cases",
+    "news": "Latest News",
+    "newsMoreLink": "More News",
+    "trustedBy": "TRUSTED BY // Partners & Agencies",
+    "learnMore": "Learn More"
+  },
+  "trustedBy": [
+    "[Translation pending]"
+  ],
+  "footer": {
+    "companyName": "Global Power Technology Co., Ltd.",
+    "address": "[Translation pending]",
+    "email": "service@gptt.com.tw",
+    "menu": [
+      {
+        "label": "Home",
+        "href": "/en/"
+      },
+      {
+        "label": "Solutions",
+        "href": "/en/solutions/"
+      },
+      {
+        "label": "Products",
+        "href": "/en/products/"
+      },
+      {
+        "label": "Cases",
+        "href": "/en/cases/"
+      },
+      {
+        "label": "News",
+        "href": "/en/news/"
+      }
+    ],
+    "about": [
+      {
+        "label": "Insights",
+        "href": "/en/insights/"
+      },
+      {
+        "label": "FAQ",
+        "href": "/en/faq/"
+      },
+      {
+        "label": "About Us",
+        "href": "/en/about/"
+      },
+      {
+        "label": "Contact",
+        "href": "/en/contact/"
+      },
+      {
+        "label": "Privacy Policy",
+        "href": "/en/privacy/"
+      },
+      {
+        "label": "Terms of Use",
+        "href": "/en/terms/"
+      }
+    ],
+    "newsletterLabel": "NEWSLETTER",
+    "newsletterPlaceholder": "Your email address",
+    "copyright": "© 2026 GLOBAL POWER TECHNOLOGY // BIG X REALITY",
+    "subscribeLabel": "Subscribe"
+  }
+}

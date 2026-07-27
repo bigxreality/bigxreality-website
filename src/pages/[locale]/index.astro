@@ -1,0 +1,191 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import SEOHead from "@/components/SEOHead.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import HeroSlider from "@/components/HeroSlider.astro";
+import Button from "@/components/Button.astro";
+import AboutSection from "@/components/AboutSection.astro";
+import WhyXrSection from "@/components/WhyXrSection.astro";
+import SolutionsSection from "@/components/SolutionsSection.astro";
+import CaseStudiesSection from "@/components/CaseStudiesSection.astro";
+import NewsSection from "@/components/NewsSection.astro";
+import CTASection from "@/components/CTASection.astro";
+import { locales, withBase, localeIntlTag, type Locale } from "@/i18n/utils";
+import { homepageMedia } from "@/data/homepage-media";
+
+export async function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+
+const settingsEntries = await getCollection("siteSettings");
+const settings = settingsEntries.find((e) => e.data.locale === locale)!.data;
+
+function byLocale<T extends { data: { locale: string } }>(entries: T[]) {
+  return entries.filter((e) => e.data.locale === locale);
+}
+
+const solutionEntries = byLocale(await getCollection("solutions")).sort(
+  (a, b) => a.data.order - b.data.order
+) as CollectionEntry<"solutions">[];
+
+const caseEntries = byLocale(await getCollection("caseStudies")).sort(
+  (a, b) => a.data.order - b.data.order
+) as CollectionEntry<"caseStudies">[];
+
+const newsEntries = byLocale(await getCollection("news")).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+) as CollectionEntry<"news">[];
+
+const dateFormatter = new Intl.DateTimeFormat(localeIntlTag[locale], {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+
+// Solution slug (matches /zh-tw/solutions/<slug>/) -> centralized media key
+// (see src/data/homepage-media.ts)
+const solutionMediaKey: Record<string, keyof typeof homepageMedia.solutions> = {
+  police: "police",
+  military: "military",
+  "smart-city": "smartCity",
+  "fire-rescue": "fire",
+};
+
+const caseMediaByOrder = [
+  homepageMedia.cases.case01,
+  homepageMedia.cases.case02,
+  homepageMedia.cases.case03,
+];
+
+const seoTitleByLocale: Record<Locale, string> = {
+  "zh-tw": "Big x Reality｜全球動力科技 XR 模擬訓練解決方案",
+  en: "Big x Reality | Global Power Technology XR Training Solutions",
+  jp: "Big x Reality｜全球動力科技 XRトレーニングソリューション",
+};
+
+const seoDescriptionByLocale: Record<Locale, string> = {
+  "zh-tw":
+    "全球動力科技 Big x Reality 提供虛實整合 XR 模擬訓練解決方案，為軍警、消防與智慧城市單位打造高擬真訓練環境。",
+  en: "Global Power Technology's Big x Reality delivers XR training simulation solutions for law enforcement, defense, fire & rescue, and smart city agencies.",
+  jp: "全球動力科技のBig x Realityは、警察・消防・スマートシティ向けのXRトレーニングシミュレーションソリューションを提供します。",
+};
+---
+
+<Layout locale={locale}>
+  <Fragment slot="head">
+    <SEOHead
+      locale={locale}
+      path="/"
+      title={seoTitleByLocale[locale]}
+      description={seoDescriptionByLocale[locale]}
+    />
+    <link rel="preload" as="image" href={withBase(homepageMedia.hero.desktop.src)} />
+  </Fragment>
+
+  <Header locale={locale} currentPath={`/${locale}/`} nav={settings.nav.primary} cta={settings.nav.cta} />
+
+  <main class="flex-1">
+    <section class="relative isolate overflow-hidden bg-navy-800 pt-16 md:pt-20">
+      <HeroSlider slides={[{ desktop: homepageMedia.hero.desktop, mobile: homepageMedia.hero.mobile }]} />
+      <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20 pt-16 pb-24 md:pt-24 md:pb-32 xl:pt-32 xl:pb-40">
+        <p class="text-label font-bold uppercase tracking-[0.1em] text-brand mb-6">{settings.hero.eyebrow}</p>
+        <h1 class="text-h1-sm md:text-h1-md xl:text-h1 font-extrabold leading-[1.12] text-white max-w-4xl">
+          {settings.hero.title}
+        </h1>
+        <p class="mt-6 text-base md:text-lg leading-[1.75] text-text-body max-w-2xl">
+          {settings.hero.subtitle}
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row gap-4">
+          <Button href={withBase(settings.hero.ctaPrimary.href)} variant="primary">
+            {settings.hero.ctaPrimary.label}
+          </Button>
+          <Button href={withBase(settings.hero.ctaSecondary.href)} variant="secondary">
+            {settings.hero.ctaSecondary.label} →
+          </Button>
+        </div>
+      </div>
+    </section>
+
+    <AboutSection
+      eyebrow={settings.about.eyebrow}
+      title={settings.about.title}
+      body={settings.about.body}
+      stats={settings.about.stats}
+      media={homepageMedia.about.company}
+    />
+
+    <WhyXrSection
+      eyebrow={settings.whyXr.eyebrow}
+      title={settings.whyXr.title}
+      subtitle={settings.whyXr.subtitle}
+      points={settings.whyXr.points}
+    />
+
+    <SolutionsSection
+      title={settings.sectionLabels.solutions}
+      allLinkLabel={settings.sectionLabels.solutionsAllLink}
+      allLinkHref={`/${locale}/solutions/`}
+      learnMoreLabel={settings.sectionLabels.learnMore}
+      items={solutionEntries.map((e) => {
+        // fire-rescue only has a page for zh-tw so far; en/jp fall back to
+        // their own homepage rather than linking to a 404. The other three
+        // solution pages now exist for all three locales.
+        const hasPage = locale === "zh-tw" || e.data.itemSlug !== "fire-rescue";
+        return {
+          href: hasPage ? `/${locale}/solutions/${e.data.itemSlug}/` : `/${locale}/`,
+          code: e.data.code,
+          title: e.data.title,
+          excerpt: e.data.excerpt,
+          media: homepageMedia.solutions[solutionMediaKey[e.data.itemSlug]],
+        };
+      })}
+    />
+
+    <CaseStudiesSection
+      title={settings.sectionLabels.caseStudies}
+      items={caseEntries.map((e, i) => ({
+        code: e.data.code,
+        category: e.data.category,
+        title: e.data.title,
+        excerpt: e.data.excerpt,
+        media: caseMediaByOrder[i] ?? homepageMedia.cases.case01,
+      }))}
+    />
+
+    <NewsSection
+      title={settings.sectionLabels.news}
+      moreLinkLabel={settings.sectionLabels.newsMoreLink}
+      moreLinkHref={`/${locale}/news/`}
+      items={newsEntries.map((e) => ({
+        href: `/${locale}/news/${e.data.itemSlug}/`,
+        date: dateFormatter.format(e.data.publishDate),
+        category: e.data.category,
+        title: e.data.title,
+      }))}
+    />
+
+    <CTASection
+      eyebrow={settings.missionCta.eyebrow}
+      title={settings.missionCta.title}
+      ctaPrimary={settings.missionCta.ctaPrimary}
+      ctaSecondary={settings.missionCta.ctaSecondary}
+      media={homepageMedia.cta.contact}
+    />
+  </main>
+
+  <Footer
+    companyName={settings.footer.companyName}
+    address={settings.footer.address}
+    email={settings.footer.email}
+    menu={settings.footer.menu}
+    about={settings.footer.about}
+    newsletterLabel={settings.footer.newsletterLabel}
+    newsletterPlaceholder={settings.footer.newsletterPlaceholder}
+    subscribeLabel={settings.footer.subscribeLabel}
+    copyright={settings.footer.copyright}
+  />
+</Layout>

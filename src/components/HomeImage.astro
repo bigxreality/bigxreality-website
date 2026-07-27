@@ -1,0 +1,26 @@
+---
+import { withBase } from "@/i18n/utils";
+import type { MediaEntry } from "@/data/homepage-media";
+
+interface Props {
+  media: MediaEntry;
+  width: number;
+  height: number;
+  class?: string;
+  fit?: "cover" | "contain";
+  priority?: boolean;
+}
+
+const { media, width, height, class: className = "", fit = "cover", priority = false } = Astro.props;
+---
+
+<img
+  src={withBase(media.src)}
+  alt={media.alt}
+  width={width}
+  height={height}
+  loading={priority ? "eager" : "lazy"}
+  decoding={priority ? "sync" : "async"}
+  fetchpriority={priority ? "high" : "auto"}
+  class={`w-full h-full ${fit === "cover" ? "object-cover" : "object-contain"} ${className}`}
+/>

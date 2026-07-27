@@ -1,0 +1,113 @@
+---
+import { withBase } from "@/i18n/utils";
+
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  companyName: string;
+  address: string;
+  email: string;
+  menu: LinkItem[];
+  about: LinkItem[];
+  newsletterLabel: string;
+  newsletterPlaceholder: string;
+  subscribeLabel: string;
+  copyright: string;
+}
+
+const {
+  companyName,
+  address,
+  email,
+  menu,
+  about,
+  newsletterLabel,
+  newsletterPlaceholder,
+  subscribeLabel,
+  copyright,
+} = Astro.props;
+---
+
+<footer class="bg-bg-soft border-t border-border">
+  <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20 py-12 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+      <div>
+        <span class="text-lg font-extrabold text-white">
+          BIG<span class="text-brand">x</span>REALITY
+        </span>
+        <p class="mt-4 text-body-sm text-text-muted">{companyName}</p>
+        <p class="mt-2 text-body-sm text-text-muted">{address}</p>
+        <a
+          href={`mailto:${email}`}
+          class="mt-2 inline-block text-body-sm text-text-muted hover:text-brand transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand rounded"
+        >
+          {email}
+        </a>
+      </div>
+
+      <div>
+        <p class="text-label font-bold uppercase tracking-[0.1em] text-text-faint mb-4">MENU</p>
+        <ul class="flex flex-col gap-3">
+          {
+            menu.map((item) => (
+              <li>
+                <a
+                  href={withBase(item.href)}
+                  class="text-body-sm text-text-body2 hover:text-brand transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand rounded"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-label font-bold uppercase tracking-[0.1em] text-text-faint mb-4">ABOUT</p>
+        <ul class="flex flex-col gap-3">
+          {
+            about.map((item) => (
+              <li>
+                <a
+                  href={withBase(item.href)}
+                  class="text-body-sm text-text-body2 hover:text-brand transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand rounded"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-label font-bold uppercase tracking-[0.1em] text-text-faint mb-4">
+          {newsletterLabel}
+        </p>
+        <form class="flex gap-2">
+          <label for="footer-email" class="sr-only">{newsletterPlaceholder}</label>
+          <input
+            id="footer-email"
+            type="email"
+            placeholder={newsletterPlaceholder}
+            class="flex-1 min-w-0 bg-bg border border-white/[0.15] rounded px-3 py-2.5 text-[13px] text-white placeholder:text-text-muted focus:outline-none focus:border-brand"
+          />
+          <button
+            type="submit"
+            class="bg-brand hover:bg-brand-hover text-white rounded px-4 py-2.5 text-[13px] font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            {subscribeLabel}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-border text-caption text-text-faint">
+      {copyright}
+    </div>
+  </div>
+</footer>

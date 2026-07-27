@@ -1,0 +1,32 @@
+---
+// Site root. Always points at /zh-tw/ (Big x Reality's primary market) —
+// per spec this must NOT branch on browser language, only on an explicit
+// past choice made via the language switcher (localStorage), so it never
+// fights a user who deliberately switched languages.
+import { withBase } from "@/i18n/utils";
+
+const fallback = withBase("/zh-tw/");
+---
+
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${fallback}`} />
+    <title>Big x Reality</title>
+    <script define:vars={{ fallback }}>
+      var stored = localStorage.getItem("bxr-locale");
+      var supported = ["zh-tw", "en", "jp"];
+      var target = fallback;
+      if (stored && supported.indexOf(stored) !== -1) {
+        target = fallback.replace("/zh-tw/", "/" + stored + "/");
+      }
+      window.location.replace(target);
+    </script>
+  </head>
+  <body>
+    <p>
+      <a href={fallback}>Continue to Big x Reality</a>
+    </p>
+  </body>
+</html>
