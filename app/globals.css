@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  /* Backgrounds */
+  --color-bg: #0a0a0a;
+  --color-bg-soft: #111111;
+  --color-navy-800: #0b1220;
+  --color-navy-700: #121c33;
+  --color-navy-600: #1b2a4d;
+
+  /* Brand red */
+  --color-brand: #d02753;
+  --color-brand-hover: #e8375f;
+  --color-brand-active: #a81f42;
+  --color-brand-12: rgba(208, 39, 83, 0.12);
+  --color-brand-35: rgba(208, 39, 83, 0.35);
+
+  /* Text */
+  --color-text-primary: #ffffff;
+  --color-text-body: #b8bec7;
+  --color-text-body2: #c8ccd2;
+  --color-text-muted: #8b93a1;
+  --color-text-faint: #565d68;
+
+  /* Borders */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.15);
+  --color-outline: rgba(255, 255, 255, 0.35);
+  --color-outline-hover: rgba(255, 255, 255, 0.6);
+
+  /* Placeholder */
+  --color-placeholder-a: #141821;
+  --color-placeholder-b: #191f2a;
+
+  /* Fonts */
+  --font-tc: var(--font-noto-sans-tc), "Noto Sans TC", sans-serif;
+  --font-mono-brand: var(--font-pt-mono), "PT Mono", monospace;
+
+  /* Breakpoints (design system: mobile 390 / tablet 768 / desktop 1024 / wide 1440) */
+  --breakpoint-sm: 390px;
+  --breakpoint-xl: 1440px;
+
+  /* Extra spacing tokens (8px base unit) */
+  --spacing-15: 3.75rem; /* 60px - mobile section padding */
+  --spacing-30: 7.5rem; /* 120px - desktop section padding */
+
+  /* Type scale */
+  --text-h1-sm: 2rem; /* 32px mobile */
+  --text-h1-md: 2.875rem; /* 46px tablet */
+  --text-h1: 4rem; /* 64px desktop */
+  --text-h2-sm: 1.625rem; /* 26px */
+  --text-h2-md: 2rem; /* 32px */
+  --text-h2: 2.5rem; /* 40px */
+  --text-h3: 1.0625rem; /* 17px */
+  --text-body-sm: 0.844rem; /* 13.5px */
+  --text-label: 0.75rem; /* 12px */
+  --text-caption: 0.78rem; /* 12.5px */
+  --text-stat: 2.5rem; /* 40px */
+
+  --radius-DEFAULT: 4px;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-body);
+  font-family: var(--font-tc);
+}
+
+/* Reveal-on-scroll utility (progressive enhancement, respects reduced motion) */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Placeholder image texture (visual staging only, not a production asset) */
+.placeholder-texture {
+  background-color: var(--color-placeholder-a);
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-placeholder-b) 0,
+    var(--color-placeholder-b) 2px,
+    transparent 2px,
+    transparent 12px
+  );
+}
