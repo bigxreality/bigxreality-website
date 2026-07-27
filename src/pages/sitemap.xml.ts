@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { locales } from "@/i18n/utils";
 import { solutionOrder } from "@/data/solutions";
+import { richSolutionOrder } from "@/data/solutions-rich";
 
 export const GET: APIRoute = ({ site }) => {
   const base = import.meta.env.BASE_URL;
@@ -8,8 +9,14 @@ export const GET: APIRoute = ({ site }) => {
 
   const paths = [
     ...locales.map((locale) => `${locale}/`),
+    // zh-tw: all four solution areas
     "zh-tw/solutions/",
     ...solutionOrder.map((slug) => `zh-tw/solutions/${slug}/`),
+    // en/ja: only the three areas with translated content (no fire-rescue)
+    "en/solutions/",
+    ...richSolutionOrder.map((slug) => `en/solutions/${slug}/`),
+    "ja/solutions/",
+    ...richSolutionOrder.map((slug) => `ja/solutions/${slug}/`),
   ];
 
   const urls = paths

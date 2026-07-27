@@ -46,9 +46,14 @@ Header／Footer／Mobile Navigation 皆共用此順序（Header/Footer 的導覽
 
 ## 共用元件
 
-`src/components/solutions/`：`DetailHero`、`NarrativeBlock`、`PainPointsList`、
+**zh-tw 頁面**：`src/components/solutions/`：`DetailHero`、`NarrativeBlock`、`PainPointsList`、
 `CapabilityGrid`、`CapabilityLadder`（僅軍事使用）、`ProductLinks`、`OtherSolutionsNav`。
-另沿用全站既有元件：`Header`、`Footer`、`Breadcrumb`、`CTASection`、`SEOHead`、`Layout`。
+
+**en/ja 頁面**：`RichSolutionPage`（單頁模板，接收 `locale`／`slug` 決定內容）、
+`RichSolutionsOverview`（總覽模板）、`RichSections`（渲染 About／條列小節／Specialties）。
+沿用 `DetailHero`、`NarrativeBlock` 與 zh-tw 共用。
+
+全語系共用：`Header`、`Footer`、`Breadcrumb`、`CTASection`、`SEOHead`、`Layout`。
 
 ## 資料層
 
@@ -61,21 +66,36 @@ Header／Footer／Mobile Navigation 皆共用此順序（Header/Footer 的導覽
 `itemSlug` 欄位已改為 `military`/`police`/`fire-rescue`/`smart-city` 以對應新路由），
 但排序與連結目標皆指向本輪新建的獨立頁面。
 
-## 語言架構（本輪僅繁中）
+## 語言架構
 
-英文／日文路由結構已預留但尚未建置內容：
+### 已完成三語系的頁面
+`/solutions/`、`/solutions/military/`、`/solutions/police/`、`/solutions/smart-city/`
+現已在 `zh-tw`／`en`／`ja` 三個語系都存在：
+
 ```
-/en/solutions/ /en/solutions/military/ ...
-/ja/solutions/ /ja/solutions/military/ ...
+/zh-tw/solutions/           /en/solutions/           /ja/solutions/
+/zh-tw/solutions/military/  /en/solutions/military/  /ja/solutions/military/
+/zh-tw/solutions/police/    /en/solutions/police/    /ja/solutions/police/
+/zh-tw/solutions/smart-city/ /en/solutions/smart-city/ /ja/solutions/smart-city/
 ```
-在內容完成前：
-- Header／Footer／語言切換器在 zh-tw 解決方案相關頁面上，切換到 en/ja 時會退回該語系
-  首頁（`/en/`、`/ja/`），不會導向不存在的頁面或造成 404
-  （`SEOHead`／`Header`／`LanguageSwitcher` 新增 `availableLocales` prop 控制此行為）
-- 首頁的 Solution Card 在 en/ja 版本上，連結同樣退回該語系首頁，未連到不存在的
-  `/en/solutions/military/` 等路徑
-- hreflang 只對 zh-tw 解決方案頁輸出 zh-tw 版本（`availableLocales={["zh-tw"]}`），
-  不會產生指向不存在頁面的 hreflang 標籤
+
+英文內容逐字取自官方英文網站（使用者提供），日文為 Claude 依英文原文翻譯（官方無日文頁面）。
+這三個語系的內容深度與結構不同：zh-tw 沿用先前輪次的「痛點／能力／產品」模型，en/ja 則採用
+官方原文的「About + 條列小節 + Specialties」模型（見 `src/components/solutions/RichSolutionPage.astro`
+與 `RichSections.astro`），因為來源內容本身形式不同，這是刻意的設計決定，非不一致的錯誤。
+
+由於這三頁三語系皆存在，SEOHead／Header／LanguageSwitcher 皆使用預設的 `availableLocales`
+（三語系全開），hreflang 與語言切換器在這四個頁面上可正常於三語系間切換。
+
+### 僅 zh-tw 的頁面
+`/zh-tw/solutions/fire-rescue/` —— 官方英文網站沒有獨立的消防頁面（僅在 Smart City 頁面中
+提及消防為其中一個應用小節），因此本輪**沒有**建立 `/en/solutions/fire-rescue/` 或
+`/ja/solutions/fire-rescue/`，避免無中生有捏造官方沒有的頁面。此頁的 `SEOHead`／`Header`
+明確傳入 `availableLocales={["zh-tw"]}`，語言切換器與首頁的消防 Solution Card 在 en/ja
+版本上會退回該語系首頁，不會產生 404 或假翻譯。
+
+首頁 Solution Card 的連結邏輯（`src/pages/[locale]/index.astro`）：軍事／警勤／智慧城市在
+三語系皆連到真實頁面；消防僅 zh-tw 連到真實頁面，en/ja 版退回該語系首頁。
 
 ## 舊網址轉址
 

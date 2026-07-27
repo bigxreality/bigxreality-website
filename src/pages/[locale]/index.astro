@@ -127,17 +127,21 @@ const seoDescriptionByLocale: Record<Locale, string> = {
     <SolutionsSection
       title={settings.sectionLabels.solutions}
       allLinkLabel={settings.sectionLabels.solutionsAllLink}
-      allLinkHref={locale === "zh-tw" ? "/zh-tw/solutions/" : `/${locale}/`}
+      allLinkHref={`/${locale}/solutions/`}
       learnMoreLabel={settings.sectionLabels.learnMore}
-      items={solutionEntries.map((e) => ({
-        // Solutions detail pages only exist for zh-tw so far; en/ja fall
-        // back to their own homepage rather than linking to a 404.
-        href: locale === "zh-tw" ? `/zh-tw/solutions/${e.data.itemSlug}/` : `/${locale}/`,
-        code: e.data.code,
-        title: e.data.title,
-        excerpt: e.data.excerpt,
-        media: homepageMedia.solutions[solutionMediaKey[e.data.itemSlug]],
-      }))}
+      items={solutionEntries.map((e) => {
+        // fire-rescue only has a page for zh-tw so far; en/ja fall back to
+        // their own homepage rather than linking to a 404. The other three
+        // solution pages now exist for all three locales.
+        const hasPage = locale === "zh-tw" || e.data.itemSlug !== "fire-rescue";
+        return {
+          href: hasPage ? `/${locale}/solutions/${e.data.itemSlug}/` : `/${locale}/`,
+          code: e.data.code,
+          title: e.data.title,
+          excerpt: e.data.excerpt,
+          media: homepageMedia.solutions[solutionMediaKey[e.data.itemSlug]],
+        };
+      })}
     />
 
     <CaseStudiesSection

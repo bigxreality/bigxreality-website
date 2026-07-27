@@ -7,37 +7,48 @@ import Footer from "@/components/Footer.astro";
 import Breadcrumb from "@/components/Breadcrumb.astro";
 import NarrativeBlock from "@/components/solutions/NarrativeBlock.astro";
 import CTASection from "@/components/CTASection.astro";
-import { withBase } from "@/i18n/utils";
+import { withBase, type Locale } from "@/i18n/utils";
 import { homepageMedia } from "@/data/homepage-media";
-import { solutionOrder, solutions, solutionsOverview } from "@/data/solutions";
 import { solutionsMedia } from "@/data/solutions-media";
+import { richSolutionOrder, solutionsRich, solutionsOverviewRich } from "@/data/solutions-rich";
+
+interface Props {
+  locale: "en" | "ja";
+}
+
+const { locale } = Astro.props;
 
 const settingsEntries = await getCollection("siteSettings");
-const settings = settingsEntries.find((e) => e.data.locale === "zh-tw")!.data;
+const settings = settingsEntries.find((e) => e.data.locale === (locale as Locale))!.data;
+const overview = solutionsOverviewRich[locale];
+const content = solutionsRich[locale];
 
 const coverMediaBySlug = {
   military: solutionsMedia.overview.militaryCover,
   police: solutionsMedia.overview.policeCover,
-  "fire-rescue": solutionsMedia.overview.fireRescueCover,
   "smart-city": solutionsMedia.overview.smartCityCover,
 } as const;
 
-const orderedSolutions = solutionOrder.map((slug) => solutions[slug]);
+const breadcrumbLabels = {
+  en: { home: "Home", solutions: "Solutions" },
+  ja: { home: "ホーム", solutions: "ソリューション" },
+};
+const bc = breadcrumbLabels[locale];
 ---
 
-<Layout locale="zh-tw">
+<Layout locale={locale}>
   <Fragment slot="head">
     <SEOHead
-      locale="zh-tw"
+      locale={locale}
       path="/solutions/"
-      title={solutionsOverview.seoTitle}
-      description={solutionsOverview.seoDescription}
+      title={overview.seoTitle}
+      description={overview.seoDescription}
     />
   </Fragment>
 
   <Header
-    locale="zh-tw"
-    currentPath="/zh-tw/solutions/"
+    locale={locale}
+    currentPath={`/${locale}/solutions/`}
     nav={settings.nav.primary}
     cta={settings.nav.cta}
   />
@@ -46,17 +57,17 @@ const orderedSolutions = solutionOrder.map((slug) => solutions[slug]);
     <section class="bg-navy-800 pt-16 md:pt-20">
       <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20 pt-10 pb-14 md:pt-14 md:pb-16">
         <Breadcrumb
-          items={[{ label: "首頁", href: withBase("/zh-tw/") }, { label: "解決方案" }]}
+          items={[{ label: bc.home, href: withBase(`/${locale}/`) }, { label: bc.solutions }]}
           class="mb-6"
         />
         <p class="text-label font-bold uppercase tracking-[0.1em] text-brand mb-4">
-          {solutionsOverview.eyebrow}
+          {overview.eyebrow}
         </p>
         <h1 class="text-h1-page-sm md:text-h1-page-md xl:text-h1-page font-extrabold leading-[1.15] text-white max-w-2xl">
-          {solutionsOverview.title}
+          {overview.title}
         </h1>
         <p class="mt-6 text-base md:text-lg leading-[1.75] text-text-body max-w-2xl">
-          {solutionsOverview.intro}
+          {overview.intro}
         </p>
       </div>
     </section>
@@ -64,19 +75,23 @@ const orderedSolutions = solutionOrder.map((slug) => solutions[slug]);
     <section class="bg-bg py-10 md:py-14 xl:py-16">
       <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
         {
-          orderedSolutions.map((item, i) => (
-            <NarrativeBlock
-              code={item.code}
-              englishLabel={item.englishLabel}
-              navTitle={item.navTitle}
-              excerpt={item.overviewExcerpt}
-              representativeApplication={item.representativeApplication}
-              href={`/zh-tw/solutions/${item.slug}/`}
-              exploreLabel={solutionsOverview.exploreLabel}
-              media={coverMediaBySlug[item.slug]}
-              reverse={i % 2 === 1}
-            />
-          ))
+          richSolutionOrder.map((slug, i) => {
+            const item = content[slug];
+            const firstSentence = item.aboutBody.split(/(?<=[.。])\s/)[0];
+            return (
+              <NarrativeBlock
+                code=""
+                englishLabel={item.englishLabel}
+                navTitle={item.navTitle}
+                excerpt={firstSentence}
+                representativeApplication={item.sections[0]?.heading ?? ""}
+                href={`/${locale}/solutions/${slug}/`}
+                exploreLabel={overview.exploreLabel}
+                media={coverMediaBySlug[slug]}
+                reverse={i % 2 === 1}
+              />
+            );
+          })
         }
       </div>
     </section>

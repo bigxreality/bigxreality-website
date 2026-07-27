@@ -1,0 +1,55 @@
+---
+import type { RichSection } from "@/data/solutions-rich";
+
+interface Props {
+  aboutHeading: string;
+  aboutBody: string;
+  sections: RichSection[];
+  specialtiesHeading: string;
+  specialties: RichSection[];
+}
+
+const { aboutHeading, aboutBody, sections, specialtiesHeading, specialties } = Astro.props;
+---
+
+<section class="bg-navy-800 py-12 md:py-16">
+  <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+    <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white max-w-3xl">
+      {aboutHeading}
+    </h2>
+    <p class="mt-6 text-base leading-[1.75] text-text-body max-w-3xl">{aboutBody}</p>
+  </div>
+</section>
+
+<section class="bg-bg py-12 md:py-16">
+  <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {
+        sections.map((s) => (
+          <div class="bg-bg-soft border border-border rounded p-5 md:p-6">
+            <h3 class="text-h3 font-semibold text-white">{s.heading}</h3>
+            <p class="mt-3 text-body-sm leading-[1.6] text-text-muted">{s.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section class="bg-navy-800 py-12 md:py-16">
+  <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+    <p class="text-label font-bold uppercase tracking-[0.1em] text-text-muted mb-2">
+      {specialtiesHeading}
+    </p>
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      {
+        specialties.map((s) => (
+          <div class="border-t md:border-t-0 md:border-l border-border pt-4 md:pt-0 md:pl-6">
+            <h3 class="text-h3 font-semibold text-white">{s.heading}</h3>
+            <p class="mt-2 text-body-sm leading-[1.6] text-text-muted">{s.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
