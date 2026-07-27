@@ -1,0 +1,202 @@
+{
+  "locale": "ja",
+  "nav": {
+    "primary": [
+      {
+        "label": "ホーム",
+        "href": "/ja/"
+      },
+      {
+        "label": "ソリューション",
+        "href": "/ja/solutions/"
+      },
+      {
+        "label": "製品",
+        "href": "/ja/products/"
+      },
+      {
+        "label": "導入事例",
+        "href": "/ja/cases/"
+      },
+      {
+        "label": "最新情報",
+        "href": "/ja/news/"
+      },
+      {
+        "label": "技術インサイト",
+        "href": "/ja/insights/"
+      },
+      {
+        "label": "よくある質問",
+        "href": "/ja/faq/"
+      },
+      {
+        "label": "会社概要",
+        "href": "/ja/about/"
+      },
+      {
+        "label": "お問い合わせ",
+        "href": "/ja/contact/"
+      }
+    ],
+    "cta": {
+      "label": "デモを予約",
+      "href": "/ja/contact/"
+    }
+  },
+  "hero": {
+    "eyebrow": "XR TRAINING · SYSTEM READY",
+    "title": "[翻訳準備中]",
+    "subtitle": "[翻訳準備中]",
+    "ctaPrimary": {
+      "label": "デモを予約",
+      "href": "/ja/contact/"
+    },
+    "ctaSecondary": {
+      "label": "ソリューションを見る",
+      "href": "/ja/solutions/"
+    },
+    "slides": [
+      {
+        "src": "/images/home/hero-main.webp",
+        "alt": "Big x Reality XR訓練シミュレーション"
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "ABOUT // EST. 2003",
+    "title": "[翻訳準備中]",
+    "body": "[翻訳準備中]",
+    "stats": [
+      {
+        "value": "20+",
+        "label": "[翻訳準備中]"
+      },
+      {
+        "value": "10+",
+        "label": "[翻訳準備中]"
+      },
+      {
+        "value": "50+",
+        "label": "[翻訳準備中]"
+      }
+    ],
+    "image": {
+      "src": "/images/home/about-main.webp",
+      "alt": "全球動力科技 システム統合能力"
+    }
+  },
+  "whyXr": {
+    "eyebrow": "PROBLEM ANALYSIS",
+    "title": "[翻訳準備中]",
+    "subtitle": "[翻訳準備中]",
+    "points": [
+      {
+        "index": "01",
+        "title": "[翻訳準備中]",
+        "body": "[翻訳準備中]"
+      },
+      {
+        "index": "02",
+        "title": "[翻訳準備中]",
+        "body": "[翻訳準備中]"
+      },
+      {
+        "index": "03",
+        "title": "[翻訳準備中]",
+        "body": "[翻訳準備中]"
+      },
+      {
+        "index": "04",
+        "title": "[翻訳準備中]",
+        "body": "[翻訳準備中]"
+      },
+      {
+        "index": "05",
+        "title": "[翻訳準備中]",
+        "body": "[翻訳準備中]"
+      }
+    ]
+  },
+  "missionCta": {
+    "eyebrow": "MISSION READY",
+    "title": "[翻訳準備中]",
+    "ctaPrimary": {
+      "label": "デモを予約",
+      "href": "/ja/contact/"
+    },
+    "ctaSecondary": {
+      "label": "営業に問い合わせ",
+      "href": "/ja/contact/"
+    }
+  },
+  "sectionLabels": {
+    "solutions": "ソリューション",
+    "solutionsAllLink": "すべてのソリューション",
+    "caseStudies": "導入事例",
+    "news": "最新情報",
+    "newsMoreLink": "もっと見る",
+    "trustedBy": "TRUSTED BY // 連携機関",
+    "learnMore": "詳しく見る"
+  },
+  "trustedBy": [
+    "[翻訳準備中]"
+  ],
+  "footer": {
+    "companyName": "全球動力科技股份有限公司",
+    "address": "[翻訳準備中]",
+    "email": "service@gptt.com.tw",
+    "menu": [
+      {
+        "label": "ホーム",
+        "href": "/ja/"
+      },
+      {
+        "label": "ソリューション",
+        "href": "/ja/solutions/"
+      },
+      {
+        "label": "製品",
+        "href": "/ja/products/"
+      },
+      {
+        "label": "導入事例",
+        "href": "/ja/cases/"
+      },
+      {
+        "label": "最新情報",
+        "href": "/ja/news/"
+      }
+    ],
+    "about": [
+      {
+        "label": "技術インサイト",
+        "href": "/ja/insights/"
+      },
+      {
+        "label": "よくある質問",
+        "href": "/ja/faq/"
+      },
+      {
+        "label": "会社概要",
+        "href": "/ja/about/"
+      },
+      {
+        "label": "お問い合わせ",
+        "href": "/ja/contact/"
+      },
+      {
+        "label": "プライバシーポリシー",
+        "href": "/ja/privacy/"
+      },
+      {
+        "label": "利用規約",
+        "href": "/ja/terms/"
+      }
+    ],
+    "newsletterLabel": "NEWSLETTER",
+    "newsletterPlaceholder": "メールアドレス",
+    "copyright": "© 2026 GLOBAL POWER TECHNOLOGY // BIG X REALITY",
+    "subscribeLabel": "登録"
+  }
+}

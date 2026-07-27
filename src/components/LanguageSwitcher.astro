@@ -1,0 +1,39 @@
+---
+import { locales, localeLabels, localizedPath, type Locale } from "@/i18n/utils";
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+---
+
+<div
+  class="flex items-center rounded border border-white/[0.15] overflow-hidden text-[12px]"
+  data-language-switcher
+>
+  {
+    locales.map((l, i) => (
+      <a
+        href={localizedPath(l, currentPath)}
+        data-locale={l}
+        aria-current={l === locale ? "true" : undefined}
+        class={`px-3 py-1.5 transition-colors ${
+          l === locale ? "bg-white/[0.06] text-white" : "text-text-muted hover:text-white"
+        } ${i > 0 ? "border-l border-white/[0.15]" : ""}`}
+      >
+        {localeLabels[l]}
+      </a>
+    ))
+  }
+</div>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>("[data-language-switcher] a").forEach((a) => {
+    a.addEventListener("click", () => {
+      const locale = a.dataset.locale;
+      if (locale) localStorage.setItem("bxr-locale", locale);
+    });
+  });
+</script>

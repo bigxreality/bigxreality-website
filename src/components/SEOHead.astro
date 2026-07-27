@@ -1,0 +1,41 @@
+---
+import { locales, localeHtmlLang, type Locale } from "@/i18n/utils";
+
+interface Props {
+  locale: Locale;
+  path: string; // path without locale prefix, e.g. "/" or "/solutions/"
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const { locale, path, title, description, ogImage } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const siteUrl = Astro.site?.origin ?? "https://bigxreality.github.io";
+const canonicalPath = `${base}/${locale}${path}`;
+const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
+
+function altUrl(l: Locale) {
+  return new URL(`${base}/${l}${path}`, siteUrl).toString();
+}
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+{locales.map((l) => <link rel="alternate" hreflang={localeHtmlLang[l]} href={altUrl(l)} />)}
+<link rel="alternate" hreflang="x-default" href={altUrl("zh-tw")} />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:locale" content={localeHtmlLang[locale]} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{ogImage && <meta name="twitter:image" content={ogImage} />}
