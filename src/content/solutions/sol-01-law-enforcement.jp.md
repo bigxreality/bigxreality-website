@@ -1,5 +1,5 @@
 ---
-locale: "ja"
+locale: "jp"
 itemSlug: "police"
 order: 2
 code: "SOL-01 // LAW ENFORCEMENT"

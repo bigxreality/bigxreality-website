@@ -26,7 +26,12 @@ Header／Footer／Mobile Navigation 皆共用此順序（Header/Footer 的導覽
 不含：各領域完整產品列表、完整特色、完整案例（依規格書要求，總覽只做入口）。
 
 ### 四個獨立頁面（軍事／警勤／消防／智慧城市）
-共同骨架，但各頁組成不同（見下方「各頁差異」）：
+
+**注意（後續輪次更新）**：警勤與智慧城市取得官方繁中全文後，已改用 en/jp 共用的
+`RichSolutionPage` 富內容模板渲染（見下方「共用元件」），下方「共同骨架」與「各頁差異」表格
+僅適用於**軍事**與**消防**（仍沿用舊的痛點／能力／產品模型，因為尚未取得對應官方全文）。
+
+軍事／消防共同骨架：
 
 1. `DetailHero`（Eyebrow 英文標籤 + H1 + 副標 + 桌機/手機 Hero 圖）
 2. Breadcrumb（首頁 / 解決方案 / 當前領域）
@@ -36,29 +41,38 @@ Header／Footer／Mobile Navigation 皆共用此順序（Header/Footer 的導覽
 6. 其他解決方案導航（`OtherSolutionsNav`，依 `solutionOrder` 排除當前頁）
 7. Contact CTA（沿用首頁 `CTASection` 與其背景圖）
 
-### 各頁差異（避免四頁換皮）
+軍事／消防差異：
 | 頁面 | 獨有區塊 | 沒有的區塊 |
 |---|---|---|
 | 軍事 | 訓練層級階梯（`CapabilityLadder`：個人操作→班組協同→小部隊戰術→指揮決策→跨系統整合） | 無領域簡介前言段落（直接進入痛點） |
-| 警勤 | 領域簡介前言段落 | 無訓練層級階梯 |
 | 消防 | 「新版新增內容」提示橫幅（brand 色框，明確標示文字待確認） | 無訓練層級階梯；對應系統為空（顯示待確認說明） |
-| 智慧城市 | 8 大應用面向合併呈現於單一 `CapabilityGrid`（智慧交通／防災／職業安全／XR教育／場域資訊整合／客製化整合） | 無訓練層級階梯；相關案例／產品為空（顯示待確認說明） |
+
+警勤／智慧城市（`RichSolutionPage`）骨架：`DetailHero` → Breadcrumb →
+`RichSections`（About／條列小節／Specialties）→ `OtherSolutionsNav`（zh-tw 專屬，
+en/jp 版不顯示，因為那兩語系目前只有 3 個解決方案、沒有跨頁導航需求）→ Contact CTA。
 
 ## 共用元件
 
-**zh-tw 頁面**：`src/components/solutions/`：`DetailHero`、`NarrativeBlock`、`PainPointsList`、
-`CapabilityGrid`、`CapabilityLadder`（僅軍事使用）、`ProductLinks`、`OtherSolutionsNav`。
+**軍事／消防（zh-tw 專屬舊模型）**：`src/components/solutions/`：`DetailHero`、`NarrativeBlock`、
+`PainPointsList`、`CapabilityGrid`、`CapabilityLadder`（僅軍事使用）、`ProductLinks`、
+`OtherSolutionsNav`。
 
-**en/ja 頁面**：`RichSolutionPage`（單頁模板，接收 `locale`／`slug` 決定內容）、
-`RichSolutionsOverview`（總覽模板）、`RichSections`（渲染 About／條列小節／Specialties）。
-沿用 `DetailHero`、`NarrativeBlock` 與 zh-tw 共用。
+**警勤／智慧城市（zh-tw／en／jp 共用富內容模型）**：`RichSolutionPage`（單頁模板，接收
+`locale`／`slug` 決定內容，`locale="zh-tw"` 時額外渲染 `OtherSolutionsNav`）、
+`RichSolutionsOverview`（僅 en/jp 使用的總覽模板；zh-tw 總覽頁仍用舊模型）、`RichSections`
+（渲染 About／條列小節／Specialties）。沿用 `DetailHero`、`NarrativeBlock` 與舊模型共用。
 
 全語系共用：`Header`、`Footer`、`Breadcrumb`、`CTASection`、`SEOHead`、`Layout`。
 
 ## 資料層
 
 - `src/data/solutions.ts` — `solutionOrder`（排序唯一來源）+ 每個領域的完整內容物件
-  （Hero 文案、SEO、痛點、應用情境、核心能力、產品清單、文案來源狀態）
+  （Hero 文案、SEO、痛點、應用情境、核心能力、產品清單、文案來源狀態）。軍事／消防的實際
+  渲染仍讀這份資料；警勤／智慧城市的物件則保留作為總覽頁摘要卡片與 `OtherSolutionsNav`
+  的資料來源，詳細內文改讀 `solutions-rich.ts`。
+- `src/data/solutions-rich.ts` — `richSolutionOrder`（en/jp 排序，僅 3 項、無消防）+
+  `solutionsRich`（`Record<Locale, Partial<Record<slug, content>>>`：en／jp 各有軍事／
+  警勤／智慧城市三項完整內容，zh-tw 目前只有警勤／智慧城市兩項——軍事尚待官方全文）
 - `src/data/solutions-media.ts` — 每個頁面的圖片路徑集中管理（`status` 欄位標記
   missing/temporary/approved/replace-later，同 `homepage-media.ts` 的模式）
 
@@ -70,19 +84,25 @@ Header／Footer／Mobile Navigation 皆共用此順序（Header/Footer 的導覽
 
 ### 已完成三語系的頁面
 `/solutions/`、`/solutions/military/`、`/solutions/police/`、`/solutions/smart-city/`
-現已在 `zh-tw`／`en`／`ja` 三個語系都存在：
+現已在 `zh-tw`／`en`／`jp` 三個語系都存在：
 
 ```
-/zh-tw/solutions/           /en/solutions/           /ja/solutions/
-/zh-tw/solutions/military/  /en/solutions/military/  /ja/solutions/military/
-/zh-tw/solutions/police/    /en/solutions/police/    /ja/solutions/police/
-/zh-tw/solutions/smart-city/ /en/solutions/smart-city/ /ja/solutions/smart-city/
+/zh-tw/solutions/           /en/solutions/           /jp/solutions/
+/zh-tw/solutions/military/  /en/solutions/military/  /jp/solutions/military/
+/zh-tw/solutions/police/    /en/solutions/police/    /jp/solutions/police/
+/zh-tw/solutions/smart-city/ /en/solutions/smart-city/ /jp/solutions/smart-city/
 ```
+
+（日文網址路徑代號為 `jp`，非 `ja`——`<html lang>` 與 hreflang 仍使用正確的 BCP-47 代碼
+`ja`／`ja-JP`，兩者刻意分開，見 `src/i18n/utils.ts` 的 `locales` 與 `localeHtmlLang`。）
 
 英文內容逐字取自官方英文網站（使用者提供），日文為 Claude 依英文原文翻譯（官方無日文頁面）。
-這三個語系的內容深度與結構不同：zh-tw 沿用先前輪次的「痛點／能力／產品」模型，en/ja 則採用
-官方原文的「About + 條列小節 + Specialties」模型（見 `src/components/solutions/RichSolutionPage.astro`
-與 `RichSections.astro`），因為來源內容本身形式不同，這是刻意的設計決定，非不一致的錯誤。
+警勤／智慧城市的 zh-tw 內容後續已比照 en/jp 改為官方原文的「About + 條列小節 + Specialties」
+模型（使用者提供之官方繁中全文，見 `docs/solutions-copy-source.md`）；軍事與消防的 zh-tw 頁面
+則仍沿用先前輪次的「痛點／能力／產品」模型（`src/data/solutions.ts`），因為尚未取得對應的官方
+全文。三語系共用同一套 `RichSolutionPage`／`RichSections` 元件（見
+`src/components/solutions/RichSolutionPage.astro`），只是 `solutionsRich` 資料依語系與頁面
+逐步補齊，並非設計上的不一致。
 
 由於這三頁三語系皆存在，SEOHead／Header／LanguageSwitcher 皆使用預設的 `availableLocales`
 （三語系全開），hreflang 與語言切換器在這四個頁面上可正常於三語系間切換。
@@ -90,12 +110,12 @@ Header／Footer／Mobile Navigation 皆共用此順序（Header/Footer 的導覽
 ### 僅 zh-tw 的頁面
 `/zh-tw/solutions/fire-rescue/` —— 官方英文網站沒有獨立的消防頁面（僅在 Smart City 頁面中
 提及消防為其中一個應用小節），因此本輪**沒有**建立 `/en/solutions/fire-rescue/` 或
-`/ja/solutions/fire-rescue/`，避免無中生有捏造官方沒有的頁面。此頁的 `SEOHead`／`Header`
-明確傳入 `availableLocales={["zh-tw"]}`，語言切換器與首頁的消防 Solution Card 在 en/ja
+`/jp/solutions/fire-rescue/`，避免無中生有捏造官方沒有的頁面。此頁的 `SEOHead`／`Header`
+明確傳入 `availableLocales={["zh-tw"]}`，語言切換器與首頁的消防 Solution Card 在 en/jp
 版本上會退回該語系首頁，不會產生 404 或假翻譯。
 
 首頁 Solution Card 的連結邏輯（`src/pages/[locale]/index.astro`）：軍事／警勤／智慧城市在
-三語系皆連到真實頁面；消防僅 zh-tw 連到真實頁面，en/ja 版退回該語系首頁。
+三語系皆連到真實頁面；消防僅 zh-tw 連到真實頁面，en/jp 版退回該語系首頁。
 
 ## 舊網址轉址
 

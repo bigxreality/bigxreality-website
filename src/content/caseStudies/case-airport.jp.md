@@ -1,5 +1,5 @@
 ---
-locale: "ja"
+locale: "jp"
 itemSlug: "airport"
 order: 1
 code: "CASE 01"

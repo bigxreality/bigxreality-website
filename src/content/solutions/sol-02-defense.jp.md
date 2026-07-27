@@ -1,5 +1,5 @@
 ---
-locale: "ja"
+locale: "jp"
 itemSlug: "military"
 order: 1
 code: "SOL-02 // DEFENSE"

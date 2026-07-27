@@ -10,7 +10,7 @@ Code 執行規格書`。
 
 - **繁中（預設）**: `https://bigxreality.github.io/bigxreality-website/zh-tw/`
 - **英文**: `https://bigxreality.github.io/bigxreality-website/en/`
-- **日文**: `https://bigxreality.github.io/bigxreality-website/ja/`
+- **日文**: `https://bigxreality.github.io/bigxreality-website/jp/`
 
 > 需要 repo 的 **Settings → Pages → Build and deployment → Source** 設定為
 > **GitHub Actions**（僅需設定一次）。若尚未設定，Actions 執行會顯示對應錯誤訊息。
@@ -40,7 +40,7 @@ tailwind.config.cjs      # 設計系統 tokens（色彩／字級／間距／斷�
 src/
   content.config.ts      # Content Collections schema
   content/
-    solutions/           # 4 大解決方案（zh-tw 完整，en/ja 導覽用詞已翻譯，內文標記待翻譯）
+    solutions/           # 4 大解決方案（zh-tw 完整，en/jp 導覽用詞已翻譯，內文標記待翻譯）
     caseStudies/          # 精選案例
     news/                 # 最新消息（首頁僅顯示標題/日期/分類）
     products/             # 已建 schema，尚無內容條目（規格書第八階段）
@@ -53,9 +53,9 @@ src/
   i18n/utils.ts           # locales、語系網址工具
   pages/
     index.astro           # 根路徑：固定導向 /zh-tw/（除非語言切換器留下記錄），不依瀏覽器語言
-    [locale]/index.astro  # 首頁（zh-tw / en / ja 共用同一份模板）
+    [locale]/index.astro  # 首頁（zh-tw / en / jp 共用同一份模板）
     sitemap.xml.ts         # 動態產生 sitemap（僅列 3 個語系首頁）
-    {tw,zh-tw,en,jp,ja}/   # 舊網址靜態轉址頁（見下方「舊網址轉址」）
+    {tw,zh-tw,en,jp,ja}/   # 舊網址靜態轉址頁（見下方「舊網址轉址」；ja 為舊網址代號，轉址到 jp）
 public/
   images/home/            # 首頁圖片實檔，依區塊分資料夾，各資料夾內附 README 說明比例/命名規則
   robots.txt
@@ -69,19 +69,25 @@ docs/homepage-image-status.md       # 每張圖片目前狀態（missing/tempora
 
 ## 多語系
 
-- 網址結構：`/zh-tw/`、`/en/`、`/ja/`，語系根路徑本身即首頁（不使用 `/zh-tw/home`）
-- 語言代碼：繁中 `zh-tw`（`<html lang="zh-TW">`）、英文 `en`、日文 `ja`（不使用 `jp`，那是國碼不是語言碼）
+- 網址結構：`/zh-tw/`、`/en/`、`/jp/`，語系根路徑本身即首頁（不使用 `/zh-tw/home`）
+- 網址代號 `jp` 僅為日文語系的 URL 路徑代號（一般使用者會輸入 `jp`，不會輸入 `ja`）；
+  實際的語言／地區代碼（`<html lang>`、hreflang）仍正確使用 BCP-47 的 `ja`／`ja-JP`，
+  兩者刻意分開管理，見 `src/i18n/utils.ts` 的 `locales`（URL 代號）與
+  `localeHtmlLang`／`localeIntlTag`（語言代碼）
+- 語言代碼：繁中 `zh-tw`（`<html lang="zh-TW">`）、英文 `en`、日文（`<html lang="ja">`，URL 用 `jp`）
 - 根路徑 `/` 固定導向 `/zh-tw/`（除非使用者透過語言切換器留下 `localStorage` 記錄），不依瀏覽器語言強制跳轉
 - 語言切換器記住選擇（`localStorage`）
-- en / ja 的導覽選單與按鈕已翻譯；尚無官方翻譯的內文一律標記 `[Translation pending]` /
+- en / jp 的導覽選單與按鈕已翻譯；尚無官方翻譯的內文一律標記 `[Translation pending]` /
   `[翻訳準備中]`，未自行編造行銷文案
 
 ### 舊網址轉址
 
-`/tw/home`、`/tw`、`/zh-tw/home`、`/en/home`、`/jp`、`/jp/home`、`/ja/home` 皆保留為靜態轉址頁
+`/tw/home`、`/tw`、`/zh-tw/home`、`/en/home`、`/jp/home`、`/ja`、`/ja/home` 皆保留為靜態轉址頁
 （`src/pages/{tw,zh-tw,en,jp,ja}/*.astro`，共用 `src/components/LegacyRedirect.astro`）：
-`<meta http-equiv="refresh">` + 絕對網址 `canonical`。GitHub Pages 無法設定伺服器端 301，之後切換
-Netlify 時可改用 `public/_redirects`（已經寫好對應規則，目前對 GitHub Pages 無作用）做真正的 301。
+`<meta http-equiv="refresh">` + 絕對網址 `canonical`。`/ja/*`（含 `/ja/solutions/*`）整組轉址到
+對應的 `/jp/*`，因為日文網址代號曾短暫使用過 `ja`，後改為 `jp`（沒有人會輸入 `ja`）。
+GitHub Pages 無法設定伺服器端 301，之後切換 Netlify 時可改用 `public/_redirects`（已經寫好
+對應規則，目前對 GitHub Pages 無作用）做真正的 301。
 
 ## 設計系統
 

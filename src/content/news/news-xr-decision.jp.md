@@ -1,5 +1,5 @@
 ---
-locale: "ja"
+locale: "jp"
 itemSlug: "xr-decision-making"
 title: "[翻訳準備中]"
 category: "INSIGHT"

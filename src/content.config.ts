@@ -1,7 +1,7 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-const locale = z.enum(["zh-tw", "en", "ja"]);
+const locale = z.enum(["zh-tw", "en", "jp"]);
 
 const media = z.object({
   src: z.string(),

@@ -12,11 +12,11 @@ export const GET: APIRoute = ({ site }) => {
     // zh-tw: all four solution areas
     "zh-tw/solutions/",
     ...solutionOrder.map((slug) => `zh-tw/solutions/${slug}/`),
-    // en/ja: only the three areas with translated content (no fire-rescue)
+    // en/jp: only the three areas with translated content (no fire-rescue)
     "en/solutions/",
     ...richSolutionOrder.map((slug) => `en/solutions/${slug}/`),
-    "ja/solutions/",
-    ...richSolutionOrder.map((slug) => `ja/solutions/${slug}/`),
+    "jp/solutions/",
+    ...richSolutionOrder.map((slug) => `jp/solutions/${slug}/`),
   ];
 
   const urls = paths

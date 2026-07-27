@@ -16,7 +16,7 @@ const fallback = withBase("/zh-tw/");
     <title>Big x Reality</title>
     <script define:vars={{ fallback }}>
       var stored = localStorage.getItem("bxr-locale");
-      var supported = ["zh-tw", "en", "ja"];
+      var supported = ["zh-tw", "en", "jp"];
       var target = fallback;
       if (stored && supported.indexOf(stored) !== -1) {
         target = fallback.replace("/zh-tw/", "/" + stored + "/");

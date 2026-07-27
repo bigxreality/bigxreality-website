@@ -1,5 +1,5 @@
 ---
-locale: "ja"
+locale: "jp"
 itemSlug: "fire"
 order: 3
 code: "CASE 03"

@@ -13,7 +13,7 @@ import { solutionsMedia } from "@/data/solutions-media";
 import { richSolutionOrder, solutionsRich, solutionsOverviewRich } from "@/data/solutions-rich";
 
 interface Props {
-  locale: "en" | "ja";
+  locale: "en" | "jp";
 }
 
 const { locale } = Astro.props;
@@ -31,7 +31,7 @@ const coverMediaBySlug = {
 
 const breadcrumbLabels = {
   en: { home: "Home", solutions: "Solutions" },
-  ja: { home: "ホーム", solutions: "ソリューション" },
+  jp: { home: "ホーム", solutions: "ソリューション" },
 };
 const bc = breadcrumbLabels[locale];
 ---
@@ -76,7 +76,7 @@ const bc = breadcrumbLabels[locale];
       <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
         {
           richSolutionOrder.map((slug, i) => {
-            const item = content[slug];
+            const item = content[slug]!;
             const firstSentence = item.aboutBody.split(/(?<=[.。])\s/)[0];
             return (
               <NarrativeBlock

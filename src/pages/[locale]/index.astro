@@ -12,7 +12,7 @@ import SolutionsSection from "@/components/SolutionsSection.astro";
 import CaseStudiesSection from "@/components/CaseStudiesSection.astro";
 import NewsSection from "@/components/NewsSection.astro";
 import CTASection from "@/components/CTASection.astro";
-import { locales, withBase, type Locale } from "@/i18n/utils";
+import { locales, withBase, localeIntlTag, type Locale } from "@/i18n/utils";
 import { homepageMedia } from "@/data/homepage-media";
 
 export async function getStaticPaths() {
@@ -40,10 +40,11 @@ const newsEntries = byLocale(await getCollection("news")).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 ) as CollectionEntry<"news">[];
 
-const dateFormatter = new Intl.DateTimeFormat(
-  locale === "zh-tw" ? "zh-TW" : locale === "ja" ? "ja-JP" : "en-US",
-  { year: "numeric", month: "2-digit", day: "2-digit" }
-);
+const dateFormatter = new Intl.DateTimeFormat(localeIntlTag[locale], {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
 
 // Solution slug (matches /zh-tw/solutions/<slug>/) -> centralized media key
 // (see src/data/homepage-media.ts)
@@ -63,14 +64,14 @@ const caseMediaByOrder = [
 const seoTitleByLocale: Record<Locale, string> = {
   "zh-tw": "Big x Reality｜全球動力科技 XR 模擬訓練解決方案",
   en: "Big x Reality | Global Power Technology XR Training Solutions",
-  ja: "Big x Reality｜全球動力科技 XRトレーニングソリューション",
+  jp: "Big x Reality｜全球動力科技 XRトレーニングソリューション",
 };
 
 const seoDescriptionByLocale: Record<Locale, string> = {
   "zh-tw":
     "全球動力科技 Big x Reality 提供虛實整合 XR 模擬訓練解決方案，為軍警、消防與智慧城市單位打造高擬真訓練環境。",
   en: "Global Power Technology's Big x Reality delivers XR training simulation solutions for law enforcement, defense, fire & rescue, and smart city agencies.",
-  ja: "全球動力科技のBig x Realityは、警察・消防・スマートシティ向けのXRトレーニングシミュレーションソリューションを提供します。",
+  jp: "全球動力科技のBig x Realityは、警察・消防・スマートシティ向けのXRトレーニングシミュレーションソリューションを提供します。",
 };
 ---
 
@@ -130,7 +131,7 @@ const seoDescriptionByLocale: Record<Locale, string> = {
       allLinkHref={`/${locale}/solutions/`}
       learnMoreLabel={settings.sectionLabels.learnMore}
       items={solutionEntries.map((e) => {
-        // fire-rescue only has a page for zh-tw so far; en/ja fall back to
+        // fire-rescue only has a page for zh-tw so far; en/jp fall back to
         // their own homepage rather than linking to a 404. The other three
         // solution pages now exist for all three locales.
         const hasPage = locale === "zh-tw" || e.data.itemSlug !== "fire-rescue";

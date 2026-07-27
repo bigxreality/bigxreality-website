@@ -57,7 +57,8 @@
   未改寫任何語意。完整原文存於 `src/data/solutions-rich.ts`（`en` 區塊）。
 - **日文**：官方網站沒有日文版，因此由 Claude 依據上述英文原文逐段翻譯，非取自任何官方
   日文來源。翻譯時保留產品名稱（如 BXR Weapon Simulator）不譯，其餘描述性文字忠實翻譯，
-  未增添原文沒有的宣稱或數據。存於 `src/data/solutions-rich.ts`（`ja` 區塊）。
+  未增添原文沒有的宣稱或數據。存於 `src/data/solutions-rich.ts`（`jp` 區塊——網址路徑代號為
+  `jp`，`<html lang>`／hreflang 仍使用正確的日文 BCP-47 代碼 `ja`）。
 - **消防（Fire & Rescue）**：官方英文網站沒有獨立的消防頁面（僅在 Smart City 頁面中提到
   「Smart Firefighting Simulation Training」為其中一個應用小節），因此英文／日文版**沒有**
   建立獨立的消防解決方案頁，避免無中生有。zh-tw 版的消防頁（本輪稍早建立、標記為新增暫定
@@ -70,3 +71,26 @@
 Simulator、BXR Driving Simulator、BXR Wargaming Table、BXR CQB Simulator 等）。**本輪未
 回頭修改 zh-tw 頁面內容**以維持任務範圍單純；若之後要讓 zh-tw 與這份更完整的官方內容對齊
 （甚至將其翻譯為繁中），需要另外確認與執行，不在本輪自動進行。
+
+## 繁體中文（後續輪次新增：警勤、智慧城市完整官方文案）
+
+使用者直接提供了官方繁體中文網站「警勤模擬」與「智慧城市」兩頁的完整文字內容（本環境仍無法
+自行連線存取 bigxreality.com，403 情況與先前輪次相同），結構與上述英文／日文內容相同
+（關於段落 + 【】標記的功能小節 + 方案特色）。處理方式：
+
+- **警勤模擬**、**智慧城市**：逐字採用使用者提供的內容，僅做最小的排版整理（依段落標題拆分為
+  小節），未改寫任何語意。完整原文存於 `src/data/solutions-rich.ts`（`solutionsRich["zh-tw"]`）。
+  對應頁面 `src/pages/zh-tw/solutions/police/index.astro` 與
+  `src/pages/zh-tw/solutions/smart-city/index.astro` 已改為使用 `RichSolutionPage` 元件與
+  此份新內容渲染，取代舊的 `痛點／應用情境／對應產品` 模型（`src/data/solutions.ts` 中對應的
+  `police`／`smart-city` 項目保留不變，僅未再用於這兩個頁面的渲染，仍作為總覽頁
+  `orderedSolutions` 摘要卡片與 `OtherSolutionsNav` 的資料來源）。
+- 智慧城市「方案特色」第三項為「資源管理」，與英文版對應段落「Function Prediction and
+  Operational Analysis」文字不同——因為是分別提供的官方文案，兩語言版本本身即有出入，本輪
+  依各自提供的原文逐字採用，未強行统一。
+- **軍事（Military）**：本輪**未**提供官方中文全文，zh-tw 軍事頁面維持原本（依任務指示條列
+  清單建立的）內容，尚待使用者提供官方全文後才能比照本次做法更新。
+- **消防（Fire & Rescue）**：本輪未提供內容，且英文／日文版本身就沒有消防頁面，zh-tw 消防頁
+  維持不變（見上方「消防文案待確認項目」）。
+- 總覽頁 `/zh-tw/solutions/` 的警勤／智慧城市摘要卡片文字（`overviewExcerpt`）**未**跟著更新，
+  維持原本的簡短摘要，以維持本輪任務範圍單純；如需要讓總覽頁摘要與新內文對齊，需另外確認。

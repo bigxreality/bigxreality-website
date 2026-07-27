@@ -1,5 +1,5 @@
 ---
-locale: "ja"
+locale: "jp"
 itemSlug: "fire-rescue"
 order: 3
 code: "SOL-04 // FIRE & RESCUE"

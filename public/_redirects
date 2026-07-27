@@ -8,7 +8,7 @@
 /tw/*          /zh-tw/   301
 /zh-tw/home    /zh-tw/   301
 /en/home       /en/      301
-/jp/home       /ja/      301
-/jp            /ja/      301
-/jp/*          /ja/      301
-/ja/home       /ja/      301
+/ja/home       /jp/      301
+/ja            /jp/      301
+/ja/*          /jp/      301
+/jp/home       /jp/      301

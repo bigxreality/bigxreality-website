@@ -1,5 +1,5 @@
 ---
-locale: "ja"
+locale: "jp"
 itemSlug: "smart-city-trend"
 title: "[翻訳準備中]"
 category: "INDUSTRY"

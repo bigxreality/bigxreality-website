@@ -1,5 +1,5 @@
 ---
-locale: "ja"
+locale: "jp"
 itemSlug: "brand-award"
 title: "[翻訳準備中]"
 category: "COMPANY"
