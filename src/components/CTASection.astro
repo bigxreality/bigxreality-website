@@ -1,6 +1,8 @@
 ---
 import Button from "@/components/Button.astro";
+import HomeImage from "@/components/HomeImage.astro";
 import { withBase } from "@/i18n/utils";
+import type { MediaEntry } from "@/data/homepage-media";
 
 interface LinkItem {
   label: string;
@@ -12,12 +14,17 @@ interface Props {
   title: string;
   ctaPrimary: LinkItem;
   ctaSecondary?: LinkItem;
+  media: MediaEntry;
 }
 
-const { eyebrow, title, ctaPrimary, ctaSecondary } = Astro.props;
+const { eyebrow, title, ctaPrimary, ctaSecondary, media } = Astro.props;
 ---
 
-<section class="relative overflow-hidden bg-gradient-to-br from-navy-600 to-bg py-15 md:py-[80px] xl:py-30">
+<section class="relative overflow-hidden bg-navy-600 py-15 md:py-[80px] xl:py-30">
+  <div class="absolute inset-0">
+    <HomeImage media={media} width={1920} height={900} class="opacity-30" />
+    <div class="absolute inset-0 bg-gradient-to-br from-navy-600/90 to-bg/95"></div>
+  </div>
   <div
     class="absolute inset-0 opacity-[0.12]"
     style="background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 56px 56px;"

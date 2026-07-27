@@ -1,29 +1,25 @@
 ---
 import Card from "@/components/Card.astro";
-import PlaceholderImage from "@/components/PlaceholderImage.astro";
+import HomeImage from "@/components/HomeImage.astro";
 import { withBase } from "@/i18n/utils";
+import type { MediaEntry } from "@/data/homepage-media";
 
 interface Props {
   href: string;
   code: string;
   title: string;
   excerpt: string;
-  image: { src: string; alt: string };
+  media: MediaEntry;
   learnMoreLabel: string;
   featured?: boolean;
 }
 
-const { href, code, title, excerpt, image, learnMoreLabel, featured = false } = Astro.props;
+const { href, code, title, excerpt, media, learnMoreLabel, featured = false } = Astro.props;
 ---
 
 <Card href={withBase(href)} class={featured ? "md:flex md:flex-row-reverse" : "h-full flex flex-col"}>
-  <div class:list={["relative", featured ? "md:w-1/2" : ""]}>
-    <PlaceholderImage
-      id={image.src.split("/").pop() ?? "solution"}
-      alt={image.alt}
-      ratio={featured ? "4 / 3" : "4 / 3"}
-      class={featured ? "h-full min-h-[220px]" : "h-[160px] md:h-[180px]"}
-    />
+  <div class:list={["relative", featured ? "md:w-1/2 aspect-[4/3] md:aspect-auto md:h-full" : "aspect-[4/3]"]}>
+    <HomeImage media={media} width={1200} height={900} />
   </div>
   <div class:list={["p-5", featured ? "md:p-8 md:w-1/2 flex flex-col justify-center" : "flex flex-col flex-1"]}>
     <span class="text-[11px] uppercase tracking-[0.06em] text-brand">{code}</span>

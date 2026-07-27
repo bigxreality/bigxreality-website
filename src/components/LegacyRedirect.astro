@@ -1,0 +1,29 @@
+---
+// Static-host "301" — GitHub Pages can't do server-side redirects, so this
+// pairs a <meta http-equiv="refresh"> with a canonical tag pointing at the
+// real target. When the site moves to Netlify, replace these with real
+// netlify.toml / _redirects 301s (see public/_redirects, already drafted).
+import { withBase } from "@/i18n/utils";
+
+interface Props {
+  to: string; // absolute path within the locale structure, e.g. "/zh-tw/"
+}
+
+const { to } = Astro.props;
+const target = withBase(to);
+const absoluteTarget = new URL(target, Astro.site).toString();
+---
+
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Big x Reality</title>
+    <link rel="canonical" href={absoluteTarget} />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+  </head>
+  <body>
+    <p>此網址已搬移，請點擊繼續：<a href={target}>{target}</a></p>
+  </body>
+</html>

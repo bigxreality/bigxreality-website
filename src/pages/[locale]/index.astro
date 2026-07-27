@@ -13,6 +13,7 @@ import CaseStudiesSection from "@/components/CaseStudiesSection.astro";
 import NewsSection from "@/components/NewsSection.astro";
 import CTASection from "@/components/CTASection.astro";
 import { locales, withBase, type Locale } from "@/i18n/utils";
+import { homepageMedia } from "@/data/homepage-media";
 
 export async function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale } }));
@@ -44,6 +45,20 @@ const dateFormatter = new Intl.DateTimeFormat(
   { year: "numeric", month: "2-digit", day: "2-digit" }
 );
 
+// Solution slug -> centralized media key (see src/data/homepage-media.ts)
+const solutionMediaKey: Record<string, keyof typeof homepageMedia.solutions> = {
+  "law-enforcement": "police",
+  defense: "military",
+  "smart-city": "smartCity",
+  "fire-rescue": "fire",
+};
+
+const caseMediaByOrder = [
+  homepageMedia.cases.case01,
+  homepageMedia.cases.case02,
+  homepageMedia.cases.case03,
+];
+
 const seoTitleByLocale: Record<Locale, string> = {
   "zh-tw": "Big x Reality｜全球動力科技 XR 模擬訓練解決方案",
   en: "Big x Reality | Global Power Technology XR Training Solutions",
@@ -66,13 +81,14 @@ const seoDescriptionByLocale: Record<Locale, string> = {
       title={seoTitleByLocale[locale]}
       description={seoDescriptionByLocale[locale]}
     />
+    <link rel="preload" as="image" href={withBase(homepageMedia.hero.desktop.src)} />
   </Fragment>
 
   <Header locale={locale} currentPath={`/${locale}/`} nav={settings.nav.primary} cta={settings.nav.cta} />
 
   <main class="flex-1">
     <section class="relative isolate overflow-hidden bg-navy-800 pt-16 md:pt-20">
-      <HeroSlider slides={settings.hero.slides} />
+      <HeroSlider slides={[{ desktop: homepageMedia.hero.desktop, mobile: homepageMedia.hero.mobile }]} />
       <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20 pt-16 pb-24 md:pt-24 md:pb-32 xl:pt-32 xl:pb-40">
         <p class="text-label font-bold uppercase tracking-[0.1em] text-brand mb-6">{settings.hero.eyebrow}</p>
         <h1 class="text-h1-sm md:text-h1-md xl:text-h1 font-extrabold leading-[1.12] text-white max-w-4xl">
@@ -92,9 +108,20 @@ const seoDescriptionByLocale: Record<Locale, string> = {
       </div>
     </section>
 
-    <AboutSection {...settings.about} />
+    <AboutSection
+      eyebrow={settings.about.eyebrow}
+      title={settings.about.title}
+      body={settings.about.body}
+      stats={settings.about.stats}
+      media={homepageMedia.about.company}
+    />
 
-    <WhyXrSection {...settings.whyXr} />
+    <WhyXrSection
+      eyebrow={settings.whyXr.eyebrow}
+      title={settings.whyXr.title}
+      subtitle={settings.whyXr.subtitle}
+      points={settings.whyXr.points}
+    />
 
     <SolutionsSection
       title={settings.sectionLabels.solutions}
@@ -106,18 +133,18 @@ const seoDescriptionByLocale: Record<Locale, string> = {
         code: e.data.code,
         title: e.data.title,
         excerpt: e.data.excerpt,
-        image: e.data.image,
+        media: homepageMedia.solutions[solutionMediaKey[e.data.itemSlug]],
       }))}
     />
 
     <CaseStudiesSection
       title={settings.sectionLabels.caseStudies}
-      items={caseEntries.map((e) => ({
+      items={caseEntries.map((e, i) => ({
         code: e.data.code,
         category: e.data.category,
         title: e.data.title,
         excerpt: e.data.excerpt,
-        image: e.data.image,
+        media: caseMediaByOrder[i] ?? homepageMedia.cases.case01,
       }))}
     />
 
@@ -138,6 +165,7 @@ const seoDescriptionByLocale: Record<Locale, string> = {
       title={settings.missionCta.title}
       ctaPrimary={settings.missionCta.ctaPrimary}
       ctaSecondary={settings.missionCta.ctaSecondary}
+      media={homepageMedia.cta.contact}
     />
   </main>
 

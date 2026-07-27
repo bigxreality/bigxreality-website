@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bigxreality.github.io/bigxreality-website/sitemap.xml

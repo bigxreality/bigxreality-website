@@ -1,26 +1,22 @@
 ---
 import Card from "@/components/Card.astro";
-import PlaceholderImage from "@/components/PlaceholderImage.astro";
+import HomeImage from "@/components/HomeImage.astro";
+import type { MediaEntry } from "@/data/homepage-media";
 
 interface Props {
   code: string;
   category: string;
   title: string;
   excerpt: string;
-  image: { src: string; alt: string };
+  media: MediaEntry;
 }
 
-const { code, category, title, excerpt, image } = Astro.props;
+const { code, category, title, excerpt, media } = Astro.props;
 ---
 
 <Card class="h-full flex flex-col">
-  <div class="relative">
-    <PlaceholderImage
-      id={image.src.split("/").pop() ?? "case"}
-      alt={image.alt}
-      ratio="4 / 3"
-      class="h-[160px] md:h-[180px]"
-    />
+  <div class="relative aspect-[4/3]">
+    <HomeImage media={media} width={1200} height={900} />
     <span class="absolute top-3 left-3 text-[10px] uppercase tracking-[0.08em] text-white bg-bg/60 border border-white/[0.15] rounded px-2 py-1">
       {code}
     </span>

@@ -1,14 +1,15 @@
 ---
-// Entry point for the bare site root. Client-side only redirect based on a
-// remembered choice or browser language — never IP-based, never forced
-// (the user can always land on /zh-tw/ directly and switch manually).
+// Site root. Always points at /zh-tw/ (Big x Reality's primary market) —
+// per spec this must NOT branch on browser language, only on an explicit
+// past choice made via the language switcher (localStorage), so it never
+// fights a user who deliberately switched languages.
 import { withBase } from "@/i18n/utils";
 
 const fallback = withBase("/zh-tw/");
 ---
 
 <!doctype html>
-<html lang="zh-Hant-TW">
+<html lang="zh-TW">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="refresh" content={`0; url=${fallback}`} />
@@ -19,10 +20,6 @@ const fallback = withBase("/zh-tw/");
       var target = fallback;
       if (stored && supported.indexOf(stored) !== -1) {
         target = fallback.replace("/zh-tw/", "/" + stored + "/");
-      } else {
-        var browserLang = (navigator.language || "zh-tw").toLowerCase();
-        if (browserLang.startsWith("ja")) target = fallback.replace("/zh-tw/", "/ja/");
-        else if (browserLang.startsWith("en")) target = fallback.replace("/zh-tw/", "/en/");
       }
       window.location.replace(target);
     </script>

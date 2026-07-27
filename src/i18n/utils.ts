@@ -10,7 +10,7 @@ export const localeLabels: Record<Locale, string> = {
 
 /** BCP-47 tag for <html lang> / hreflang, distinct from the URL segment. */
 export const localeHtmlLang: Record<Locale, string> = {
-  "zh-tw": "zh-Hant-TW",
+  "zh-tw": "zh-TW",
   en: "en",
   ja: "ja",
 };

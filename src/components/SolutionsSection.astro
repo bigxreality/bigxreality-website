@@ -1,13 +1,14 @@
 ---
 import SolutionCard from "@/components/SolutionCard.astro";
 import { withBase } from "@/i18n/utils";
+import type { MediaEntry } from "@/data/homepage-media";
 
 interface SolutionItem {
   href: string;
   code: string;
   title: string;
   excerpt: string;
-  image: { src: string; alt: string };
+  media: MediaEntry;
 }
 
 interface Props {

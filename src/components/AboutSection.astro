@@ -1,15 +1,16 @@
 ---
-import PlaceholderImage from "@/components/PlaceholderImage.astro";
+import HomeImage from "@/components/HomeImage.astro";
+import type { MediaEntry } from "@/data/homepage-media";
 
 interface Props {
   eyebrow: string;
   title: string;
   body: string;
   stats: { value: string; label: string }[];
-  image: { src: string; alt: string };
+  media: MediaEntry;
 }
 
-const { eyebrow, title, body, stats, image } = Astro.props;
+const { eyebrow, title, body, stats, media } = Astro.props;
 ---
 
 <section class="bg-bg py-15 md:py-[80px] xl:py-30">
@@ -34,8 +35,8 @@ const { eyebrow, title, body, stats, image } = Astro.props;
       </dl>
     </div>
 
-    <div class="reveal">
-      <PlaceholderImage id="about-main" alt={image.alt} ratio="4 / 3" class="rounded" />
+    <div class="reveal rounded overflow-hidden aspect-[4/3]">
+      <HomeImage media={media} width={1200} height={900} />
     </div>
   </div>
 </section>

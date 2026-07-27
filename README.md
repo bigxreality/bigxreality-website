@@ -47,23 +47,41 @@ src/
     insights/ faq/         # 已建 schema，尚無內容條目
     siteSettings/          # 每語系一份：導覽、Hero、About、WhyXR、最終CTA、Footer 等文案
   components/            # Header / Footer / LanguageSwitcher / Breadcrumb / CTASection /
-                          # HeroSlider / SolutionCard / CaseCard / NewsCard / SEOHead 等
+                          # HeroSlider / SolutionCard / CaseCard / NewsCard / SEOHead /
+                          # HomeImage / LegacyRedirect 等
+  data/homepage-media.ts # 首頁圖片集中資料檔（唯一圖片路徑來源，元件不寫死路徑）
   i18n/utils.ts           # locales、語系網址工具
   pages/
-    index.astro           # 根路徑：依記憶語系或瀏覽器語言導向（非強制、非 IP 導向）
+    index.astro           # 根路徑：固定導向 /zh-tw/（除非語言切換器留下記錄），不依瀏覽器語言
     [locale]/index.astro  # 首頁（zh-tw / en / ja 共用同一份模板）
+    sitemap.xml.ts         # 動態產生 sitemap（僅列 3 個語系首頁）
+    {tw,zh-tw,en,jp,ja}/   # 舊網址靜態轉址頁（見下方「舊網址轉址」）
+public/
+  images/home/            # 首頁圖片實檔，依區塊分資料夾，各資料夾內附 README 說明比例/命名規則
+  robots.txt
+  _redirects              # Netlify 用（GitHub Pages 階段無作用）
+scripts/generate-placeholders.py # 產生佔位圖的一次性腳本（非 build 流程）
 .github/workflows/deploy-pages.yml
-ASSETS_NEEDED.md          # 圖片素材需求清單
-docs/homepage-copy-changes.md      # 文案沿用／修改紀錄
-docs/homepage-image-requirements.md # 舊版（Next.js）紀錄，已由 ASSETS_NEEDED.md 取代
+docs/homepage-copy-changes.md       # 文案沿用／修改紀錄
+docs/homepage-image-requirements.md # 首頁圖片需求清單（檔名／區塊／比例／狀態對照表）
+docs/homepage-image-status.md       # 每張圖片目前狀態（missing/temporary/approved/replace-later）
 ```
 
 ## 多語系
 
 - 網址結構：`/zh-tw/`、`/en/`、`/ja/`，語系根路徑本身即首頁（不使用 `/zh-tw/home`）
-- 語言切換器記住選擇（`localStorage`），且首次進站僅依瀏覽器語言「建議」導向，不強制、不依 IP
+- 語言代碼：繁中 `zh-tw`（`<html lang="zh-TW">`）、英文 `en`、日文 `ja`（不使用 `jp`，那是國碼不是語言碼）
+- 根路徑 `/` 固定導向 `/zh-tw/`（除非使用者透過語言切換器留下 `localStorage` 記錄），不依瀏覽器語言強制跳轉
+- 語言切換器記住選擇（`localStorage`）
 - en / ja 的導覽選單與按鈕已翻譯；尚無官方翻譯的內文一律標記 `[Translation pending]` /
   `[翻訳準備中]`，未自行編造行銷文案
+
+### 舊網址轉址
+
+`/tw/home`、`/tw`、`/zh-tw/home`、`/en/home`、`/jp`、`/jp/home`、`/ja/home` 皆保留為靜態轉址頁
+（`src/pages/{tw,zh-tw,en,jp,ja}/*.astro`，共用 `src/components/LegacyRedirect.astro`）：
+`<meta http-equiv="refresh">` + 絕對網址 `canonical`。GitHub Pages 無法設定伺服器端 301，之後切換
+Netlify 時可改用 `public/_redirects`（已經寫好對應規則，目前對 GitHub Pages 無作用）做真正的 301。
 
 ## 設計系統
 
