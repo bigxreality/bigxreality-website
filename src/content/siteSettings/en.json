@@ -118,6 +118,32 @@
       }
     ]
   },
+  "realityXr": {
+    "eyebrow": "REALITY TO SIMULATION",
+    "title": "From a real training ground to a repeatable digital scenario",
+    "steps": [
+      {
+        "code": "01",
+        "label": "REAL ENVIRONMENT",
+        "body": "Actual training sites, equipment, and personnel are recorded as the basis for modeling."
+      },
+      {
+        "code": "02",
+        "label": "DIGITAL SCENARIO",
+        "body": "The site and scenario are rebuilt into an adjustable, repeatable digital environment."
+      },
+      {
+        "code": "03",
+        "label": "REPEATABLE TRAINING",
+        "body": "High-risk drills can be run again and again, free of site, weather, and consumable limits."
+      },
+      {
+        "code": "04",
+        "label": "MEASURABLE REVIEW",
+        "body": "Decision paths and performance data are recorded for instructor review and improvement."
+      }
+    ]
+  },
   "missionCta": {
     "eyebrow": "MISSION READY",
     "title": "[Translation pending]",

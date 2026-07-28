@@ -20,7 +20,13 @@ module.exports = {
           input: "rgba(255,255,255,0.15)",
         },
       },
-      fontFamily: { sans: ["Inter", "Noto Sans TC", "sans-serif"] },
+      fontFamily: {
+        sans: ["Inter", "Noto Sans TC", "sans-serif"],
+        // System/eyebrow/data labels only (VR/XR technical tags, product
+        // codes) — never large blocks of Chinese body copy. See
+        // docs/design/vr-xr-visual-language.md.
+        mono: ["PT Mono", "monospace"],
+      },
       fontSize: {
         h1: ["4rem", { lineHeight: "1.12", fontWeight: "800" }],
         "h1-md": ["2.875rem", { lineHeight: "1.15", fontWeight: "800" }],
@@ -39,6 +45,13 @@ module.exports = {
         stat: ["2.5rem", { lineHeight: "1.1", fontWeight: "800" }],
       },
       spacing: { 15: "3.75rem", 30: "7.5rem" },
+      // Virtual Layer tokens (see docs/design/vr-xr-visual-language.md) —
+      // low-contrast grid/node treatment, never neon or HUD-style.
+      backgroundImage: {
+        "xr-grid":
+          "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
+      },
+      backgroundSize: { "xr-grid": "40px 40px" },
       borderRadius: { DEFAULT: "4px" },
       screens: { sm: "390px", md: "768px", lg: "1024px", xl: "1440px" },
     },

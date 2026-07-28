@@ -118,6 +118,32 @@
       }
     ]
   },
+  "realityXr": {
+    "eyebrow": "REALITY TO SIMULATION",
+    "title": "現実の訓練現場から、繰り返し検証できるデジタルシナリオへ",
+    "steps": [
+      {
+        "code": "01",
+        "label": "REAL ENVIRONMENT",
+        "body": "実際の訓練場所、装備、人員配置をモデリングの基礎として記録します。"
+      },
+      {
+        "code": "02",
+        "label": "DIGITAL SCENARIO",
+        "body": "場域とシナリオを、調整・再構築が可能なデジタル環境へと変換します。"
+      },
+      {
+        "code": "03",
+        "label": "REPEATABLE TRAINING",
+        "body": "場所・天候・消耗品の制約を受けず、高リスクな科目を何度でも訓練できます。"
+      },
+      {
+        "code": "04",
+        "label": "MEASURABLE REVIEW",
+        "body": "意思決定の過程と操作データを記録し、教官による検討と改善に活用します。"
+      }
+    ]
+  },
   "missionCta": {
     "eyebrow": "MISSION READY",
     "title": "[翻訳準備中]",

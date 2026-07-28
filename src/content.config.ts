@@ -150,6 +150,13 @@ const siteSettings = defineCollection({
         z.object({ index: z.string(), title: z.string(), body: z.string() })
       ),
     }),
+    realityXr: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      steps: z.array(
+        z.object({ code: z.string(), label: z.string(), body: z.string() })
+      ),
+    }),
     missionCta: z.object({
       eyebrow: z.string(),
       title: z.string(),

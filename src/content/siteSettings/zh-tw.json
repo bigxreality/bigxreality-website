@@ -118,6 +118,32 @@
       }
     ]
   },
+  "realityXr": {
+    "eyebrow": "REALITY TO SIMULATION",
+    "title": "從真實訓練場域，到可反覆驗證的數位情境",
+    "steps": [
+      {
+        "code": "01",
+        "label": "REAL ENVIRONMENT",
+        "body": "記錄真實訓練場地、裝備與人員配置，作為建模的基礎。"
+      },
+      {
+        "code": "02",
+        "label": "DIGITAL SCENARIO",
+        "body": "將場域與情境轉化為可調整、可重建的數位化模擬環境。"
+      },
+      {
+        "code": "03",
+        "label": "REPEATABLE TRAINING",
+        "body": "不受場地、氣候與耗材限制，隨時反覆演練高風險科目。"
+      },
+      {
+        "code": "04",
+        "label": "MEASURABLE REVIEW",
+        "body": "記錄決策路徑與操作數據，做為教官檢討與改善的依據。"
+      }
+    ]
+  },
   "missionCta": {
     "eyebrow": "MISSION READY",
     "title": "準備好體驗下一代訓練方式了嗎？",
