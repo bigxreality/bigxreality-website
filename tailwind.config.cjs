@@ -53,7 +53,11 @@ module.exports = {
       },
       backgroundSize: { "xr-grid": "40px 40px" },
       borderRadius: { DEFAULT: "4px" },
-      screens: { sm: "390px", md: "768px", lg: "1024px", xl: "1440px" },
+      // Full RWD range per design spec: 360 is the unbreakpointed mobile
+      // floor (base/mobile-first styles must hold down to it, no query
+      // needed), 390/768/1024/1440 are the existing tested tiers, 1920 is
+      // the large-desktop tier for content that should cap/breathe further.
+      screens: { sm: "390px", md: "768px", lg: "1024px", xl: "1440px", "2xl": "1920px" },
     },
   },
   plugins: [],
