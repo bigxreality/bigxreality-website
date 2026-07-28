@@ -8,6 +8,8 @@ import HeroSlider from "@/components/HeroSlider.astro";
 import Button from "@/components/Button.astro";
 import AboutSection from "@/components/AboutSection.astro";
 import WhyXrSection from "@/components/WhyXrSection.astro";
+import RealityXrTransition from "@/components/RealityXrTransition.astro";
+import TrustBar from "@/components/TrustBar.astro";
 import SolutionsSection from "@/components/SolutionsSection.astro";
 import CaseStudiesSection from "@/components/CaseStudiesSection.astro";
 import NewsSection from "@/components/NewsSection.astro";
@@ -110,6 +112,17 @@ const seoDescriptionByLocale: Record<Locale, string> = {
       </div>
     </section>
 
+    {
+      // en/jp trustedBy is still "[Translation pending]" (no verified
+      // official English/Japanese agency names yet) — only render once
+      // real data exists for that locale.
+      settings.trustedBy.length > 0 &&
+        !settings.trustedBy[0].includes("pending") &&
+        !settings.trustedBy[0].includes("準備中") && (
+          <TrustBar label={settings.sectionLabels.trustedBy} items={settings.trustedBy} />
+        )
+    }
+
     <AboutSection
       eyebrow={settings.about.eyebrow}
       title={settings.about.title}
@@ -123,6 +136,13 @@ const seoDescriptionByLocale: Record<Locale, string> = {
       title={settings.whyXr.title}
       subtitle={settings.whyXr.subtitle}
       points={settings.whyXr.points}
+    />
+
+    <RealityXrTransition
+      eyebrow={settings.realityXr.eyebrow}
+      title={settings.realityXr.title}
+      steps={settings.realityXr.steps}
+      media={homepageMedia.xrTraining.reality}
     />
 
     <SolutionsSection
