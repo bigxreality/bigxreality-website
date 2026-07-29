@@ -3,32 +3,39 @@ import HomeImage from "@/components/HomeImage.astro";
 import type { MediaEntry } from "@/data/homepage-media";
 
 interface Props {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
-  body: string;
-  stats: { value: string; label: string }[];
+  body: string[];
+  points: { title: string; body: string }[];
   media: MediaEntry;
 }
 
-const { eyebrow, title, body, stats, media } = Astro.props;
+const { eyebrow, title, body, points, media } = Astro.props;
 ---
 
 <section class="bg-bg py-15 md:py-[80px] xl:py-30">
   <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20 grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-center">
     <div class="reveal">
-      <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-text-muted mb-2">{eyebrow}</p>
+      {
+        eyebrow && (
+          <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-text-muted mb-2">
+            {eyebrow}
+          </p>
+        )
+      }
       <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white">{title}</h2>
-      <p class="mt-6 text-base leading-[1.75] text-text-body max-w-xl">{body}</p>
+      {
+        body.map((paragraph) => (
+          <p class="mt-6 text-base leading-[1.75] text-text-body max-w-xl">{paragraph}</p>
+        ))
+      }
 
-      <dl class="mt-10 grid grid-cols-3 gap-4 max-w-xl">
+      <dl class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-xl">
         {
-          stats.map((stat) => (
+          points.map((point) => (
             <div class="border-t border-border pt-4">
-              <dt class="sr-only">{stat.label}</dt>
-              <dd>
-                <span class="text-stat font-extrabold leading-[1.1] text-brand block">{stat.value}</span>
-                <span class="text-body-sm text-text-muted mt-2 block">{stat.label}</span>
-              </dd>
+              <dt class="text-h3 font-semibold text-white">{point.title}</dt>
+              <dd class="mt-2 text-body-sm leading-[1.6] text-text-muted">{point.body}</dd>
             </div>
           ))
         }

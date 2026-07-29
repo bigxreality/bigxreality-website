@@ -7,6 +7,7 @@ interface LinkItem {
 }
 
 interface Props {
+  description?: string;
   companyName: string;
   address: string;
   email: string;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const {
+  description,
   companyName,
   address,
   email,
@@ -38,6 +40,7 @@ const {
         <span class="text-lg font-extrabold text-white">
           BIG<span class="text-brand">x</span>REALITY
         </span>
+        {description && <p class="mt-4 text-body-sm leading-[1.6] text-text-muted max-w-xs">{description}</p>}
         <p class="mt-4 text-body-sm text-text-muted">{companyName}</p>
         <p class="mt-2 text-body-sm text-text-muted">{address}</p>
         <a

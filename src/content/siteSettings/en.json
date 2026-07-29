@@ -64,27 +64,29 @@
     ]
   },
   "about": {
-    "eyebrow": "ABOUT // EST. 2003",
     "title": "[Translation pending]",
-    "body": "[Translation pending]",
-    "stats": [
-      {
-        "value": "20+",
-        "label": "[Translation pending]"
-      },
-      {
-        "value": "10+",
-        "label": "[Translation pending]"
-      },
-      {
-        "value": "50+",
-        "label": "[Translation pending]"
-      }
+    "body": ["[Translation pending]", "[Translation pending]"],
+    "points": [
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" }
     ],
     "image": {
-      "src": "/images/home/about-main.webp",
+      "src": "/images/home/about/home-xr-training-overview.webp",
       "alt": "Global Power Technology systems integration capability"
     }
+  },
+  "trainingChallenges": {
+    "eyebrow": "TRAINING CHALLENGES",
+    "title": "[Translation pending]",
+    "intro": "[Translation pending]",
+    "cards": [
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" }
+    ]
   },
   "whyXr": {
     "eyebrow": "PROBLEM ANALYSIS",
@@ -144,9 +146,41 @@
       }
     ]
   },
+  "coreCapabilities": {
+    "eyebrow": "CORE CAPABILITIES",
+    "title": "[Translation pending]",
+    "intro": "[Translation pending]",
+    "items": [
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" }
+    ]
+  },
+  "featuredProductsSection": {
+    "eyebrow": "FEATURED TRAINING SYSTEMS",
+    "title": "[Translation pending]",
+    "intro": "[Translation pending]",
+    "allLinkLabel": "View All Systems",
+    "allLinkHref": "/en/products/"
+  },
+  "proof": {
+    "eyebrow": "PROVEN IN REAL-WORLD TRAINING",
+    "title": "[Translation pending]",
+    "intro": "[Translation pending]",
+    "items": [
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" },
+      { "title": "[Translation pending]", "body": "[Translation pending]" }
+    ]
+  },
   "missionCta": {
     "eyebrow": "MISSION READY",
     "title": "[Translation pending]",
+    "body": "[Translation pending]",
     "ctaPrimary": {
       "label": "Book a Demo",
       "href": "/en/contact/"
@@ -158,9 +192,14 @@
   },
   "sectionLabels": {
     "solutions": "Solutions",
+    "solutionsEyebrow": "SOLUTIONS",
+    "solutionsIntro": "[Translation pending]",
     "solutionsAllLink": "All Solutions",
     "caseStudies": "Featured Cases",
     "news": "Latest News",
+    "newsEyebrow": "NEWS AND INSIGHTS",
+    "newsIntro": "[Translation pending]",
+    "newsReadMore": "Read Article",
     "newsMoreLink": "More News",
     "trustedBy": "TRUSTED BY // Partners & Agencies",
     "learnMore": "Learn More"
@@ -169,6 +208,7 @@
     "[Translation pending]"
   ],
   "footer": {
+    "description": "[Translation pending]",
     "companyName": "Global Power Technology Co., Ltd.",
     "address": "[Translation pending]",
     "email": "service@gptt.com.tw",

@@ -1,6 +1,6 @@
 ---
 import HomeImage from "@/components/HomeImage.astro";
-import { homepageMedia } from "@/data/homepage-media";
+import type { MediaEntry } from "@/data/homepage-media";
 
 interface Point {
   index: string;
@@ -13,15 +13,10 @@ interface Props {
   title: string;
   subtitle: string;
   points: Point[];
+  media: MediaEntry;
 }
 
-const { eyebrow, title, subtitle, points } = Astro.props;
-
-const comparison = [
-  { media: homepageMedia.xrTraining.reality, label: "真實訓練" },
-  { media: homepageMedia.xrTraining.virtual, label: "XR 虛擬訓練" },
-  { media: homepageMedia.xrTraining.data, label: "訓練數據" },
-];
+const { eyebrow, title, subtitle, points, media } = Astro.props;
 ---
 
 <section class="bg-navy-800 py-15 md:py-[80px] xl:py-30">
@@ -34,17 +29,8 @@ const comparison = [
       <p class="mt-6 text-base leading-[1.75] text-text-body">{subtitle}</p>
     </div>
 
-    <div class="reveal mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
-      {
-        comparison.map((item) => (
-          <div class="relative rounded overflow-hidden aspect-[4/3] border border-border">
-            <HomeImage media={item.media} width={1200} height={900} />
-            <span class="absolute bottom-3 left-3 text-[11px] uppercase tracking-[0.06em] text-white bg-bg/60 border border-white/[0.15] rounded px-2 py-1">
-              {item.label}
-            </span>
-          </div>
-        ))
-      }
+    <div class="reveal mt-10 rounded overflow-hidden aspect-[16/9] border border-border">
+      <HomeImage media={media} width={1920} height={1080} />
     </div>
 
     <div class="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8 md:gap-y-10">
