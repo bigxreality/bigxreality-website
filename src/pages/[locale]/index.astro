@@ -70,6 +70,41 @@ const seoDescriptionByLocale: Record<Locale, string> = {
 
 // zh-tw only this round — en/jp featured-products content doesn't exist yet.
 const showFeaturedProducts = locale === "zh-tw";
+
+const siteUrl = Astro.site?.origin ?? "https://bigxreality.github.io";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const homeUrl = new URL(`${base}/${locale}/`, siteUrl).toString();
+
+// Organization/WebSite describe the real, already-published company info
+// (see settings.footer); ItemList mirrors the four solution cards actually
+// rendered below. No BreadcrumbList here — the homepage is the root, a
+// single-item breadcrumb wouldn't be meaningful.
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: settings.footer.companyName,
+    url: homeUrl,
+    email: settings.footer.email,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Big x Reality",
+    url: homeUrl,
+    inLanguage: locale === "jp" ? "ja" : locale === "en" ? "en" : "zh-TW",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: solutionEntries.map((e, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: e.data.title,
+      url: new URL(`${base}/${locale}/solutions/${e.data.itemSlug}/`, siteUrl).toString(),
+    })),
+  },
+];
 ---
 
 <Layout locale={locale}>
@@ -79,6 +114,7 @@ const showFeaturedProducts = locale === "zh-tw";
       path="/"
       title={seoTitleByLocale[locale]}
       description={seoDescriptionByLocale[locale]}
+      structuredData={structuredData}
     />
     <link rel="preload" as="image" href={withBase(homepageMedia.hero.desktop.src)} />
   </Fragment>
