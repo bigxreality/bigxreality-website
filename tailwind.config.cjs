@@ -19,6 +19,25 @@ module.exports = {
           strong: "rgba(255,255,255,0.15)",
           input: "rgba(255,255,255,0.15)",
         },
+        // Light-section tokens — for the light/dark alternating rhythm
+        // (some homepage sections are now white/light-gray/light-blue
+        // instead of the all-dark original). Kept as a separate namespace
+        // rather than reusing `text`/`border`/`bg` so dark-section
+        // components are never accidentally affected.
+        light: {
+          DEFAULT: "#FFFFFF",
+          soft: "#F5F6F8",
+          blue: "#EEF2F8",
+        },
+        ink: {
+          DEFAULT: "#0B1220",
+          body: "#3F4757",
+          muted: "#6B7280",
+        },
+        "border-light": {
+          DEFAULT: "rgba(11,18,32,0.08)",
+          strong: "rgba(11,18,32,0.14)",
+        },
       },
       fontFamily: {
         sans: ["Inter", "Noto Sans TC", "sans-serif"],

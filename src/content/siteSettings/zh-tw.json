@@ -207,6 +207,18 @@
     "allLinkLabel": "查看全部訓練系統",
     "allLinkHref": "/zh-tw/products/"
   },
+  "casesSection": {
+    "title": "應用案例",
+    "subtitle": "了解 Big x Reality 如何將 XR 模擬訓練導入實際任務與場域。",
+    "ctaLabel": "查看所有案例",
+    "ctaHref": "/zh-tw/cases/"
+  },
+  "newsSection": {
+    "title": "最新消息",
+    "subtitle": "掌握 Big x Reality 的產品發展、展覽活動與產業動態。",
+    "ctaLabel": "查看所有消息",
+    "ctaHref": "/zh-tw/news/"
+  },
   "proof": {
     "eyebrow": "PROVEN IN REAL-WORLD TRAINING",
     "title": "從技術研發到實際展示，持續驗證 XR 模擬訓練的應用價值",

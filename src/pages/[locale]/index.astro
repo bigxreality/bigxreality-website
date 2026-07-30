@@ -13,9 +13,9 @@ import SolutionsSection from "@/components/SolutionsSection.astro";
 import CoreCapabilitiesSection from "@/components/CoreCapabilitiesSection.astro";
 import FeaturedProductsSection from "@/components/FeaturedProductsSection.astro";
 import ProofSection from "@/components/ProofSection.astro";
-import NewsSection from "@/components/NewsSection.astro";
+import ContentCardGrid from "@/components/ContentCardGrid.astro";
 import CTASection from "@/components/CTASection.astro";
-import { locales, withBase, localeIntlTag, type Locale } from "@/i18n/utils";
+import { locales, withBase, type Locale } from "@/i18n/utils";
 import { homepageMedia } from "@/data/homepage-media";
 import { featuredProducts } from "@/data/featured-products";
 
@@ -40,11 +40,9 @@ const newsEntries = byLocale(await getCollection("news")).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 ) as CollectionEntry<"news">[];
 
-const dateFormatter = new Intl.DateTimeFormat(localeIntlTag[locale], {
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-});
+const caseEntries = byLocale(await getCollection("caseStudies")).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+) as CollectionEntry<"caseStudies">[];
 
 // Solution slug (matches /zh-tw/solutions/<slug>/) -> centralized media key
 // (see src/data/homepage-media.ts)
@@ -68,8 +66,10 @@ const seoDescriptionByLocale: Record<Locale, string> = {
   jp: "全球動力科技のBig x Realityは、警察・消防・スマートシティ向けのXRトレーニングシミュレーションソリューションを提供します。",
 };
 
-// zh-tw only this round — en/jp featured-products content doesn't exist yet.
+// zh-tw only this round — en/jp featured-products / cases+news card content
+// (casesSection/newsSection copy) doesn't exist yet.
 const showFeaturedProducts = locale === "zh-tw";
+const showContentCards = locale === "zh-tw";
 
 const siteUrl = Astro.site?.origin ?? "https://bigxreality.github.io";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -230,22 +230,39 @@ const structuredData = [
       partners={settings.trustedBy[0]?.includes("pending") || settings.trustedBy[0]?.includes("準備中") ? [] : settings.trustedBy}
     />
 
-    <NewsSection
-      eyebrow={settings.sectionLabels.newsEyebrow}
-      title={settings.sectionLabels.news}
-      intro={settings.sectionLabels.newsIntro}
-      moreLinkLabel={settings.sectionLabels.newsMoreLink}
-      moreLinkHref={`/${locale}/news/`}
-      readMoreLabel={settings.sectionLabels.newsReadMore ?? settings.sectionLabels.learnMore}
-      items={newsEntries.slice(0, 3).map((e) => ({
-        href: `/${locale}/news/${e.data.itemSlug}/`,
-        date: dateFormatter.format(e.data.publishDate),
-        category: e.data.category,
-        title: e.data.title,
-        excerpt: e.data.excerpt,
-        media: e.data.coverImage,
-      }))}
-    />
+    {
+      showContentCards && settings.casesSection && caseEntries.length > 0 && (
+        <ContentCardGrid
+          bgClass="bg-white"
+          title={settings.casesSection.title}
+          subtitle={settings.casesSection.subtitle}
+          ctaLabel={settings.casesSection.ctaLabel}
+          ctaHref={settings.casesSection.ctaHref}
+          items={caseEntries.slice(0, 4).map((e) => ({
+            href: `/${locale}/cases/${e.data.itemSlug}/`,
+            title: e.data.title,
+            media: e.data.image,
+          }))}
+        />
+      )
+    }
+
+    {
+      showContentCards && settings.newsSection && newsEntries.length > 0 && (
+        <ContentCardGrid
+          bgClass="bg-light-soft"
+          title={settings.newsSection.title}
+          subtitle={settings.newsSection.subtitle}
+          ctaLabel={settings.newsSection.ctaLabel}
+          ctaHref={settings.newsSection.ctaHref}
+          items={newsEntries.slice(0, 4).map((e) => ({
+            href: `/${locale}/news/${e.data.itemSlug}/`,
+            title: e.data.title,
+            media: e.data.coverImage,
+          }))}
+        />
+      )
+    }
 
     <CTASection
       eyebrow={settings.missionCta.eyebrow}

@@ -217,6 +217,25 @@ const siteSettings = defineCollection({
         allLinkHref: z.string(),
       })
       .optional(),
+    // Cases and News on the homepage share the same image+title-only
+    // ContentCard system (see ContentCardGrid.astro) — no eyebrow, the
+    // subtitle only shows on desktop.
+    casesSection: z
+      .object({
+        title: z.string(),
+        subtitle: z.string(),
+        ctaLabel: z.string(),
+        ctaHref: z.string(),
+      })
+      .optional(),
+    newsSection: z
+      .object({
+        title: z.string(),
+        subtitle: z.string(),
+        ctaLabel: z.string(),
+        ctaHref: z.string(),
+      })
+      .optional(),
     footer: z.object({
       description: z.string().optional(),
       companyName: z.string(),

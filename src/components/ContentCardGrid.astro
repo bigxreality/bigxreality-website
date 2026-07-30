@@ -1,0 +1,43 @@
+---
+import ContentCard from "@/components/ContentCard.astro";
+import { withBase } from "@/i18n/utils";
+import type { MediaEntry } from "@/data/homepage-media";
+
+interface Item {
+  href: string;
+  title: string;
+  media: MediaEntry;
+}
+
+interface Props {
+  bgClass: string;
+  title: string;
+  subtitle?: string;
+  ctaLabel: string;
+  ctaHref: string;
+  items: Item[];
+}
+
+const { bgClass, title, subtitle, ctaLabel, ctaHref, items } = Astro.props;
+---
+
+<section class:list={["py-15 md:py-[80px] xl:py-30", bgClass]}>
+  <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+    <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+      <div class="max-w-2xl">
+        <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-ink">{title}</h2>
+        {subtitle && <p class="hidden lg:block mt-4 text-base leading-[1.75] text-ink-body">{subtitle}</p>}
+      </div>
+      <a
+        href={withBase(ctaHref)}
+        class="text-brand hover:text-brand-hover text-[15px] font-semibold w-fit shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand rounded"
+      >
+        {ctaLabel} →
+      </a>
+    </div>
+
+    <div class="reveal mt-10 md:mt-12 flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0 md:gap-6">
+      {items.map((item) => <ContentCard href={item.href} title={item.title} media={item.media} />)}
+    </div>
+  </div>
+</section>

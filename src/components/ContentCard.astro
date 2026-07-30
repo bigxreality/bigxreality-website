@@ -1,0 +1,25 @@
+---
+import HomeImage from "@/components/HomeImage.astro";
+import { withBase } from "@/i18n/utils";
+import type { MediaEntry } from "@/data/homepage-media";
+
+interface Props {
+  href: string;
+  title: string;
+  media: MediaEntry;
+}
+
+const { href, title, media } = Astro.props;
+---
+
+<a
+  href={withBase(href)}
+  class="group flex flex-row md:flex-col items-center md:items-stretch gap-4 md:gap-0 py-3 md:py-0 border-b border-border-light md:border-0 last:border-b-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand rounded"
+>
+  <div class="relative w-[38%] md:w-full shrink-0 aspect-[4/3] md:aspect-[16/9] rounded overflow-hidden">
+    <HomeImage media={media} width={800} height={450} />
+  </div>
+  <h3 class="min-w-0 text-body md:text-h3 font-semibold text-ink leading-[1.4] line-clamp-3 md:line-clamp-2 md:mt-3 group-hover:text-brand transition-colors">
+    {title}
+  </h3>
+</a>
