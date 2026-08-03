@@ -4,7 +4,6 @@ import Layout from "@/layouts/Layout.astro";
 import SEOHead from "@/components/SEOHead.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import HeroSlider from "@/components/HeroSlider.astro";
 import HeroVideoSlider from "@/components/HeroVideoSlider.astro";
 import Button from "@/components/Button.astro";
 import AboutSection from "@/components/AboutSection.astro";
@@ -12,13 +11,11 @@ import TrainingChallengesSection from "@/components/TrainingChallengesSection.as
 import WhyXrSection from "@/components/WhyXrSection.astro";
 import SolutionsSection from "@/components/SolutionsSection.astro";
 import CoreCapabilitiesSection from "@/components/CoreCapabilitiesSection.astro";
-import FeaturedProductsSection from "@/components/FeaturedProductsSection.astro";
 import ProofSection from "@/components/ProofSection.astro";
 import ContentCardGrid from "@/components/ContentCardGrid.astro";
 import CTASection from "@/components/CTASection.astro";
 import { locales, withBase, type Locale } from "@/i18n/utils";
 import { homepageMedia } from "@/data/homepage-media";
-import { featuredProducts } from "@/data/featured-products";
 
 export async function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale } }));
@@ -67,13 +64,9 @@ const seoDescriptionByLocale: Record<Locale, string> = {
   jp: "全球動力科技のBig x Realityは、警察・消防・スマートシティ向けのXRトレーニングシミュレーションソリューションを提供します。",
 };
 
-// zh-tw only this round — en/jp featured-products / cases+news card content
-// (casesSection/newsSection copy) doesn't exist yet.
-const showFeaturedProducts = locale === "zh-tw";
+// zh-tw only this round — en/jp cases+news card content (casesSection/
+// newsSection copy) doesn't exist yet.
 const showContentCards = locale === "zh-tw";
-// zh-tw only — the two hero videos are real footage the user supplied for
-// the zh-tw homepage specifically; en/jp keep the static image hero.
-const showHeroVideo = locale === "zh-tw";
 
 const siteUrl = Astro.site?.origin ?? "https://bigxreality.github.io";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -120,30 +113,19 @@ const structuredData = [
       description={seoDescriptionByLocale[locale]}
       structuredData={structuredData}
     />
-    {
-      !showHeroVideo && (
-        <link rel="preload" as="image" href={withBase(homepageMedia.hero.desktop.src)} />
-      )
-    }
   </Fragment>
 
   <Header locale={locale} currentPath={`/${locale}/`} nav={settings.nav.primary} cta={settings.nav.cta} />
 
   <main class="flex-1">
     <section class="relative isolate overflow-hidden bg-navy-800 pt-16 md:pt-20">
-      {
-        showHeroVideo ? (
-          <HeroVideoSlider
-            slides={[
-              { src: "/images/home/hero/home-hero-video-1.mp4", objectPosition: "center 30%" },
-              { src: "/images/home/hero/home-hero-video-2.mp4", objectPosition: "center 38%" },
-            ]}
-            posterAlt={homepageMedia.hero.desktop.alt}
-          />
-        ) : (
-          <HeroSlider slides={[{ desktop: homepageMedia.hero.desktop, mobile: homepageMedia.hero.mobile }]} />
-        )
-      }
+      <HeroVideoSlider
+        slides={[
+          { src: "/images/home/hero/home-hero-video-1.mp4", objectPosition: "center 30%" },
+          { src: "/images/home/hero/home-hero-video-2.mp4", objectPosition: "center 38%" },
+        ]}
+        posterAlt={homepageMedia.hero.desktop.alt}
+      />
       <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20 pt-16 pb-24 md:pt-24 md:pb-32 xl:pt-32 xl:pb-40">
         <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-brand mb-6">
           {settings.hero.eyebrow}
@@ -226,19 +208,6 @@ const structuredData = [
       items={settings.coreCapabilities.items}
       media={homepageMedia.capabilities.instructorSystem}
     />
-
-    {
-      showFeaturedProducts && settings.featuredProductsSection && (
-        <FeaturedProductsSection
-          eyebrow={settings.featuredProductsSection.eyebrow}
-          title={settings.featuredProductsSection.title}
-          intro={settings.featuredProductsSection.intro}
-          allLinkLabel={settings.featuredProductsSection.allLinkLabel}
-          allLinkHref={settings.featuredProductsSection.allLinkHref}
-          items={featuredProducts}
-        />
-      )
-    }
 
     <ProofSection
       eyebrow={settings.proof.eyebrow}
