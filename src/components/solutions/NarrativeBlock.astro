@@ -32,12 +32,12 @@ const {
     "reveal grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center py-10 md:py-14 border-t border-border first:border-t-0 first:pt-0",
   ]}
 >
-  <div class:list={["relative aspect-[4/3] rounded overflow-hidden", reverse ? "lg:order-2" : ""]}>
+  <div class:list={["relative aspect-[16/9] rounded overflow-hidden", reverse ? "lg:order-2" : ""]}>
     <img
       src={withBase(media.src)}
       alt={media.alt}
       width={1600}
-      height={1200}
+      height={900}
       loading="lazy"
       decoding="async"
       class="w-full h-full object-cover"

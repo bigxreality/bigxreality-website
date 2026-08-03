@@ -135,8 +135,8 @@ const structuredData = [
         showHeroVideo ? (
           <HeroVideoSlider
             slides={[
-              { src: "/images/home/hero/home-hero-video-1.mp4" },
-              { src: "/images/home/hero/home-hero-video-2.mp4" },
+              { src: "/images/home/hero/home-hero-video-1.mp4", objectPosition: "center 30%" },
+              { src: "/images/home/hero/home-hero-video-2.mp4", objectPosition: "center 38%" },
             ]}
             posterAlt={homepageMedia.hero.desktop.alt}
           />
@@ -295,6 +295,7 @@ const structuredData = [
   </main>
 
   <Footer
+    locale={locale}
     description={settings.footer.description}
     companyName={settings.footer.companyName}
     address={settings.footer.address}

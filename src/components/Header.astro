@@ -1,5 +1,6 @@
 ---
 import LanguageSwitcher from "@/components/LanguageSwitcher.astro";
+import BrandLogo from "@/components/common/BrandLogo.astro";
 import { locales, withBase, type Locale } from "@/i18n/utils";
 
 interface NavItem {
@@ -24,12 +25,7 @@ const { locale, currentPath, nav, cta, availableLocales = locales } = Astro.prop
   class="fixed inset-x-0 top-0 z-50 transition-colors duration-300 bg-transparent border-b border-transparent"
 >
   <div class="mx-auto flex max-w-[1440px] items-center justify-between px-5 md:px-12 xl:px-20 h-16 md:h-20">
-    <a
-      href={withBase(`/${locale}/`)}
-      class="text-lg md:text-xl font-extrabold text-white tracking-tight focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand"
-    >
-      BIG<span class="text-brand">x</span>REALITY
-    </a>
+    <BrandLogo locale={locale} variant="light" class="h-[26px] md:h-[30px] lg:h-9 w-auto" />
 
     <nav class="hidden lg:flex items-center gap-5 xl:gap-7">
       {
