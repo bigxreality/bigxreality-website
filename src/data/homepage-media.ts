@@ -98,36 +98,39 @@ export const homepageMedia = {
   capabilities: {
     instructorSystem: {
       src: "/images/home/capabilities/home-instructor-system-capabilities.webp",
-      alt: "教官站在大型螢幕或兵棋圖台前監看訓練資訊",
-      status: "missing" as MediaStatus,
-      note: "首頁重製任務指定素材：教官站在大型螢幕、兵棋圖台或控制平台前，與多人共同觀看訓練資訊",
+      alt: "教官監看螢幕與 POLICE BOX 可攜式訓練箱體",
+      status: "approved" as MediaStatus,
+      note: "實拍照片，使用者提供（原檔：攜帶式警勤訓練器.jpeg）",
     },
   },
 
   proof: {
     realWorldDeployment: {
       src: "/images/home/proof/home-real-world-deployment.webp",
-      alt: "實際展示、軍警參觀或大型訓練活動現場",
-      status: "missing" as MediaStatus,
-      note: "首頁重製任務指定素材：需能看出實際場域、人員與設備，不可為棚拍照片，1920x1080",
+      alt: "SUT 小部隊戰術訓練系統展會實景，4人配戴 XR 頭戴裝置持模擬武器",
+      status: "approved" as MediaStatus,
+      note: "實拍展會照片，使用者提供（原檔：SUT 4人.jpg，原始 24MB 已壓縮為 webp）",
     },
   },
 
   solutions: {
     police: {
       src: "/images/home/solutions/home-solution-police.webp",
-      alt: "警勤模擬訓練實景",
-      status: "missing" as MediaStatus,
+      alt: "警勤模擬訓練實景，4人配戴 XR 頭戴裝置持手槍訓練",
+      status: "approved" as MediaStatus,
+      note: "實拍照片，使用者提供（原檔：警察hero.jpeg）",
     },
     military: {
       src: "/images/home/solutions/home-solution-military.webp",
-      alt: "軍事模擬訓練實景",
-      status: "missing" as MediaStatus,
+      alt: "軍事模擬訓練實景，4人配戴 XR 頭戴裝置持模擬步槍",
+      status: "approved" as MediaStatus,
+      note: "實拍照片，使用者提供（原檔：SUT軍事.jpeg）",
     },
     smartCity: {
       src: "/images/home/solutions/home-solution-smart-city.webp",
-      alt: "智慧城市指揮中心示意",
-      status: "missing" as MediaStatus,
+      alt: "智慧城市概念示意",
+      status: "approved" as MediaStatus,
+      note: "使用者提供並確認採用的概念示意圖（原檔：城市1920.jpg）。註記：此圖經影像特徵判斷為 AI 生成／合成內容（不合常理的建築結構與發光招牌），非實景照片；已明確告知使用者並取得其同意採用，僅限智慧城市這一項使用。",
     },
     fire: {
       src: "/images/home/solutions/home-solution-fire.webp",

@@ -25,8 +25,8 @@ export const featuredProducts: FeaturedProduct[] = [
     href: "/zh-tw/products/sut/",
     media: {
       src: "/images/home/products/home-product-sut.webp",
-      alt: "SUT 小部隊戰術訓練系統",
-      status: "missing" as const,
+      alt: "SUT 小部隊戰術訓練系統，實拍訓練畫面",
+      status: "approved" as const,
     },
   },
   {
@@ -36,8 +36,8 @@ export const featuredProducts: FeaturedProduct[] = [
     href: "/zh-tw/products/police-box/",
     media: {
       src: "/images/home/products/home-product-police-box.webp",
-      alt: "POLICE BOX 可攜式警勤訓練系統",
-      status: "missing" as const,
+      alt: "POLICE BOX 可攜式警勤訓練系統，實拍訓練畫面",
+      status: "approved" as const,
     },
   },
   {
@@ -58,8 +58,8 @@ export const featuredProducts: FeaturedProduct[] = [
     href: "/zh-tw/products/wargaming-table/",
     media: {
       src: "/images/home/products/home-product-wargaming-table.webp",
-      alt: "兵棋圖台系統",
-      status: "missing" as const,
+      alt: "兵棋圖台系統，實拍訓練畫面",
+      status: "approved" as const,
     },
   },
   {
@@ -102,8 +102,8 @@ export const featuredProducts: FeaturedProduct[] = [
     href: "/zh-tw/products/hmmwv-simulator/",
     media: {
       src: "/images/home/products/home-product-hmmwv.webp",
-      alt: "悍馬車載具訓練系統",
-      status: "missing" as const,
+      alt: "悍馬車載具訓練系統，實拍動感平台畫面",
+      status: "approved" as const,
     },
   },
   {
@@ -113,8 +113,8 @@ export const featuredProducts: FeaturedProduct[] = [
     href: "/zh-tw/products/tactical-boat-simulator/",
     media: {
       src: "/images/home/products/home-product-tactical-boat.webp",
-      alt: "快艇載具訓練系統",
-      status: "missing" as const,
+      alt: "快艇載具訓練系統，實拍動感平台畫面",
+      status: "approved" as const,
     },
   },
 ];
