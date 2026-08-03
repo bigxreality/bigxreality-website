@@ -1,5 +1,6 @@
 ---
-import { withBase } from "@/i18n/utils";
+import { withBase, type Locale } from "@/i18n/utils";
+import BrandLogo from "@/components/common/BrandLogo.astro";
 
 interface LinkItem {
   label: string;
@@ -7,6 +8,8 @@ interface LinkItem {
 }
 
 interface Props {
+  locale: Locale;
+  description?: string;
   companyName: string;
   address: string;
   email: string;
@@ -19,6 +22,8 @@ interface Props {
 }
 
 const {
+  locale,
+  description,
   companyName,
   address,
   email,
@@ -35,9 +40,8 @@ const {
   <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20 py-12 md:py-16">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
       <div>
-        <span class="text-lg font-extrabold text-white">
-          BIG<span class="text-brand">x</span>REALITY
-        </span>
+        <BrandLogo locale={locale} variant="light" class="h-7 w-auto" />
+        {description && <p class="mt-4 text-body-sm leading-[1.6] text-text-muted max-w-xs">{description}</p>}
         <p class="mt-4 text-body-sm text-text-muted">{companyName}</p>
         <p class="mt-2 text-body-sm text-text-muted">{address}</p>
         <a
@@ -49,7 +53,7 @@ const {
       </div>
 
       <div>
-        <p class="text-label font-bold uppercase tracking-[0.1em] text-text-faint mb-4">MENU</p>
+        <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-text-faint mb-4">MENU</p>
         <ul class="flex flex-col gap-3">
           {
             menu.map((item) => (
@@ -67,7 +71,7 @@ const {
       </div>
 
       <div>
-        <p class="text-label font-bold uppercase tracking-[0.1em] text-text-faint mb-4">ABOUT</p>
+        <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-text-faint mb-4">ABOUT</p>
         <ul class="flex flex-col gap-3">
           {
             about.map((item) => (
@@ -85,7 +89,7 @@ const {
       </div>
 
       <div>
-        <p class="text-label font-bold uppercase tracking-[0.1em] text-text-faint mb-4">
+        <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-text-faint mb-4">
           {newsletterLabel}
         </p>
         <form class="flex gap-2">

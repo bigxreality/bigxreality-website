@@ -1,46 +1,64 @@
 ---
 import NewsCard from "@/components/NewsCard.astro";
 import { withBase } from "@/i18n/utils";
+import type { MediaEntry } from "@/data/homepage-media";
 
 interface NewsItem {
   href: string;
   date: string;
   category: string;
   title: string;
+  excerpt?: string;
+  media?: MediaEntry;
 }
 
 interface Props {
+  eyebrow?: string;
   title: string;
+  intro?: string;
   moreLinkLabel: string;
   moreLinkHref: string;
+  readMoreLabel: string;
   items: NewsItem[];
 }
 
-const { title, moreLinkLabel, moreLinkHref, items } = Astro.props;
+const { eyebrow, title, intro, moreLinkLabel, moreLinkHref, readMoreLabel, items } = Astro.props;
 const [main, ...secondary] = items;
 ---
 
 <section class="bg-navy-800 py-15 md:py-[80px] xl:py-30">
   <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
     <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-      <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white">{title}</h2>
+      <div class="max-w-2xl">
+        {
+          eyebrow && (
+            <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-brand mb-2">
+              {eyebrow}
+            </p>
+          )
+        }
+        <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white">{title}</h2>
+        {intro && <p class="mt-4 text-base leading-[1.75] text-text-body">{intro}</p>}
+      </div>
       <a
         href={withBase(moreLinkHref)}
-        class="text-brand hover:text-brand-hover text-[15px] font-semibold w-fit focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand rounded"
+        class="text-brand hover:text-brand-hover text-[15px] font-semibold w-fit shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand rounded"
       >
         {moreLinkLabel} →
       </a>
     </div>
 
-    <div class="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+    <div class="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
       {main && (
-        <div class="reveal">
-          <NewsCard {...main} featured />
+        <div class="reveal md:col-span-1">
+          <NewsCard {...main} readMoreLabel={readMoreLabel} featured />
         </div>
       )}
-      <div class="reveal flex flex-col">
-        {secondary.map((item) => <NewsCard {...item} />)}
-      </div>
+      {secondary.map((item) => (
+        <div class="reveal">
+          <NewsCard {...item} readMoreLabel={readMoreLabel} />
+        </div>
+      ))}
     </div>
   </div>
 </section>

@@ -45,8 +45,8 @@
     }
   },
   "hero": {
-    "eyebrow": "XR TRAINING · SYSTEM READY",
-    "title": "[翻訳準備中]",
+    "eyebrow": "TURN EVERY DRILL INTO REAL",
+    "title": "すべての訓練を、現実の力に変える",
     "subtitle": "[翻訳準備中]",
     "ctaPrimary": {
       "label": "デモを予約",
@@ -64,27 +64,29 @@
     ]
   },
   "about": {
-    "eyebrow": "ABOUT // EST. 2003",
     "title": "[翻訳準備中]",
-    "body": "[翻訳準備中]",
-    "stats": [
-      {
-        "value": "20+",
-        "label": "[翻訳準備中]"
-      },
-      {
-        "value": "10+",
-        "label": "[翻訳準備中]"
-      },
-      {
-        "value": "50+",
-        "label": "[翻訳準備中]"
-      }
+    "body": ["[翻訳準備中]", "[翻訳準備中]"],
+    "points": [
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" }
     ],
     "image": {
-      "src": "/images/home/about-main.webp",
+      "src": "/images/home/about/home-xr-training-overview.webp",
       "alt": "全球動力科技 システム統合能力"
     }
+  },
+  "trainingChallenges": {
+    "eyebrow": "TRAINING CHALLENGES",
+    "title": "[翻訳準備中]",
+    "intro": "[翻訳準備中]",
+    "cards": [
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" }
+    ]
   },
   "whyXr": {
     "eyebrow": "PROBLEM ANALYSIS",
@@ -118,9 +120,67 @@
       }
     ]
   },
+  "realityXr": {
+    "eyebrow": "REALITY TO SIMULATION",
+    "title": "現実の訓練現場から、繰り返し検証できるデジタルシナリオへ",
+    "steps": [
+      {
+        "code": "01",
+        "label": "REAL ENVIRONMENT",
+        "body": "実際の訓練場所、装備、人員配置をモデリングの基礎として記録します。"
+      },
+      {
+        "code": "02",
+        "label": "DIGITAL SCENARIO",
+        "body": "場域とシナリオを、調整・再構築が可能なデジタル環境へと変換します。"
+      },
+      {
+        "code": "03",
+        "label": "REPEATABLE TRAINING",
+        "body": "場所・天候・消耗品の制約を受けず、高リスクな科目を何度でも訓練できます。"
+      },
+      {
+        "code": "04",
+        "label": "MEASURABLE REVIEW",
+        "body": "意思決定の過程と操作データを記録し、教官による検討と改善に活用します。"
+      }
+    ]
+  },
+  "coreCapabilities": {
+    "eyebrow": "CORE CAPABILITIES",
+    "title": "[翻訳準備中]",
+    "intro": "[翻訳準備中]",
+    "items": [
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" }
+    ]
+  },
+  "featuredProductsSection": {
+    "eyebrow": "FEATURED TRAINING SYSTEMS",
+    "title": "[翻訳準備中]",
+    "intro": "[翻訳準備中]",
+    "allLinkLabel": "すべてのシステムを見る",
+    "allLinkHref": "/jp/products/"
+  },
+  "proof": {
+    "eyebrow": "PROVEN IN REAL-WORLD TRAINING",
+    "title": "[翻訳準備中]",
+    "intro": "[翻訳準備中]",
+    "items": [
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" },
+      { "title": "[翻訳準備中]", "body": "[翻訳準備中]" }
+    ]
+  },
   "missionCta": {
     "eyebrow": "MISSION READY",
     "title": "[翻訳準備中]",
+    "body": "[翻訳準備中]",
     "ctaPrimary": {
       "label": "デモを予約",
       "href": "/jp/contact/"
@@ -132,9 +192,14 @@
   },
   "sectionLabels": {
     "solutions": "ソリューション",
+    "solutionsEyebrow": "SOLUTIONS",
+    "solutionsIntro": "[翻訳準備中]",
     "solutionsAllLink": "すべてのソリューション",
     "caseStudies": "導入事例",
     "news": "最新情報",
+    "newsEyebrow": "NEWS AND INSIGHTS",
+    "newsIntro": "[翻訳準備中]",
+    "newsReadMore": "記事を読む",
     "newsMoreLink": "もっと見る",
     "trustedBy": "TRUSTED BY // 連携機関",
     "learnMore": "詳しく見る"
@@ -143,6 +208,7 @@
     "[翻訳準備中]"
   ],
   "footer": {
+    "description": "[翻訳準備中]",
     "companyName": "全球動力科技股份有限公司",
     "address": "[翻訳準備中]",
     "email": "service@gptt.com.tw",

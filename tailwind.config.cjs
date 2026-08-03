@@ -19,8 +19,33 @@ module.exports = {
           strong: "rgba(255,255,255,0.15)",
           input: "rgba(255,255,255,0.15)",
         },
+        // Light-section tokens — for the light/dark alternating rhythm
+        // (some homepage sections are now white/light-gray/light-blue
+        // instead of the all-dark original). Kept as a separate namespace
+        // rather than reusing `text`/`border`/`bg` so dark-section
+        // components are never accidentally affected.
+        light: {
+          DEFAULT: "#FFFFFF",
+          soft: "#F5F6F8",
+          blue: "#EEF2F8",
+        },
+        ink: {
+          DEFAULT: "#0B1220",
+          body: "#3F4757",
+          muted: "#6B7280",
+        },
+        "border-light": {
+          DEFAULT: "rgba(11,18,32,0.08)",
+          strong: "rgba(11,18,32,0.14)",
+        },
       },
-      fontFamily: { sans: ["Inter", "Noto Sans TC", "sans-serif"] },
+      fontFamily: {
+        sans: ["Inter", "Noto Sans TC", "sans-serif"],
+        // System/eyebrow/data labels only (VR/XR technical tags, product
+        // codes) — never large blocks of Chinese body copy. See
+        // docs/design/vr-xr-visual-language.md.
+        mono: ["PT Mono", "monospace"],
+      },
       fontSize: {
         h1: ["4rem", { lineHeight: "1.12", fontWeight: "800" }],
         "h1-md": ["2.875rem", { lineHeight: "1.15", fontWeight: "800" }],
@@ -39,8 +64,19 @@ module.exports = {
         stat: ["2.5rem", { lineHeight: "1.1", fontWeight: "800" }],
       },
       spacing: { 15: "3.75rem", 30: "7.5rem" },
+      // Virtual Layer tokens (see docs/design/vr-xr-visual-language.md) —
+      // low-contrast grid/node treatment, never neon or HUD-style.
+      backgroundImage: {
+        "xr-grid":
+          "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
+      },
+      backgroundSize: { "xr-grid": "40px 40px" },
       borderRadius: { DEFAULT: "4px" },
-      screens: { sm: "390px", md: "768px", lg: "1024px", xl: "1440px" },
+      // Full RWD range per design spec: 360 is the unbreakpointed mobile
+      // floor (base/mobile-first styles must hold down to it, no query
+      // needed), 390/768/1024/1440 are the existing tested tiers, 1920 is
+      // the large-desktop tier for content that should cap/breathe further.
+      screens: { sm: "390px", md: "768px", lg: "1024px", xl: "1440px", "2xl": "1920px" },
     },
   },
   plugins: [],

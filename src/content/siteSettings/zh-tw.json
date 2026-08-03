@@ -45,16 +45,17 @@
     }
   },
   "hero": {
-    "eyebrow": "XR TRAINING · SYSTEM READY",
-    "title": "重新定義高風險訓練的可能性",
-    "subtitle": "全球動力科技 Big x Reality — 虛實整合 XR 模擬訓練解決方案，為軍警、消防與智慧城市單位打造高擬真訓練環境。",
+    "eyebrow": "AI × XR SIMULATION TRAINING",
+    "title": "讓每一次模擬訓練，更接近真實任務",
+    "tagline": "TURN EVERY DRILL INTO REAL",
+    "subtitle": "Big x Reality 整合 AI、XR、虛擬實境與模擬訓練技術，為軍事、警勤、消防及智慧城市打造可重複、可量化、可分析的沉浸式訓練環境。",
     "ctaPrimary": {
-      "label": "預約展示",
-      "href": "/zh-tw/contact/"
+      "label": "探索解決方案",
+      "href": "/zh-tw/solutions/"
     },
     "ctaSecondary": {
-      "label": "了解解決方案",
-      "href": "/zh-tw/solutions/"
+      "label": "查看訓練系統",
+      "href": "/zh-tw/products/"
     },
     "slides": [
       {
@@ -64,79 +65,208 @@
     ]
   },
   "about": {
-    "eyebrow": "ABOUT // EST. 2003",
-    "title": "全球動力科技旗下的沉浸式訓練品牌",
-    "body": "全球動力科技股份有限公司創立於 2003 年，是一站式大型系統整合服務商，業務涵蓋大數據分析、新媒體行銷、嚴肅遊戲模擬訓練，以及產業 XR 主題館設計開發，長期為軍警國防與政府單位提供高擬真訓練系統整合服務。",
-    "stats": [
+    "title": "以沉浸式科技，建立更安全、更有效的訓練方式",
+    "body": [
+      "傳統訓練經常受到場地、設備、成本、安全風險及訓練次數限制。部分高風險或低發生率情境，更難以在真實環境中反覆演練。",
+      "Big x Reality 將真實任務流程轉化為可操作的 XR 模擬訓練，協助單位在受控環境中進行技能訓練、戰術協同、決策判斷與突發事件應變，並透過訓練數據與課後分析持續改善表現。"
+    ],
+    "points": [
       {
-        "value": "20+",
-        "label": "年系統整合經驗"
+        "title": "可重複訓練",
+        "body": "同一情境可依需求反覆執行，降低重新布置場地與準備設備的負擔。"
       },
       {
-        "value": "10+",
-        "label": "跨產業服務經驗"
+        "title": "降低訓練風險",
+        "body": "在不暴露人員於真實危險的情況下，演練高風險任務與緊急事件。"
       },
       {
-        "value": "50+",
-        "label": "單位導入使用我們的產品"
+        "title": "支援多人協同",
+        "body": "模擬真實任務中的角色分工、溝通、隊形與戰術配合。"
+      },
+      {
+        "title": "訓練成果可分析",
+        "body": "記錄操作、反應與任務過程，支援教官講評與課後檢討。"
       }
     ],
     "image": {
-      "src": "/images/home/about-main.webp",
-      "alt": "全球動力科技 XR 訓練系統整合能力示意"
+      "src": "/images/home/about/home-xr-training-overview.webp",
+      "alt": "單人配戴 XR 頭戴裝置操作訓練設備"
     }
   },
+  "trainingChallenges": {
+    "eyebrow": "TRAINING CHALLENGES",
+    "title": "真實訓練的重要性，不代表所有情境都適合在真實世界中反覆執行",
+    "intro": "軍警消防與公共安全訓練需要高度真實性，但也經常面臨場地、經費、安全與執行條件限制。XR 模擬訓練不是取代所有實體訓練，而是補足傳統訓練難以大量重現的環節。",
+    "cards": [
+      {
+        "title": "高風險情境難以重現",
+        "body": "火災、攻擊、重大事故與複雜戰術任務，不適合頻繁使用真實人員與真實危險條件進行演練。"
+      },
+      {
+        "title": "場地與設備限制",
+        "body": "大型場地、實彈靶場、車輛、船艇及專業設備不一定能隨時取得，訓練安排容易受到外部條件影響。"
+      },
+      {
+        "title": "訓練成本持續累積",
+        "body": "人員調度、耗材、交通、設備維護與場地布置，使高頻率訓練難以長期執行。"
+      },
+      {
+        "title": "缺乏完整過程紀錄",
+        "body": "傳統訓練往往依靠現場觀察與口頭講評，難以完整保存每位受訓者的操作與決策過程。"
+      }
+    ]
+  },
   "whyXr": {
-    "eyebrow": "PROBLEM ANALYSIS",
-    "title": "為什麼需要 XR 模擬訓練",
-    "subtitle": "傳統訓練在場地、成本、風險與數據化之間存在結構性限制，XR 模擬訓練正是為此而生。",
+    "eyebrow": "WHY XR SIMULATION",
+    "title": "從單項技能到多人任務，讓訓練能夠反覆執行、持續驗證",
+    "subtitle": "XR 模擬訓練可將人員、裝備、環境與任務流程整合在同一套數位訓練空間中。受訓者不只觀看內容，而是實際移動、操作、溝通並完成任務。",
     "points": [
       {
         "index": "01",
-        "title": "場地與環境限制",
-        "body": "真實勤務情境涉及街區、載具、建物與天候，實體場地幾乎無法完整還原。"
+        "title": "沉浸式任務環境",
+        "body": "依照訓練目標建立室內、戶外、城市、交通、火場或戰術環境，提高操作與情境判斷的投入程度。"
       },
       {
         "index": "02",
-        "title": "高風險情境難以反覆演練",
-        "body": "槍械、火場、爆裂物等高風險科目，實兵演練一次的風險與成本都極高。"
+        "title": "真實動作與設備操作",
+        "body": "結合空間定位、模擬載具、控制器及訓練設備，使受訓者以接近實際任務的方式完成操作。"
       },
       {
         "index": "03",
-        "title": "訓練成果無法數據化",
-        "body": "決策路徑、反應時間、命中率缺乏客觀記錄，成效難以評估與改善。"
+        "title": "多人連線與角色協同",
+        "body": "支援多名受訓者共同進入訓練情境，進行溝通、分工、戰術協同與指揮決策。"
       },
       {
         "index": "04",
-        "title": "傳統實體訓練成本過高",
-        "body": "場地租借、教官人力、耗材與後勤，長期累積是龐大支出。"
+        "title": "教官控制與課後分析",
+        "body": "教官可掌握訓練進度、設定情境並記錄任務過程，作為課後講評與訓練改善依據。"
+      }
+    ]
+  },
+  "realityXr": {
+    "eyebrow": "REALITY TO SIMULATION",
+    "title": "從真實訓練場域，到可反覆驗證的數位情境",
+    "steps": [
+      {
+        "code": "01",
+        "label": "REAL ENVIRONMENT",
+        "body": "記錄真實訓練場地、裝備與人員配置，作為建模的基礎。"
       },
       {
-        "index": "05",
-        "title": "團隊協同與決策難以量化",
-        "body": "多人任務中的溝通、指揮與協同表現，缺乏可比較的客觀依據。"
+        "code": "02",
+        "label": "DIGITAL SCENARIO",
+        "body": "將場域與情境轉化為可調整、可重建的數位化模擬環境。"
+      },
+      {
+        "code": "03",
+        "label": "REPEATABLE TRAINING",
+        "body": "不受場地、氣候與耗材限制，隨時反覆演練高風險科目。"
+      },
+      {
+        "code": "04",
+        "label": "MEASURABLE REVIEW",
+        "body": "記錄決策路徑與操作數據，做為教官檢討與改善的依據。"
+      }
+    ]
+  },
+  "coreCapabilities": {
+    "eyebrow": "CORE CAPABILITIES",
+    "title": "從虛擬環境到訓練分析，整合模擬訓練所需的核心技術",
+    "intro": "Big x Reality 不只提供單一軟體或設備，而是依照訓練需求整合內容、硬體、定位、互動、教官系統與數據分析，建立完整的訓練流程。",
+    "items": [
+      {
+        "title": "XR 沉浸式模擬",
+        "body": "建構可互動的三維訓練環境，支援虛擬實境、混合實境及多種沉浸式顯示方式。"
+      },
+      {
+        "title": "AI 情境與訓練應用",
+        "body": "將 AI 應用於虛擬角色、情境反應、內容生成及訓練輔助，提升情境變化與系統擴充能力。"
+      },
+      {
+        "title": "多人空間定位",
+        "body": "支援多人在實體空間中自由移動、互動與協同，將真實動作同步至虛擬訓練環境。"
+      },
+      {
+        "title": "模擬武器與載具整合",
+        "body": "整合步槍、手槍、機槍、迫砲、飛彈、車輛、船艇及其他訓練設備，呈現對應的操作流程與回饋。"
+      },
+      {
+        "title": "教官與情境控制",
+        "body": "提供教官監看、情境觸發、流程控制及學員管理功能，支援不同程度與不同任務的訓練安排。"
+      },
+      {
+        "title": "課後檢討與數據分析",
+        "body": "記錄訓練過程、操作結果與任務事件，支援 After Action Review，協助單位找出訓練弱點。"
+      }
+    ]
+  },
+  "featuredProductsSection": {
+    "eyebrow": "FEATURED TRAINING SYSTEMS",
+    "title": "從可攜式設備到完整訓練場域，依任務需求彈性建置",
+    "intro": "以下為 Big x Reality 具代表性的模擬訓練系統。",
+    "allLinkLabel": "查看全部訓練系統",
+    "allLinkHref": "/zh-tw/products/"
+  },
+  "casesSection": {
+    "title": "應用案例",
+    "subtitle": "了解 Big x Reality 如何將 XR 模擬訓練導入實際任務與場域。",
+    "ctaLabel": "查看所有案例",
+    "ctaHref": "/zh-tw/cases/"
+  },
+  "newsSection": {
+    "title": "最新消息",
+    "subtitle": "掌握 Big x Reality 的產品發展、展覽活動與產業動態。",
+    "ctaLabel": "查看所有消息",
+    "ctaHref": "/zh-tw/news/"
+  },
+  "proof": {
+    "eyebrow": "PROVEN IN REAL-WORLD TRAINING",
+    "title": "從技術研發到實際展示，持續驗證 XR 模擬訓練的應用價值",
+    "intro": "Big x Reality 與軍警、公部門、研究單位及產業夥伴合作，將 XR 模擬技術應用於實際訓練、展示驗證、教育推廣與系統整合，持續累積跨領域導入經驗。",
+    "items": [
+      {
+        "title": "軍警訓練應用",
+        "body": "配合不同任務與場域需求，建置單兵、多人協同、武器、載具及指揮訓練系統。"
+      },
+      {
+        "title": "國內外展覽展示",
+        "body": "參與國防、安全、模擬訓練及 XR 相關展覽，向國際市場展示台灣的模擬訓練技術。"
+      },
+      {
+        "title": "研發與系統整合",
+        "body": "整合軟體、硬體、定位、模擬設備及訓練內容，提供可依需求擴充的系統架構。"
+      },
+      {
+        "title": "產官學合作",
+        "body": "與政府單位、研究機構及產業夥伴合作，推動 XR 技術於訓練與公共安全領域的應用。"
       }
     ]
   },
   "missionCta": {
     "eyebrow": "MISSION READY",
-    "title": "準備好體驗下一代訓練方式了嗎？",
+    "title": "正在規劃新的模擬訓練系統？",
+    "body": "告訴我們您的訓練對象、場地條件與任務需求。Big x Reality 將協助評估適合的 XR 技術、系統配置與導入方式。",
     "ctaPrimary": {
-      "label": "預約產品展示",
+      "label": "討論訓練需求",
       "href": "/zh-tw/contact/"
     },
     "ctaSecondary": {
-      "label": "聯絡業務團隊",
-      "href": "/zh-tw/contact/"
+      "label": "查看全部產品",
+      "href": "/zh-tw/products/"
     }
   },
   "sectionLabels": {
-    "solutions": "四大領域解決方案",
+    "solutions": "針對不同任務需求，建立專業模擬訓練環境",
+    "solutionsEyebrow": "SOLUTIONS",
+    "solutionsIntro": "Big x Reality 以共同的 XR 模擬技術平台為基礎，依照軍事、警勤、消防與智慧城市的任務流程，設計不同的訓練系統、互動方式與教學內容。",
     "solutionsAllLink": "所有解決方案",
     "caseStudies": "精選案例",
-    "news": "最新消息",
-    "newsMoreLink": "更多消息",
-    "trustedBy": "TRUSTED BY // 合作與服務單位",
+    "news": "掌握 Big x Reality 的技術發展、實際應用與國際動態",
+    "newsEyebrow": "NEWS AND INSIGHTS",
+    "newsIntro": "透過產品消息、案例分享、展覽紀錄與產業觀點，了解 AI、XR、虛擬實境及模擬訓練技術的最新應用。",
+    "newsReadMore": "閱讀文章",
+    "newsMoreLink": "查看所有最新消息",
+    "trustedBy": "PARTNERS // 合作與服務單位",
     "learnMore": "了解更多"
   },
   "trustedBy": [
@@ -147,6 +277,7 @@
     "智慧城市推動辦公室"
   ],
   "footer": {
+    "description": "Big x Reality 是全球動力科技旗下的 XR 模擬訓練品牌，整合 AI、虛擬實境、多人定位、模擬設備及教官系統，提供軍事、警勤、消防與智慧城市訓練解決方案。",
     "companyName": "全球動力科技股份有限公司",
     "address": "台北市大安區復興南路一段 368 號 5 樓",
     "email": "service@gptt.com.tw",

@@ -60,7 +60,7 @@ const bc = breadcrumbLabels[locale];
           items={[{ label: bc.home, href: withBase(`/${locale}/`) }, { label: bc.solutions }]}
           class="mb-6"
         />
-        <p class="text-label font-bold uppercase tracking-[0.1em] text-brand mb-4">
+        <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-brand mb-4">
           {overview.eyebrow}
         </p>
         <h1 class="text-h1-page-sm md:text-h1-page-md xl:text-h1-page font-extrabold leading-[1.15] text-white max-w-2xl">
@@ -106,6 +106,7 @@ const bc = breadcrumbLabels[locale];
   </main>
 
   <Footer
+    locale={locale}
     companyName={settings.footer.companyName}
     address={settings.footer.address}
     email={settings.footer.email}

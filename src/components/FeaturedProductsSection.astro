@@ -1,0 +1,54 @@
+---
+import Card from "@/components/Card.astro";
+import HomeImage from "@/components/HomeImage.astro";
+import { withBase } from "@/i18n/utils";
+import type { FeaturedProduct } from "@/data/featured-products";
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  allLinkLabel: string;
+  allLinkHref: string;
+  items: FeaturedProduct[];
+}
+
+const { eyebrow, title, intro, allLinkLabel, allLinkHref, items } = Astro.props;
+---
+
+<section class="bg-navy-800 py-15 md:py-[80px] xl:py-30">
+  <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+    <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+      <div class="max-w-2xl">
+        <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-brand mb-2">{eyebrow}</p>
+        <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white">{title}</h2>
+        <p class="mt-4 text-base leading-[1.75] text-text-body">{intro}</p>
+      </div>
+      <a
+        href={withBase(allLinkHref)}
+        class="text-brand hover:text-brand-hover text-[15px] font-semibold w-fit shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand rounded"
+      >
+        {allLinkLabel} →
+      </a>
+    </div>
+
+    <div class="reveal mt-10 md:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        items.map((item) => (
+          <Card href={withBase(item.href)} class="h-full flex flex-col">
+            <div class="relative aspect-[4/3]">
+              <HomeImage media={item.media} width={1200} height={900} />
+            </div>
+            <div class="p-5 flex flex-col flex-1">
+              <span class="text-[11px] font-mono uppercase tracking-[0.06em] text-brand">
+                {item.englishName}
+              </span>
+              <h3 class="mt-2 text-h3 font-semibold text-white">{item.name}</h3>
+              <p class="mt-2 text-body-sm leading-[1.6] text-text-muted flex-1">{item.tagline}</p>
+            </div>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+</section>

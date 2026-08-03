@@ -8,8 +8,9 @@ import "@fontsource/noto-sans-tc/400.css";
 import "@fontsource/noto-sans-tc/500.css";
 import "@fontsource/noto-sans-tc/700.css";
 import "@fontsource/noto-sans-tc/900.css";
+import "@fontsource/pt-mono/400.css";
 import "@/styles/global.css";
-import { localeHtmlLang, type Locale } from "@/i18n/utils";
+import { localeHtmlLang, withBase, type Locale } from "@/i18n/utils";
 
 interface Props {
   locale: Locale;
@@ -24,6 +25,14 @@ const { locale } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
+    <link rel="icon" type="image/png" sizes="16x16" href={withBase("/favicon-16x16.png")} />
+    <link rel="icon" type="image/png" sizes="32x32" href={withBase("/favicon-32x32.png")} />
+    <link rel="icon" type="image/png" sizes="48x48" href={withBase("/favicon-48x48.png")} />
+    <link rel="icon" type="image/png" sizes="64x64" href={withBase("/favicon-64x64.png")} />
+    <link rel="shortcut icon" href={withBase("/favicon.ico")} />
+    <link rel="apple-touch-icon" sizes="180x180" href={withBase("/apple-touch-icon.png")} />
+    <link rel="manifest" href={withBase("/site.webmanifest")} />
     <slot name="head" />
   </head>
   <body class="min-h-full flex flex-col bg-bg antialiased">

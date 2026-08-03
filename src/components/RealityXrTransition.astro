@@ -1,0 +1,88 @@
+---
+import { withBase } from "@/i18n/utils";
+import type { MediaEntry } from "@/data/homepage-media";
+
+interface Step {
+  code: string;
+  label: string;
+  body: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  steps: Step[];
+  media: MediaEntry;
+}
+
+const { eyebrow, title, steps, media } = Astro.props;
+---
+
+<section class="bg-navy-800 py-15 md:py-[80px] xl:py-30 overflow-hidden">
+  <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
+    <div class="reveal max-w-2xl">
+      <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-brand mb-4">
+        {eyebrow}
+      </p>
+      <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white">
+        {title}
+      </h2>
+    </div>
+
+    <div class="mt-10 md:mt-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <!--
+        Reality -> Virtual treatment: the real training photo is progressively
+        overlaid with an XR grid + node markers as it moves down the page.
+        Pure CSS (no drag interaction, no fabricated 3D/AR asset) — see
+        docs/design/vr-xr-visual-language.md "Transition Layer".
+      -->
+      <div class="reveal relative aspect-[4/3] rounded overflow-hidden">
+        <img
+          src={withBase(media.src)}
+          alt={media.alt}
+          width={1600}
+          height={1200}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover"
+        />
+        <div
+          class="absolute inset-0 bg-xr-grid bg-xr-grid opacity-[0.18]"
+          aria-hidden="true"
+        >
+        </div>
+        {
+          [
+            { top: "22%", left: "18%" },
+            { top: "58%", left: "72%" },
+            { top: "78%", left: "30%" },
+          ].map((pos) => (
+            <span
+              class="absolute h-2 w-2 rounded-full bg-brand shadow-[0_0_0_4px_rgba(208,39,83,0.25)]"
+              style={`top:${pos.top}; left:${pos.left};`}
+              aria-hidden="true"
+            />
+          ))
+        }
+      </div>
+
+      <ol class="relative flex flex-col">
+        {
+          steps.map((step, i) => (
+            <li
+              class="reveal relative pl-10 pb-8 last:pb-0 border-l border-border ml-[7px] last:border-transparent"
+              style={`transition-delay:${i * 90}ms`}
+            >
+              <span class="absolute -left-[7px] top-0 h-3.5 w-3.5 rounded-full bg-brand" />
+              <span class="text-label font-mono font-bold uppercase tracking-[0.1em] text-text-faint">
+                {step.code}
+              </span>
+              <h3 class="mt-1 text-h3 font-mono font-semibold text-white">{step.label}</h3>
+              <p class="mt-2 text-body-sm leading-[1.6] text-text-muted max-w-md">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

@@ -30,7 +30,14 @@ const solutions = defineCollection({
     order: z.number(),
     code: z.string(),
     title: z.string(),
+    // Display name for the card's English label line, e.g. "Military
+    // Simulation Training". Falls back to `code` when absent (en/jp still
+    // use the old SOL-xx // XXX code style until translated).
+    englishName: z.string().optional(),
     excerpt: z.string(),
+    // Per-card CTA text, e.g. "探索軍事解決方案". Falls back to the
+    // section's shared learnMore label when absent.
+    ctaLabel: z.string().optional(),
     industry: z.string(),
     image: media,
     relatedProducts: z.array(z.string()).default([]),
@@ -130,17 +137,27 @@ const siteSettings = defineCollection({
     hero: z.object({
       eyebrow: z.string(),
       title: z.string(),
+      // Large English tagline shown alongside the (localized) H1, e.g.
+      // "TURN EVERY DRILL INTO REAL".
+      tagline: z.string().optional(),
       subtitle: z.string(),
       ctaPrimary: z.object({ label: z.string(), href: z.string() }),
       ctaSecondary: z.object({ label: z.string(), href: z.string() }),
       slides: z.array(media).default([]),
     }),
     about: z.object({
+      eyebrow: z.string().optional(),
+      title: z.string(),
+      // One entry per paragraph.
+      body: z.array(z.string()),
+      points: z.array(z.object({ title: z.string(), body: z.string() })),
+      image: media,
+    }),
+    trainingChallenges: z.object({
       eyebrow: z.string(),
       title: z.string(),
-      body: z.string(),
-      stats: z.array(z.object({ value: z.string(), label: z.string() })),
-      image: media,
+      intro: z.string(),
+      cards: z.array(z.object({ title: z.string(), body: z.string() })),
     }),
     whyXr: z.object({
       eyebrow: z.string(),
@@ -150,23 +167,77 @@ const siteSettings = defineCollection({
         z.object({ index: z.string(), title: z.string(), body: z.string() })
       ),
     }),
+    realityXr: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      steps: z.array(
+        z.object({ code: z.string(), label: z.string(), body: z.string() })
+      ),
+    }),
+    coreCapabilities: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      intro: z.string(),
+      items: z.array(z.object({ title: z.string(), body: z.string() })),
+    }),
+    proof: z.object({
+      eyebrow: z.string(),
+      title: z.string(),
+      intro: z.string(),
+      items: z.array(z.object({ title: z.string(), body: z.string() })),
+    }),
     missionCta: z.object({
       eyebrow: z.string(),
       title: z.string(),
+      body: z.string().optional(),
       ctaPrimary: z.object({ label: z.string(), href: z.string() }),
       ctaSecondary: z.object({ label: z.string(), href: z.string() }),
     }),
     sectionLabels: z.object({
       solutions: z.string(),
+      solutionsEyebrow: z.string().optional(),
+      solutionsIntro: z.string().optional(),
       solutionsAllLink: z.string(),
       caseStudies: z.string(),
       news: z.string(),
+      newsEyebrow: z.string().optional(),
+      newsIntro: z.string().optional(),
+      newsReadMore: z.string().optional(),
       newsMoreLink: z.string(),
       trustedBy: z.string(),
       learnMore: z.string(),
     }),
     trustedBy: z.array(z.string()).default([]),
+    featuredProductsSection: z
+      .object({
+        eyebrow: z.string(),
+        title: z.string(),
+        intro: z.string(),
+        allLinkLabel: z.string(),
+        allLinkHref: z.string(),
+      })
+      .optional(),
+    // Cases and News on the homepage share the same image+title-only
+    // ContentCard system (see ContentCardGrid.astro) — no eyebrow, the
+    // subtitle only shows on desktop.
+    casesSection: z
+      .object({
+        title: z.string(),
+        subtitle: z.string(),
+        ctaLabel: z.string(),
+        ctaHref: z.string(),
+      })
+      .optional(),
+    newsSection: z
+      .object({
+        title: z.string(),
+        subtitle: z.string(),
+        ctaLabel: z.string(),
+        ctaHref: z.string(),
+      })
+      .optional(),
     footer: z.object({
+      description: z.string().optional(),
       companyName: z.string(),
       address: z.string(),
       email: z.string(),

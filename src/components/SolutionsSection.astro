@@ -1,54 +1,68 @@
 ---
-import SolutionCard from "@/components/SolutionCard.astro";
+import NarrativeBlock from "@/components/solutions/NarrativeBlock.astro";
 import { withBase } from "@/i18n/utils";
 import type { MediaEntry } from "@/data/homepage-media";
 
 interface SolutionItem {
   href: string;
   code: string;
+  englishName?: string;
   title: string;
   excerpt: string;
+  ctaLabel?: string;
   media: MediaEntry;
 }
 
 interface Props {
+  eyebrow?: string;
   title: string;
+  intro?: string;
   allLinkLabel: string;
   allLinkHref: string;
   learnMoreLabel: string;
   items: SolutionItem[];
 }
 
-const { title, allLinkLabel, allLinkHref, learnMoreLabel, items } = Astro.props;
-const [featured, ...rest] = items;
+const { eyebrow, title, intro, allLinkLabel, allLinkHref, learnMoreLabel, items } = Astro.props;
 ---
 
-<section class="bg-bg py-15 md:py-[80px] xl:py-30">
+<section class="bg-navy-800 py-15 md:py-[80px] xl:py-30">
   <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20">
     <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-      <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white">{title}</h2>
+      <div class="max-w-2xl">
+        {
+          eyebrow && (
+            <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-brand mb-2">
+              {eyebrow}
+            </p>
+          )
+        }
+        <h2 class="text-h2-sm md:text-h2-md xl:text-h2 font-bold leading-[1.25] text-white">{title}</h2>
+        {intro && <p class="mt-4 text-base leading-[1.75] text-text-body">{intro}</p>}
+      </div>
       <a
         href={withBase(allLinkHref)}
-        class="text-brand hover:text-brand-hover text-[15px] font-semibold w-fit focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand rounded"
+        class="text-brand hover:text-brand-hover text-[15px] font-semibold w-fit shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand rounded"
       >
         {allLinkLabel} →
       </a>
     </div>
 
-    {
-      featured && (
-        <div class="reveal mt-10 md:mt-12">
-          <SolutionCard {...featured} learnMoreLabel={learnMoreLabel} featured />
-        </div>
-      )
-    }
-
-    <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-      {rest.map((item) => (
-        <div class="reveal">
-          <SolutionCard {...item} learnMoreLabel={learnMoreLabel} />
-        </div>
-      ))}
+    <div class="mt-4">
+      {
+        items.map((item, i) => (
+          <NarrativeBlock
+            code=""
+            englishLabel={item.englishName ?? item.code}
+            navTitle={item.title}
+            excerpt={item.excerpt}
+            href={item.href}
+            exploreLabel={item.ctaLabel ?? learnMoreLabel}
+            media={item.media}
+            reverse={i % 2 === 1}
+          />
+        ))
+      }
     </div>
   </div>
 </section>

@@ -5,15 +5,20 @@ import SEOHead from "@/components/SEOHead.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import HeroSlider from "@/components/HeroSlider.astro";
+import HeroVideoSlider from "@/components/HeroVideoSlider.astro";
 import Button from "@/components/Button.astro";
 import AboutSection from "@/components/AboutSection.astro";
+import TrainingChallengesSection from "@/components/TrainingChallengesSection.astro";
 import WhyXrSection from "@/components/WhyXrSection.astro";
 import SolutionsSection from "@/components/SolutionsSection.astro";
-import CaseStudiesSection from "@/components/CaseStudiesSection.astro";
-import NewsSection from "@/components/NewsSection.astro";
+import CoreCapabilitiesSection from "@/components/CoreCapabilitiesSection.astro";
+import FeaturedProductsSection from "@/components/FeaturedProductsSection.astro";
+import ProofSection from "@/components/ProofSection.astro";
+import ContentCardGrid from "@/components/ContentCardGrid.astro";
 import CTASection from "@/components/CTASection.astro";
-import { locales, withBase, localeIntlTag, type Locale } from "@/i18n/utils";
+import { locales, withBase, type Locale } from "@/i18n/utils";
 import { homepageMedia } from "@/data/homepage-media";
+import { featuredProducts } from "@/data/featured-products";
 
 export async function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale } }));
@@ -32,19 +37,13 @@ const solutionEntries = byLocale(await getCollection("solutions")).sort(
   (a, b) => a.data.order - b.data.order
 ) as CollectionEntry<"solutions">[];
 
-const caseEntries = byLocale(await getCollection("caseStudies")).sort(
-  (a, b) => a.data.order - b.data.order
-) as CollectionEntry<"caseStudies">[];
-
 const newsEntries = byLocale(await getCollection("news")).sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
 ) as CollectionEntry<"news">[];
 
-const dateFormatter = new Intl.DateTimeFormat(localeIntlTag[locale], {
-  year: "numeric",
-  month: "2-digit",
-  day: "2-digit",
-});
+const caseEntries = byLocale(await getCollection("caseStudies")).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+) as CollectionEntry<"caseStudies">[];
 
 // Solution slug (matches /zh-tw/solutions/<slug>/) -> centralized media key
 // (see src/data/homepage-media.ts)
@@ -55,24 +54,61 @@ const solutionMediaKey: Record<string, keyof typeof homepageMedia.solutions> = {
   "fire-rescue": "fire",
 };
 
-const caseMediaByOrder = [
-  homepageMedia.cases.case01,
-  homepageMedia.cases.case02,
-  homepageMedia.cases.case03,
-];
-
 const seoTitleByLocale: Record<Locale, string> = {
-  "zh-tw": "Big x Reality｜全球動力科技 XR 模擬訓練解決方案",
+  "zh-tw": "AI XR 模擬訓練解決方案｜軍事、警勤、消防與智慧城市｜Big x Reality",
   en: "Big x Reality | Global Power Technology XR Training Solutions",
   jp: "Big x Reality｜全球動力科技 XRトレーニングソリューション",
 };
 
 const seoDescriptionByLocale: Record<Locale, string> = {
   "zh-tw":
-    "全球動力科技 Big x Reality 提供虛實整合 XR 模擬訓練解決方案，為軍警、消防與智慧城市單位打造高擬真訓練環境。",
+    "Big x Reality 整合 AI、XR、VR、多人空間定位與模擬設備，提供軍事、警勤、消防、智慧城市、小部隊戰術、武器、無人機及載具模擬訓練解決方案。",
   en: "Global Power Technology's Big x Reality delivers XR training simulation solutions for law enforcement, defense, fire & rescue, and smart city agencies.",
   jp: "全球動力科技のBig x Realityは、警察・消防・スマートシティ向けのXRトレーニングシミュレーションソリューションを提供します。",
 };
+
+// zh-tw only this round — en/jp featured-products / cases+news card content
+// (casesSection/newsSection copy) doesn't exist yet.
+const showFeaturedProducts = locale === "zh-tw";
+const showContentCards = locale === "zh-tw";
+// zh-tw only — the two hero videos are real footage the user supplied for
+// the zh-tw homepage specifically; en/jp keep the static image hero.
+const showHeroVideo = locale === "zh-tw";
+
+const siteUrl = Astro.site?.origin ?? "https://bigxreality.github.io";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const homeUrl = new URL(`${base}/${locale}/`, siteUrl).toString();
+
+// Organization/WebSite describe the real, already-published company info
+// (see settings.footer); ItemList mirrors the four solution cards actually
+// rendered below. No BreadcrumbList here — the homepage is the root, a
+// single-item breadcrumb wouldn't be meaningful.
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: settings.footer.companyName,
+    url: homeUrl,
+    email: settings.footer.email,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Big x Reality",
+    url: homeUrl,
+    inLanguage: locale === "jp" ? "ja" : locale === "en" ? "en" : "zh-TW",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: solutionEntries.map((e, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: e.data.title,
+      url: new URL(`${base}/${locale}/solutions/${e.data.itemSlug}/`, siteUrl).toString(),
+    })),
+  },
+];
 ---
 
 <Layout locale={locale}>
@@ -82,20 +118,46 @@ const seoDescriptionByLocale: Record<Locale, string> = {
       path="/"
       title={seoTitleByLocale[locale]}
       description={seoDescriptionByLocale[locale]}
+      structuredData={structuredData}
     />
-    <link rel="preload" as="image" href={withBase(homepageMedia.hero.desktop.src)} />
+    {
+      !showHeroVideo && (
+        <link rel="preload" as="image" href={withBase(homepageMedia.hero.desktop.src)} />
+      )
+    }
   </Fragment>
 
   <Header locale={locale} currentPath={`/${locale}/`} nav={settings.nav.primary} cta={settings.nav.cta} />
 
   <main class="flex-1">
     <section class="relative isolate overflow-hidden bg-navy-800 pt-16 md:pt-20">
-      <HeroSlider slides={[{ desktop: homepageMedia.hero.desktop, mobile: homepageMedia.hero.mobile }]} />
+      {
+        showHeroVideo ? (
+          <HeroVideoSlider
+            slides={[
+              { src: "/images/home/hero/home-hero-video-1.mp4", objectPosition: "center 30%" },
+              { src: "/images/home/hero/home-hero-video-2.mp4", objectPosition: "center 38%" },
+            ]}
+            posterAlt={homepageMedia.hero.desktop.alt}
+          />
+        ) : (
+          <HeroSlider slides={[{ desktop: homepageMedia.hero.desktop, mobile: homepageMedia.hero.mobile }]} />
+        )
+      }
       <div class="mx-auto max-w-[1440px] px-5 md:px-12 xl:px-20 pt-16 pb-24 md:pt-24 md:pb-32 xl:pt-32 xl:pb-40">
-        <p class="text-label font-bold uppercase tracking-[0.1em] text-brand mb-6">{settings.hero.eyebrow}</p>
+        <p class="text-label font-mono font-bold uppercase tracking-[0.1em] text-brand mb-6">
+          {settings.hero.eyebrow}
+        </p>
         <h1 class="text-h1-sm md:text-h1-md xl:text-h1 font-extrabold leading-[1.12] text-white max-w-4xl">
           {settings.hero.title}
         </h1>
+        {
+          settings.hero.tagline && (
+            <p class="mt-4 text-label md:text-lg font-mono font-bold uppercase tracking-[0.08em] text-text-body2">
+              {settings.hero.tagline}
+            </p>
+          )
+        }
         <p class="mt-6 text-base md:text-lg leading-[1.75] text-text-body max-w-2xl">
           {settings.hero.subtitle}
         </p>
@@ -111,11 +173,18 @@ const seoDescriptionByLocale: Record<Locale, string> = {
     </section>
 
     <AboutSection
-      eyebrow={settings.about.eyebrow}
       title={settings.about.title}
       body={settings.about.body}
-      stats={settings.about.stats}
-      media={homepageMedia.about.company}
+      points={settings.about.points}
+      media={homepageMedia.about.xrTrainingOverview}
+    />
+
+    <TrainingChallengesSection
+      eyebrow={settings.trainingChallenges.eyebrow}
+      title={settings.trainingChallenges.title}
+      intro={settings.trainingChallenges.intro}
+      cards={settings.trainingChallenges.cards}
+      media={homepageMedia.xrTraining.challengesBackground}
     />
 
     <WhyXrSection
@@ -123,10 +192,13 @@ const seoDescriptionByLocale: Record<Locale, string> = {
       title={settings.whyXr.title}
       subtitle={settings.whyXr.subtitle}
       points={settings.whyXr.points}
+      media={homepageMedia.xrTraining.multiUserTraining}
     />
 
     <SolutionsSection
+      eyebrow={settings.sectionLabels.solutionsEyebrow}
       title={settings.sectionLabels.solutions}
+      intro={settings.sectionLabels.solutionsIntro}
       allLinkLabel={settings.sectionLabels.solutionsAllLink}
       allLinkHref={`/${locale}/solutions/`}
       learnMoreLabel={settings.sectionLabels.learnMore}
@@ -138,46 +210,93 @@ const seoDescriptionByLocale: Record<Locale, string> = {
         return {
           href: hasPage ? `/${locale}/solutions/${e.data.itemSlug}/` : `/${locale}/`,
           code: e.data.code,
+          englishName: e.data.englishName,
           title: e.data.title,
           excerpt: e.data.excerpt,
+          ctaLabel: e.data.ctaLabel,
           media: homepageMedia.solutions[solutionMediaKey[e.data.itemSlug]],
         };
       })}
     />
 
-    <CaseStudiesSection
-      title={settings.sectionLabels.caseStudies}
-      items={caseEntries.map((e, i) => ({
-        code: e.data.code,
-        category: e.data.category,
-        title: e.data.title,
-        excerpt: e.data.excerpt,
-        media: caseMediaByOrder[i] ?? homepageMedia.cases.case01,
-      }))}
+    <CoreCapabilitiesSection
+      eyebrow={settings.coreCapabilities.eyebrow}
+      title={settings.coreCapabilities.title}
+      intro={settings.coreCapabilities.intro}
+      items={settings.coreCapabilities.items}
+      media={homepageMedia.capabilities.instructorSystem}
     />
 
-    <NewsSection
-      title={settings.sectionLabels.news}
-      moreLinkLabel={settings.sectionLabels.newsMoreLink}
-      moreLinkHref={`/${locale}/news/`}
-      items={newsEntries.map((e) => ({
-        href: `/${locale}/news/${e.data.itemSlug}/`,
-        date: dateFormatter.format(e.data.publishDate),
-        category: e.data.category,
-        title: e.data.title,
-      }))}
+    {
+      showFeaturedProducts && settings.featuredProductsSection && (
+        <FeaturedProductsSection
+          eyebrow={settings.featuredProductsSection.eyebrow}
+          title={settings.featuredProductsSection.title}
+          intro={settings.featuredProductsSection.intro}
+          allLinkLabel={settings.featuredProductsSection.allLinkLabel}
+          allLinkHref={settings.featuredProductsSection.allLinkHref}
+          items={featuredProducts}
+        />
+      )
+    }
+
+    <ProofSection
+      eyebrow={settings.proof.eyebrow}
+      title={settings.proof.title}
+      intro={settings.proof.intro}
+      items={settings.proof.items}
+      media={homepageMedia.proof.realWorldDeployment}
+      partnersLabel={settings.sectionLabels.trustedBy}
+      partners={settings.trustedBy[0]?.includes("pending") || settings.trustedBy[0]?.includes("準備中") ? [] : settings.trustedBy}
     />
+
+    {
+      showContentCards && settings.casesSection && caseEntries.length > 0 && (
+        <ContentCardGrid
+          bgClass="bg-white"
+          title={settings.casesSection.title}
+          subtitle={settings.casesSection.subtitle}
+          ctaLabel={settings.casesSection.ctaLabel}
+          ctaHref={settings.casesSection.ctaHref}
+          items={caseEntries.slice(0, 4).map((e) => ({
+            href: `/${locale}/cases/${e.data.itemSlug}/`,
+            title: e.data.title,
+            media: e.data.image,
+          }))}
+        />
+      )
+    }
+
+    {
+      showContentCards && settings.newsSection && newsEntries.length > 0 && (
+        <ContentCardGrid
+          bgClass="bg-light-soft"
+          title={settings.newsSection.title}
+          subtitle={settings.newsSection.subtitle}
+          ctaLabel={settings.newsSection.ctaLabel}
+          ctaHref={settings.newsSection.ctaHref}
+          items={newsEntries.slice(0, 4).map((e) => ({
+            href: `/${locale}/news/${e.data.itemSlug}/`,
+            title: e.data.title,
+            media: e.data.coverImage,
+          }))}
+        />
+      )
+    }
 
     <CTASection
       eyebrow={settings.missionCta.eyebrow}
       title={settings.missionCta.title}
+      body={settings.missionCta.body}
       ctaPrimary={settings.missionCta.ctaPrimary}
       ctaSecondary={settings.missionCta.ctaSecondary}
-      media={homepageMedia.cta.contact}
+      media={homepageMedia.cta.finalTraining}
     />
   </main>
 
   <Footer
+    locale={locale}
+    description={settings.footer.description}
     companyName={settings.footer.companyName}
     address={settings.footer.address}
     email={settings.footer.email}

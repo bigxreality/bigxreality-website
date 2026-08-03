@@ -11,9 +11,21 @@ interface Props {
    * homepage). Pages that only exist for zh-tw so far (e.g. /solutions/)
    * must pass ["zh-tw"] so hreflang never points at a page that 404s. */
   availableLocales?: readonly Locale[];
+  /** Optional JSON-LD objects (Organization, WebSite, ItemList, etc.),
+   * one <script> tag per entry. Page-specific — SEOHead itself stays
+   * generic and doesn't assume any particular schema. */
+  structuredData?: Record<string, unknown>[];
 }
 
-const { locale, path, title, description, ogImage, availableLocales = locales } = Astro.props;
+const {
+  locale,
+  path,
+  title,
+  description,
+  ogImage,
+  availableLocales = locales,
+  structuredData = [],
+} = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const siteUrl = Astro.site?.origin ?? "https://bigxreality.github.io";
@@ -43,3 +55,5 @@ function altUrl(l: Locale) {
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+{structuredData.map((entry) => <script type="application/ld+json" set:html={JSON.stringify(entry)} />)}

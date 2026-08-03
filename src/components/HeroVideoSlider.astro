@@ -1,0 +1,141 @@
+---
+import { withBase } from "@/i18n/utils";
+
+interface VideoSlide {
+  src: string;
+  poster?: string;
+  // CSS object-position for this video's <video> element, e.g. "center 30%".
+  // Lets each clip keep its subject in frame across breakpoints instead of
+  // forcing every slide to the same crop.
+  objectPosition?: string;
+}
+
+interface Props {
+  slides: VideoSlide[];
+  // Shown instead of video for prefers-reduced-motion users and as the
+  // <video poster>/fallback image.
+  posterAlt: string;
+}
+
+const { slides, posterAlt } = Astro.props;
+---
+
+<div class="absolute inset-0 -z-10" data-hero-video-slider>
+  {
+    slides.map((slide, i) => (
+      <div
+        class="hero-video-slide absolute inset-0 transition-opacity duration-700"
+        style={`opacity: ${i === 0 ? 1 : 0}`}
+        data-slide-index={i}
+      >
+        <video
+          src={withBase(slide.src)}
+          poster={slide.poster ? withBase(slide.poster) : undefined}
+          aria-label={posterAlt}
+          autoplay
+          muted
+          playsinline
+          preload={i === 0 ? "auto" : "none"}
+          class="w-full h-full object-cover"
+          style={`object-position: ${slide.objectPosition ?? "center"}; filter: brightness(0.78) contrast(1.05) saturate(0.92);`}
+        />
+      </div>
+    ))
+  }
+  <div
+    class="absolute inset-0"
+    style="background-image: linear-gradient(90deg, rgba(4,9,18,0.88) 0%, rgba(4,9,18,0.58) 42%, rgba(4,9,18,0.22) 72%, rgba(4,9,18,0.32) 100%);"
+  >
+  </div>
+  <div
+    class="absolute inset-0 opacity-[0.06]"
+    style="background-image: linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px); background-size: 48px 48px;"
+    aria-hidden="true"
+  >
+  </div>
+
+  {
+    slides.length > 1 && (
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {slides.map((_, i) => (
+          <button
+            type="button"
+            class="slide-dot w-2 h-2 rounded-full bg-white/40 data-[active=true]:bg-brand transition-colors"
+            data-slide-dot={i}
+            aria-label={`第 ${i + 1} 支影片`}
+          />
+        ))}
+      </div>
+    )
+  }
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-hero-video-slider]");
+  if (root) {
+    const slideEls = Array.from(root.querySelectorAll<HTMLElement>(".hero-video-slide"));
+    const videos = slideEls.map((s) => s.querySelector("video")!);
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-slide-dot]"));
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let active = 0;
+    let switching = false;
+
+    function show(index: number) {
+      if (switching || index === active) return;
+      switching = true;
+
+      const previous = active;
+      active = index;
+
+      slideEls.forEach((s, i) => {
+        s.style.opacity = i === index ? "1" : "0";
+      });
+      dots.forEach((d, i) => (d.dataset.active = String(i === index)));
+
+      if (!prefersReducedMotion) {
+        videos[index]?.play().catch(() => {});
+      }
+
+      // Pause and rewind the outgoing video once the crossfade finishes so
+      // it starts clean from frame 0 next time it becomes active.
+      window.setTimeout(() => {
+        const outgoing = videos[previous];
+        if (outgoing && previous !== active) {
+          outgoing.pause();
+          outgoing.currentTime = 0;
+        }
+        switching = false;
+      }, 700);
+    }
+
+    dots.forEach((dot, i) =>
+      dot.addEventListener("click", () => {
+        if (i !== active) show(i);
+      })
+    );
+
+    if (prefersReducedMotion) {
+      // Respect reduced-motion: pause all videos, show first frame only,
+      // no auto-advancing carousel.
+      videos.forEach((v) => v.pause());
+    } else if (videos.length > 1) {
+      videos.forEach((video, i) => {
+        video.loop = false;
+        video.addEventListener("ended", () => {
+          if (i === active) show((i + 1) % videos.length);
+        });
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          videos[active]?.pause();
+        } else {
+          videos[active]?.play().catch(() => {});
+        }
+      });
+    } else if (videos.length === 1) {
+      videos[0].loop = true;
+    }
+  }
+</script>
